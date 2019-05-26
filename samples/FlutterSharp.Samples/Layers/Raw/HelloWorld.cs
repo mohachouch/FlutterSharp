@@ -1,15 +1,20 @@
-﻿using FlutterSharp.Samples.Base;
+﻿using FlutterSharp.UI;
 
 namespace FlutterSharp.Samples.Layers.Raw
 {
     /// <summary>
     /// This example shows how to show the text 'Hello, world.' using using the raw interface to the engine.
     /// </summary>
-    public class HelloWorld : ISample
+    public class HelloWorld : IFlutterMain
     {
-        public void Main()
+        private void OnDrawFrame()
         {
 
+        }
+        
+        public void Main()
+        {
+            Window.Instance.OnDrawFrame += OnDrawFrame;
         }
     }
 }
