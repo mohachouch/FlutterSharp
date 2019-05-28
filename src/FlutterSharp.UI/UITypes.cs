@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace FlutterSharp.UI
 {
@@ -16,6 +17,30 @@ namespace FlutterSharp.UI
         public static string ToStringAsFixed(this double value, int points)
         {
             return value.ToString($"N{points}");
+        }
+
+        public static double Round(this double value) => Math.Round(value);
+
+        public static int Clamp(this int value, int lower, int upper)
+        {
+            if (value > upper)
+                return upper;
+
+            if (value < lower)
+                return lower;
+
+            return value;
+        }
+
+        public static double Clamp(this double value, int lower, int upper)
+        {
+            if (value > upper)
+                return upper;
+
+            if (value < lower)
+                return lower;
+
+            return value;
         }
     }
 }
