@@ -77,7 +77,7 @@ namespace FlutterSharp.UI
         }
 
         /// An empty size, one with a zero width and a zero height.
-        public static Size Zero = new Size(0.0, 0.0);
+        public static readonly Size Zero = new Size(0.0, 0.0);
 
         /// A size whose [width] and [height] are infinite.
         ///
@@ -85,7 +85,7 @@ namespace FlutterSharp.UI
         ///
         ///  * [isInfinite], which checks whether either dimension is infinite.
         ///  * [isFinite], which checks whether both dimensions are finite.
-        public static Size Infinite = new Size(double.PositiveInfinity, double.PositiveInfinity);
+        public static readonly Size Infinite = new Size(double.PositiveInfinity, double.PositiveInfinity);
 
         /// Whether this size encloses a non-zero area.
         ///

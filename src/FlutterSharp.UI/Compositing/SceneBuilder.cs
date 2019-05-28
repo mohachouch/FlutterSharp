@@ -391,20 +391,7 @@ namespace FlutterSharp.UI
             return true;
         }
     }
-
-    public class Rect
-    {
-        internal static Rect FromLTWH(double dx, double dy, object width, object height)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    public class RRect
-    {
-
-    }
-
+    
     public class Path
     {
 
