@@ -1,10 +1,16 @@
-﻿using System;
+﻿using FlutterSharp.UI.Types;
+using System;
 using System.Linq;
 
 namespace FlutterSharp.UI
 {
     public static class UITypes
     {
+        // If we actually run on big endian machines, we'll need to do something smarter
+        // here. We don't use [Endian.Host] because it's not a compile-time
+        // constant and can't propagate into the set/get calls.
+        public static Endian _kFakeHostEndian = Endian.Little;
+
         public static int HashValues(params object[] values)
         {
             return values.Sum(x => x.GetHashCode());
