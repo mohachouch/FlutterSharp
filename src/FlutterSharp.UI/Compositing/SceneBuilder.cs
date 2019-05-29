@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace FlutterSharp.UI
 {
@@ -411,22 +410,7 @@ namespace FlutterSharp.UI
     {
 
     }
-
-    public class Color
-    {
-        public readonly int Value;
-
-        public Color(uint u)
-        {
-
-        }
-    }
-
-    public enum BlendMode
-    {
-        Index
-    }
-
+    
     public enum Clip
     {
         None,

@@ -43,6 +43,10 @@ namespace FlutterSharp.UI
 
         public static double Round(this double value) => Math.Round(value);
 
+        public static int ToInt(this double value) => (int)value;
+
+        public static string ToRadixString(this int value, int places) => value.ToString(); // TODO: implement this
+
         public static int Clamp(this int value, int lower, int upper)
         {
             if (value > upper)
@@ -395,6 +399,12 @@ namespace FlutterSharp.UI
 
             // TODO : Show this return value is valid !!!
             return data;  //ByteData.view(data.buffer, 0, byteCount);
+        }
+
+
+        static internal Color ScaleAlpha(Color a, double factor)
+        {
+            return a.WithAlpha((int)(a.Alpha * factor).Round().Clamp(0, 255));
         }
     }
 }
