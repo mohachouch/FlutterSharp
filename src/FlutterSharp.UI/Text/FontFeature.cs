@@ -111,7 +111,7 @@ namespace FlutterSharp.UI
         ///
         ///  * <https://docs.microsoft.com/en-us/typography/opentype/spec/features_pt#tnum>
         public static FontFeature TabularFigures() => new FontFeature("tnum", 1);
-        
+
         /// The tag that identifies the effect of this feature.  Must consist of 4
         /// ASCII characters (typically lowercase letters).
         ///
@@ -124,19 +124,19 @@ namespace FlutterSharp.UI
         /// values of either 0 (feature is disabled) or 1 (feature is enabled).
         public readonly int Value;
 
-        private static readonly int _kEncodedSize = 8;
+        public static readonly int _kEncodedSize = 8;
 
-        private void Encode(ByteData byteData)
+        public void Encode(ByteData byteData)
         {
             Debug.Assert(Feature.ToCharArray().All(c => c >= 0x20 && c <= 0x7F));
-            
+
             for (int i = 0; i < 4; i++)
             {
                 byteData.SetUint8(i, Feature[i]);
             }
             byteData.SetInt32(4, Value, _kFakeHostEndian);
         }
-        
+
         public override bool Equals(object obj)
         {
             if (obj is FontFeature fontFeature)

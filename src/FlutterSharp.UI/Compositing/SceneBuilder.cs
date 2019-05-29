@@ -391,7 +391,7 @@ namespace FlutterSharp.UI
             return true;
         }
     }
-    
+
     public class Path
     {
 
@@ -412,9 +412,14 @@ namespace FlutterSharp.UI
 
     }
 
-    public enum Color
+    public class Color
     {
-        Value
+        public readonly int Value;
+
+        public Color(uint u)
+        {
+
+        }
     }
 
     public enum BlendMode
