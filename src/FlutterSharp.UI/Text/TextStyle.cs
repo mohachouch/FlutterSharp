@@ -99,19 +99,19 @@ namespace FlutterSharp.UI
             _fontFeatures = fontFeatures;
         }
 
-        public readonly Int32List _encoded;
-        public readonly string _fontFamily;
-        public readonly List<string> _fontFamilyFallback;
-        public readonly double? _fontSize;
-        public readonly double? _letterSpacing;
-        public readonly double? _wordSpacing;
-        public readonly double? _height;
-        public readonly double? _decorationThickness;
-        public readonly Locale _locale;
-        public readonly Paint _background;
-        public readonly Paint _foreground;
-        public readonly List<Shadow> _shadows;
-        public readonly List<FontFeature> _fontFeatures;
+        internal readonly Int32List _encoded;
+        internal readonly string _fontFamily;
+        internal readonly List<string> _fontFamilyFallback;
+        internal readonly double? _fontSize;
+        internal readonly double? _letterSpacing;
+        internal readonly double? _wordSpacing;
+        internal readonly double? _height;
+        internal readonly double? _decorationThickness;
+        internal readonly Locale _locale;
+        internal readonly Paint _background;
+        internal readonly Paint _foreground;
+        internal readonly List<Shadow> _shadows;
+        internal readonly List<FontFeature> _fontFeatures;
 
         public override bool Equals(object other)
         {

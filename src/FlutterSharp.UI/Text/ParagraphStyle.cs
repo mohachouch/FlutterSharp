@@ -91,13 +91,13 @@ namespace FlutterSharp.UI
             _locale = locale;
         }
 
-        public readonly Int32List _encoded;
-        public readonly string _fontFamily;
-        public readonly double? _fontSize;
-        public readonly double? _height;
-        public readonly StrutStyle _strutStyle;
-        public readonly string _ellipsis;
-        public readonly Locale _locale;
+        internal readonly Int32List _encoded;
+        internal readonly string _fontFamily;
+        internal readonly double? _fontSize;
+        internal readonly double? _height;
+        internal readonly StrutStyle _strutStyle;
+        internal readonly string _ellipsis;
+        internal readonly Locale _locale;
 
         public override bool Equals(object other)
         {

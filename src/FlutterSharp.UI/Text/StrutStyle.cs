@@ -69,9 +69,9 @@ namespace FlutterSharp.UI
             _fontFamilyFallback = fontFamilyFallback;
         }
 
-        public readonly ByteData _encoded; // Most of the data for strut is encoded.
-        public readonly string _fontFamily;
-        public readonly List<string> _fontFamilyFallback;
+        internal readonly ByteData _encoded; // Most of the data for strut is encoded.
+        internal readonly string _fontFamily;
+        internal readonly List<string> _fontFamilyFallback;
 
         public override bool Equals(object obj)
         {
