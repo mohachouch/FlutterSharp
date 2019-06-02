@@ -400,12 +400,7 @@ namespace FlutterSharp.UI
     {
 
     }
-
-    public class Shader
-    {
-
-    }
-
+    
     public class Picture
     {
 
