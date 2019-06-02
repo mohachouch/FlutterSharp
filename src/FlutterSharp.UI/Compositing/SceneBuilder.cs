@@ -410,10 +410,4 @@ namespace FlutterSharp.UI
     {
 
     }
-    
-    public enum Clip
-    {
-        None,
-        AntiAlias
-    }
 }
