@@ -9,8 +9,9 @@
         Tight,
 
         /// The height of the boxes will be the maximum height of all runs in the
-        /// line. All boxes in the same line will be the same height. This does not
-        /// guarantee that the boxes will cover the entire vertical height of the line
+        /// line. All boxes in the same line will be the same height.
+        ///
+        /// This does not guarantee that the boxes will cover the entire vertical height of the line
         /// when there is additional line spacing.
         ///
         /// See [RectHeightStyle.includeLineSpacingTop], [RectHeightStyle.includeLineSpacingMiddle],
@@ -52,8 +53,6 @@
         /// entire paragraph.  The top edge of each line will align with the bottom
         /// edge of the previous line.  It is possible for glyphs to extend outside
         /// these boxes.
-        ///
-        /// Will fall back to tight bounds if the strut is disabled or invalid.
         Strut,
     }
 }

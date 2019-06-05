@@ -84,6 +84,9 @@ namespace FlutterSharp.UI
         /// parameters default to the tight option, which will provide close-fitting
         /// boxes and will not account for any line spacing.
         ///
+        /// Coordinates of the TextBox are relative to the upper-left corner of the paragraph,
+        /// where positive y values indicate down.
+        ///
         /// The [boxHeightStyle] and [boxWidthStyle] parameters must not be null.
         ///
         /// See [BoxHeightStyle] and [BoxWidthStyle] for full descriptions of each option.
@@ -96,6 +99,18 @@ namespace FlutterSharp.UI
         private List<TextBox> GetBoxesForRange(int start, int end, int boxHeightStyle, int boxWidthStyle)
         {
             // TODO : native 'Paragraph_getRectsForRange';
+            return null;
+        }
+
+        /// Returns a list of text boxes that enclose all placeholders in the paragraph.
+        ///
+        /// The order of the boxes are in the same order as passed in through [addPlaceholder].
+        ///
+        /// Coordinates of the [TextBox] are relative to the upper-left corner of the paragraph,
+        /// where positive y values indicate down.
+        List<TextBox> GetBoxesForPlaceholders()
+        {
+            // TODO : native 'Paragraph_getRectsForPlaceholders';
             return null;
         }
 

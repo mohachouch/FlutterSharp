@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace FlutterSharp.UI
 {
@@ -23,6 +24,7 @@ namespace FlutterSharp.UI
         /// [Paragraph].
         public ParagraphBuilder(ParagraphStyle style)
         {
+            _placeholderCount = 0;
             List<string> strutFontFamilies = null;
             if (style._strutStyle != null)
             {
@@ -57,6 +59,14 @@ namespace FlutterSharp.UI
         {
             // TODO : native 'ParagraphBuilder_constructor';
         }
+
+        /// The number of placeholders currently in the paragraph.
+        public int PlaceholderCount => _placeholderCount;
+        private int _placeholderCount;
+
+        /// The scales of the placeholders in the paragraph.
+        public List<double> PlaceholderScales => _placeholderScales;
+        private List<double> _placeholderScales = new List<double>();
 
         /// Applies the given style to the added text until [pop] is called.
         ///
@@ -147,6 +157,72 @@ namespace FlutterSharp.UI
             return null;
         }
 
+        /// Adds an inline placeholder space to the paragraph.
+        ///
+        /// The paragraph will contain a rectangular space with no text of the dimensions
+        /// specified.
+        ///
+        /// The `width` and `height` parameters specify the size of the placeholder rectangle.
+        ///
+        /// The `alignment` parameter specifies how the placeholder rectangle will be vertically
+        /// aligned with the surrounding text. When [PlaceholderAlignment.baseline],
+        /// [PlaceholderAlignment.aboveBaseline], and [PlaceholderAlignment.belowBaseline]
+        /// alignment modes are used, the baseline needs to be set with the `baseline`.
+        /// When using [PlaceholderAlignment.baseline], `baselineOffset` indicates the distance
+        /// of the baseline down from the top of of the rectangle. The default `baselineOffset`
+        /// is the `height`.
+        ///
+        /// Examples:
+        ///
+        /// * For a 30x50 placeholder with the bottom edge aligned with the bottom of the text, use:
+        /// `addPlaceholder(30, 50, PlaceholderAlignment.bottom);`
+        /// * For a 30x50 placeholder that is vertically centered around the text, use:
+        /// `addPlaceholder(30, 50, PlaceholderAlignment.middle);`.
+        /// * For a 30x50 placeholder that sits completely on top of the alphabetic baseline, use:
+        /// `addPlaceholder(30, 50, PlaceholderAlignment.aboveBaseline, baseline: TextBaseline.alphabetic)`.
+        /// * For a 30x50 placeholder with 40 pixels above and 10 pixels below the alphabetic baseline, use:
+        /// `addPlaceholder(30, 50, PlaceholderAlignment.baseline, baseline: TextBaseline.alphabetic, baselineOffset: 40)`.
+        ///
+        /// Lines are permitted to break around each placeholder.
+        ///
+        /// Decorations will be drawn based on the font defined in the most recently
+        /// pushed [TextStyle]. The decorations are drawn as if unicode text were present
+        /// in the placeholder space, and will draw the same regardless of the height and
+        /// alignment of the placeholder. To hide or manually adjust decorations to fit,
+        /// a text style with the desired decoration behavior should be pushed before
+        /// adding a placeholder.
+        ///
+        /// Any decorations drawn through a placeholder will exist on the same canvas/layer
+        /// as the text. This means any content drawn on top of the space reserved by
+        /// the placeholder will be drawn over the decoration, possibly obscuring the
+        /// decoration.
+        ///
+        /// Placeholders are represented by a unicode 0xFFFC "object replacement character"
+        /// in the text buffer. For each placeholder, one object replacement character is
+        /// added on to the text buffer.
+        ///
+        /// The `scale` parameter will scale the `width` and `height` by the specified amount,
+        /// and keep track of the scale. The scales of placeholders added can be accessed
+        /// through [placeholderScales]. This is primarily used for acessibility scaling.
+        public void AddPlaceholder(double width, double height, PlaceholderAlignment alignment,
+            double scale = 1.0, double? baselineOffset = null, TextBaseline? baseline = null) {
+            // Require a baseline to be specified if using a baseline-based alignment.
+            Debug.Assert((alignment == PlaceholderAlignment.AboveBaseline ||
+                    alignment == PlaceholderAlignment.BelowBaseline ||
+                    alignment == PlaceholderAlignment.Baseline) ? baseline != null : true);
+            // Default the baselineOffset to height if null. This will place the placeholder
+            // fully above the baseline, similar to [PlaceholderAlignment.aboveBaseline].
+            baselineOffset = baselineOffset ?? height;
+            _addPlaceholder(width * scale, height * scale, (int)alignment, (baselineOffset == null ? height : baselineOffset.Value) * scale, baseline == null ? (int?)null : (int)baseline.Value);
+            _placeholderCount++;
+            _placeholderScales.Add(scale);
+        }
+
+        private string _addPlaceholder(double width, double height, int alignment, double baselineOffset, int? baseline) {
+            // TODO : native 'ParagraphBuilder_addPlaceholder';
+            return null;
+        }
+        
         /// Applies the given paragraph style and returns a [Paragraph] containing the
         /// added text and associated styling.
         ///
