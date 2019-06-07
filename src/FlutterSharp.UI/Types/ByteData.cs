@@ -29,5 +29,15 @@ namespace FlutterSharp.UI
         {
             throw new NotImplementedException();
         }
+
+        internal int GetInt32(int kMaskFilterOffset, Endian kFakeHostEndian)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal double GetFloat32(int kMaskFilterSigmaOffset, Endian kFakeHostEndian)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

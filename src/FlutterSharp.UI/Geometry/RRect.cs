@@ -176,7 +176,7 @@ namespace FlutterSharp.UI
             );
         }
 
-        private Float32List _value32 => Float32List.FromList(Left,
+        internal Float32List _value32 => Float32List.FromList(Left,
             Top,
             Right,
             Bottom,

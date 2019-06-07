@@ -390,19 +390,4 @@ namespace FlutterSharp.UI
             return true;
         }
     }
-
-    public class Path
-    {
-
-    }
-
-    public class ImageFilter
-    {
-
-    }
-    
-    public class Picture
-    {
-
-    }
 }

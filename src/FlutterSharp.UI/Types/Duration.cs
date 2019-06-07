@@ -5,12 +5,14 @@
     {
         internal int inMicroseconds;
         private int microseconds;
+        private int milliseconds;
 
-        public Duration(int microseconds)
+        public Duration(int microseconds = 0, int milliseconds = 0)
         {
             this.microseconds = microseconds;
+            this.milliseconds = milliseconds;
         }
-
+        
         public static Duration operator -(Duration b, Duration c)
         {
             return b;

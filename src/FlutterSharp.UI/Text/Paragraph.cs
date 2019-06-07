@@ -141,7 +141,7 @@ namespace FlutterSharp.UI
         // Redirecting the paint function in this way solves some dependency problems
         // in the C++ code. If we straighten out the C++ dependencies, we can remove
         // this indirection.
-        private void Paint(Canvas canvas, double x, double y)
+        internal void Paint(Canvas canvas, double x, double y)
         {
             // TODO : native 'Paragraph_paint';
         }

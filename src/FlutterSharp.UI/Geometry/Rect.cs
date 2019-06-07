@@ -64,7 +64,7 @@ namespace FlutterSharp.UI
                     Math.Max(a.Dy, b.Dy));
         }
 
-        private Float32List _value32 => Float32List.FromList(Left, Top, Right, Bottom);
+        internal Float32List _value32 => Float32List.FromList(Left, Top, Right, Bottom);
 
         /// The offset of the left edge of this rectangle from the x axis.
         public readonly double Left;
