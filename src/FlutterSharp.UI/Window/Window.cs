@@ -10,6 +10,18 @@ namespace FlutterSharp.UI
     /// Signature for [Window.onBeginFrame].
     public delegate void FrameCallback(Duration duration);
 
+    /// Signature for [Window.onReportTimings].
+    ///
+    /// {@template dart.ui.TimingsCallback.list}
+    /// The callback takes a list of [FrameTiming] because it may not be immediately
+    /// triggered after each frame. Instead, Flutter tries to batch frames together
+    /// and send all their timings at once to decrease the overhead (as this is
+    /// available in the release mode). The list is sorted in ascending order of
+    /// time (earliest frame first). The timing of any frame will be sent within
+    /// about 1 second even if there are no later frames to batch.
+    /// {@endtemplate}
+    public delegate void TimingsCallback(List<FrameTiming> timings);
+
     /// Signature for [Window.onPointerDataPacket].
     public delegate void PointerDataPacketCallback(PointerDataPacket packet);
 
@@ -446,6 +458,48 @@ namespace FlutterSharp.UI
                 _onDrawFrame = value;
                 _onDrawFrameZone = Zone.Current;
             }
+        }
+
+        /// A callback that is invoked to report the [FrameTiming] of recently
+        /// rasterized frames.
+        ///
+        /// This can be used to see if the application has missed frames (through
+        /// [FrameTiming.buildDuration] and [FrameTiming.rasterDuration]), or high
+        /// latencies (through [FrameTiming.totalSpan]).
+        ///
+        /// Unlike [Timeline], the timing information here is available in the release
+        /// mode (additional to the profile and the debug mode). Hence this can be
+        /// used to monitor the application's performance in the wild.
+        ///
+        /// {@macro dart.ui.TimingsCallback.list}
+        ///
+        /// If this is null, no additional work will be done. If this is not null,
+        /// Flutter spends less than 0.1ms every 1 second to report the timings
+        /// (measured on iPhone6S). The 0.1ms is about 0.6% of 16ms (frame budget for
+        /// 60fps), or 0.01% CPU usage per second.
+        private TimingsCallback _onReportTimings;
+        private Zone _onReportTimingsZone;
+        public TimingsCallback OnReportTimings
+        {
+            get
+            {
+                return _onReportTimings;
+            }
+            set
+            {
+                if ((value == null) != (_onReportTimings == null))
+                {
+                    SetNeedsReportTimings(value != null);
+                }
+
+                _onReportTimings = value;
+                _onReportTimingsZone = Zone.Current;
+            }
+        }
+
+        private void SetNeedsReportTimings(bool value)
+        {
+            // TODO : native 'Window_setNeedsReportTimings';
         }
 
         /// A callback that is invoked when pointer data is available.
