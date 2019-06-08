@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using static FlutterSharp.UI.Lerp;
-using static FlutterSharp.UI.UITypes;
+using static FlutterSharp.UI.PaintingMethods;
 
 namespace FlutterSharp.UI
 {

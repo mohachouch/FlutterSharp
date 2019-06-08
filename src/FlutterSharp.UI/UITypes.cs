@@ -402,20 +402,6 @@ namespace FlutterSharp.UI
             // TODO : Show this return value is valid !!!
             return data;  //ByteData.view(data.buffer, 0, byteCount);
         }
-
-
-        /* Static method in painting.dart */
-        // Indicates that the image should not be resized in this dimension.
-        //
-        // Used by [instantiateImageCodec] as a magical value to disable resizing
-        // in the given dimension.
-        //
-        // This needs to be kept in sync with "kDoNotResizeDimension" in codec.cc
-        internal const int _kDoNotResizeDimension = -1;
-
-        static internal Color ScaleAlpha(Color a, double factor)
-        {
-            return a.WithAlpha((int)(a.Alpha * factor).Round().Clamp(0, 255));
-        }
+        
     }
 }
