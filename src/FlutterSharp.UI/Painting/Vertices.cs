@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using static FlutterSharp.UI.PaintingMethods;
 
 namespace FlutterSharp.UI
 {

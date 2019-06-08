@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using static FlutterSharp.UI.PaintingMethods;
 
 namespace FlutterSharp.UI
 {
@@ -49,16 +50,16 @@ namespace FlutterSharp.UI
           TileMode tileMode = TileMode.Clamp,
           Float64List matrix4 = null)
         {
-            Debug.Assert(_offsetIsValid(from));
-            Debug.Assert(_offsetIsValid(to));
+            Debug.Assert(OffsetIsValid(from));
+            Debug.Assert(OffsetIsValid(to));
             Debug.Assert(colors != null);
             Debug.Assert(tileMode != null);
-            Debug.Assert(matrix4 == null || _matrix4IsValid(matrix4));
+            Debug.Assert(matrix4 == null || Matrix4IsValid(matrix4));
 
             ValidateColorStops(colors, colorStops);
 
-            Float32List endPointsBuffer = _encodeTwoPoints(from, to);
-            Int32List colorsBuffer = _encodeColorList(colors);
+            Float32List endPointsBuffer = EncodeTwoPoints(from, to);
+            Int32List colorsBuffer = EncodeColorList(colors);
             Float32List colorStopsBuffer = colorStops == null ? null : Float32List.FromList(colorStops);
 
             var gradient = new Gradient();
@@ -111,10 +112,10 @@ namespace FlutterSharp.UI
           Offset focal = null,
           double focalRadius = 0.0)
         {
-            Debug.Assert(_offsetIsValid(center));
+            Debug.Assert(OffsetIsValid(center));
             Debug.Assert(colors != null);
             Debug.Assert(tileMode != null);
-            Debug.Assert(matrix4 == null || _matrix4IsValid(matrix4));
+            Debug.Assert(matrix4 == null || Matrix4IsValid(matrix4));
 
             //focalRadius ??= 0.0; is not nullable double in CSharp
 
@@ -195,7 +196,7 @@ namespace FlutterSharp.UI
             Debug.Assert(matrix4 == null || Matrix4IsValid(matrix4));
 
             ValidateColorStops(colors, colorStops);
-            Int32List colorsBuffer = _encodeColorList(colors);
+            Int32List colorsBuffer = EncodeColorList(colors);
             Float32List colorStopsBuffer = colorStops == null ? null : Float32List.FromList(colorStops);
 
             var gradient = new Gradient();

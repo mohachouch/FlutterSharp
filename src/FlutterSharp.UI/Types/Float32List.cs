@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace FlutterSharp.UI
 {
@@ -18,6 +19,11 @@ namespace FlutterSharp.UI
         public static Float32List FromList(params double[] values)
         {
             return new Float32List(values);
+        }
+
+        internal static Float32List FromList(List<double> colorStops)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -303,7 +303,7 @@ namespace FlutterSharp.UI
                     // For now we only support one kind of MaskFilter, so we don't need to
                     // check what the type is if it's not null.
                     _data.SetInt32(_kMaskFilterOffset, MaskFilter._TypeBlur, _kFakeHostEndian);
-                    _data.SetInt32(_kMaskFilterBlurStyleOffset, value._style.index, _kFakeHostEndian);
+                    _data.SetInt32(_kMaskFilterBlurStyleOffset, (int)(value._style), _kFakeHostEndian);
                     _data.SetFloat32(_kMaskFilterSigmaOffset, value._sigma, _kFakeHostEndian);
                 }
             }
@@ -341,7 +341,7 @@ namespace FlutterSharp.UI
             {
                 if (_objects == null)
                     return null;
-                return _objects[_kShaderIndex];
+                return null; //_objects[_kShaderIndex]; TODO: Show how it work dynamic list
             }
             set
             {
@@ -370,7 +370,7 @@ namespace FlutterSharp.UI
                             new Color(_data.GetInt32(_kColorFilterColorOffset, _kFakeHostEndian)),
                             (BlendMode)(_data.GetInt32(_kColorFilterBlendModeOffset, _kFakeHostEndian)));
                     case ColorFilter._TypeMatrix:
-                        return ColorFilter.Matrix(_objects[_kColorFilterMatrixIndex]);
+                        return null; //ColorFilter.Matrix(_objects[_kColorFilterMatrixIndex]); TODO: Show how it work dynamic list
                     case ColorFilter._TypeLinearToSrgbGamma:
                         return ColorFilter.LinearToSrgbGamma();
                     case ColorFilter._TypeSrgbToLinearGamma:
@@ -401,8 +401,8 @@ namespace FlutterSharp.UI
                         Debug.Assert(value._color != null);
                         Debug.Assert(value._blendMode != null);
 
-                        _data.SetInt32(_kColorFilterColorOffset, value._color.value, _kFakeHostEndian);
-                        _data.SetInt32(_kColorFilterBlendModeOffset, value._blendMode.index, _kFakeHostEndian);
+                        _data.SetInt32(_kColorFilterColorOffset, value._color.Value, _kFakeHostEndian);
+                        _data.SetInt32(_kColorFilterBlendModeOffset, (int)value._blendMode, _kFakeHostEndian);
                     }
                     else if (value._type == ColorFilter._TypeMatrix)
                     {

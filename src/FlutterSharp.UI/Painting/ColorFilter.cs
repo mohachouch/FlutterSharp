@@ -55,10 +55,10 @@ namespace FlutterSharp.UI
             return new ColorFilter(_TypeSrgbToLinearGamma);
         }
 
-        private readonly Color _color;
-        private readonly BlendMode? _blendMode;
-        private readonly List<double> _matrix;
-        private readonly int _type;
+        internal readonly Color _color;
+        internal readonly BlendMode? _blendMode;
+        internal readonly List<double> _matrix;
+        internal readonly int _type;
         
         // The type of SkColorFilter class to create for Skia.
         // These constants must be kept in sync with ColorFilterType in paint.cc.

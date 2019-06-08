@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using static FlutterSharp.UI.PaintingMethods;
 
 namespace FlutterSharp.UI
 {
@@ -23,7 +24,7 @@ namespace FlutterSharp.UI
         /// See [pop] for details about the operation stack.
         public EngineLayer PushTransform(Float64List matrix4)
         {
-            Debug.Assert(_matrix4IsValid(matrix4));
+            Debug.Assert(Matrix4IsValid(matrix4));
 
             // TODO :native 'SceneBuilder_pushTransform'
             return null;
@@ -382,12 +383,6 @@ namespace FlutterSharp.UI
         {
             // TODO : native 'SceneBuilder_build';
             return null;
-        }
-
-        // TODO : A NETTOYER
-        private bool _matrix4IsValid(Float64List matrix4)
-        {
-            return true;
         }
     }
 }

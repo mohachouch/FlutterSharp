@@ -36,6 +36,8 @@ namespace FlutterSharp.UI
 
         public static bool IsFinite(this double value) => !double.IsInfinity(value);
 
+        public static bool IsNaN(this double value) => double.IsNaN(value);
+
         public static string ToStringAsFixed(this double value, int points)
         {
             return value.ToString($"N{points}");

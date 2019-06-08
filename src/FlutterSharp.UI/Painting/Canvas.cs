@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using static FlutterSharp.UI.PaintingMethods;
 
 namespace FlutterSharp.UI
 {
@@ -188,7 +189,7 @@ namespace FlutterSharp.UI
             }
             else
             {
-                Debug.Assert(_rectIsValid(bounds));
+                Debug.Assert(RectIsValid(bounds));
                 SaveLayer(bounds.Left, bounds.Top, bounds.Right, bounds.Bottom,
                     paint._objects, paint._data);
             }
@@ -292,7 +293,7 @@ namespace FlutterSharp.UI
         /// current clip.
         public void ClipRect(Rect rect, ClipOp clipOp = ClipOp.Intersect, bool doAntiAlias = true)
         {
-            Debug.Assert(_rectIsValid(rect));
+            Debug.Assert(RectIsValid(rect));
             Debug.Assert(clipOp != null);
             Debug.Assert(doAntiAlias != null);
 
@@ -315,7 +316,7 @@ namespace FlutterSharp.UI
         /// discussion of how to address that and some examples of using [clipRRect].
         public void ClipRRect(RRect rrect, bool doAntiAlias = true)
         {
-            Debug.Assert(_rrectIsValid(rrect));
+            Debug.Assert(RrectIsValid(rrect));
             Debug.Assert(doAntiAlias != null);
 
             ClipRRect(rrect._value32, doAntiAlias);
@@ -364,8 +365,8 @@ namespace FlutterSharp.UI
         /// The `p1` and `p2` arguments are interpreted as offsets from the origin.
         public void DrawLine(Offset p1, Offset p2, Paint paint)
         {
-            Debug.Assert(_offsetIsValid(p1));
-            Debug.Assert(_offsetIsValid(p2));
+            Debug.Assert(OffsetIsValid(p1));
+            Debug.Assert(OffsetIsValid(p2));
             Debug.Assert(paint != null);
             DrawLine(p1.Dx, p1.Dy, p2.Dx, p2.Dy, paint._objects, paint._data);
         }
@@ -399,7 +400,7 @@ namespace FlutterSharp.UI
         /// or stroked (or both) is controlled by [Paint.style].
         public void DrawRect(Rect rect, Paint paint)
         {
-            Debug.Assert(_rectIsValid(rect));
+            Debug.Assert(RectIsValid(rect));
             Debug.Assert(paint != null);
             DrawRect(rect.Left, rect.Top, rect.Right, rect.Bottom,
                 paint._objects, paint._data);
@@ -415,7 +416,7 @@ namespace FlutterSharp.UI
         /// filled or stroked (or both) is controlled by [Paint.style].
         public void DrawRRect(RRect rrect, Paint paint)
         {
-            Debug.Assert(_rrectIsValid(rrect));
+            Debug.Assert(RrectIsValid(rrect));
             Debug.Assert(paint != null);
             DrawRRect(rrect._value32, paint._objects, paint._data);
         }
@@ -432,8 +433,8 @@ namespace FlutterSharp.UI
         /// This shape is almost but not quite entirely unlike an annulus.
         public void DrawDRRect(RRect outer, RRect inner, Paint paint)
         {
-            Debug.Assert(_rrectIsValid(outer));
-            Debug.Assert(_rrectIsValid(inner));
+            Debug.Assert(RrectIsValid(outer));
+            Debug.Assert(RrectIsValid(inner));
             Debug.Assert(paint != null);
             DrawDRRect(outer._value32, inner._value32, paint._objects, paint._data);
         }
@@ -448,7 +449,7 @@ namespace FlutterSharp.UI
         /// controlled by [Paint.style].
         public void DrawOval(Rect rect, Paint paint)
         {
-            Debug.Assert(_rectIsValid(rect));
+            Debug.Assert(RectIsValid(rect));
             Debug.Assert(paint != null);
             DrawOval(rect.Left, rect.Top, rect.Right, rect.Bottom,
                 paint._objects, paint._data);
@@ -466,7 +467,7 @@ namespace FlutterSharp.UI
         /// controlled by [Paint.style].
         public void DrawCircle(Offset c, double radius, Paint paint)
         {
-            Debug.Assert(_offsetIsValid(c));
+            Debug.Assert(OffsetIsValid(c));
             Debug.Assert(paint != null);
             DrawCircle(c.Dx, c.Dy, radius, paint._objects, paint._data);
         }
@@ -488,7 +489,7 @@ namespace FlutterSharp.UI
         /// This method is optimized for drawing arcs and should be faster than [Path.arcTo].
         public void DrawArc(Rect rect, double startAngle, double sweepAngle, bool useCenter, Paint paint)
         {
-            Debug.Assert(_rectIsValid(rect));
+            Debug.Assert(RectIsValid(rect));
             Debug.Assert(paint != null);
             DrawArc(rect.Left, rect.Top, rect.Right, rect.Bottom, startAngle,
                 sweepAngle, useCenter, paint._objects, paint._data);
@@ -520,7 +521,7 @@ namespace FlutterSharp.UI
         public void DrawImage(Image image, Offset p, Paint paint)
         {
             Debug.Assert(image != null); // image is checked on the engine side
-            Debug.Assert(_offsetIsValid(p));
+            Debug.Assert(OffsetIsValid(p));
             Debug.Assert(paint != null);
             DrawImage(image, p.Dx, p.Dy, paint._objects, paint._data);
         }
@@ -546,8 +547,8 @@ namespace FlutterSharp.UI
         public void DrawImageRect(Image image, Rect src, Rect dst, Paint paint)
         {
             Debug.Assert(image != null); // image is checked on the engine side
-            Debug.Assert(_rectIsValid(src));
-            Debug.Assert(_rectIsValid(dst));
+            Debug.Assert(RectIsValid(src));
+            Debug.Assert(RectIsValid(dst));
             Debug.Assert(paint != null);
             DrawImageRect(image,
                 src.Left,
@@ -593,8 +594,8 @@ namespace FlutterSharp.UI
         public void DrawImageNine(Image image, Rect center, Rect dst, Paint paint)
         {
             Debug.Assert(image != null); // image is checked on the engine side
-            Debug.Assert(_rectIsValid(center));
-            Debug.Assert(_rectIsValid(dst));
+            Debug.Assert(RectIsValid(center));
+            Debug.Assert(RectIsValid(dst));
             Debug.Assert(paint != null);
             DrawImageNine(image,
                 center.Left,
@@ -655,7 +656,7 @@ namespace FlutterSharp.UI
         public void DrawParagraph(Paragraph paragraph, Offset offset)
         {
             Debug.Assert(paragraph != null);
-            Debug.Assert(_offsetIsValid(offset));
+            Debug.Assert(OffsetIsValid(offset));
             paragraph.Paint(this, offset.Dx, offset.Dy);
         }
 

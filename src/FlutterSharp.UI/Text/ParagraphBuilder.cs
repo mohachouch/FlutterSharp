@@ -104,7 +104,7 @@ namespace FlutterSharp.UI
                 style._background?._data,
                 style._foreground?._objects,
                 style._foreground?._data,
-                Shadow._encodeShadows(style._shadows),
+                Shadow.EncodeShadows(style._shadows),
                 encodedFontFeatures
             );
         }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using static FlutterSharp.UI.PaintingMethods;
 
 namespace FlutterSharp.UI
 {
@@ -362,10 +363,10 @@ namespace FlutterSharp.UI
         public void ExtendWithPath(Path path, Offset offset, Float64List matrix4 = null)
         {
             Debug.Assert(path != null); // path is checked on the engine side
-            Debug.Assert(_offsetIsValid(offset));
+            Debug.Assert(OffsetIsValid(offset));
             if (matrix4 != null)
             {
-                Debug.Assert(_matrix4IsValid(matrix4));
+                Debug.Assert(Matrix4IsValid(matrix4));
                 ExtendWithPathAndMatrix(path, offset.Dx, offset.Dy, matrix4);
             }
             else
@@ -379,7 +380,7 @@ namespace FlutterSharp.UI
             // TODO : native 'Path_extendWithPath';
         }
 
-        private void _extendWithPathAndMatrix(Path path, double dx, double dy, Float64List matrix)
+        private void ExtendWithPathAndMatrix(Path path, double dx, double dy, Float64List matrix)
         {
             // TODO : native 'Path_extendWithPathAndMatrix';
         }

@@ -188,7 +188,7 @@ namespace FlutterSharp.UI
         // Serialize [shadows] into ByteData. The format is a single uint_32_t at
         // the beginning indicating the number of shadows, followed by _kBytesPerShadow
         // bytes for each shadow.
-        private static ByteData EncodeShadows(List<Shadow> shadows)
+        internal static ByteData EncodeShadows(List<Shadow> shadows)
         {
             if (shadows == null)
                 return new ByteData(0);
