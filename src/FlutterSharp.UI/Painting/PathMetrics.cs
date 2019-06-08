@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System.Collections.Generic;
 
 namespace FlutterSharp.UI
 {
@@ -16,10 +16,15 @@ namespace FlutterSharp.UI
     ///
     /// When iterating across a [PathMetrics]' contours, the [PathMetric] objects are only
     /// valid until the next one is obtained.
-    public class PathMetrics
+    public class PathMetrics //: extends collection.IterableBase<PathMetric>
     {
         public PathMetrics(Path path, bool forceClosed)
         {
+            _iterator = new PathMetricIterator(new PathMeasure(path, forceClosed));
         }
+
+        private readonly IEnumerator<PathMetric> _iterator;
+
+        public IEnumerator<PathMetric> Iterator => _iterator;
     }
 }

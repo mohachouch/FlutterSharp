@@ -64,7 +64,7 @@ namespace FlutterSharp.UI
         //
         // A path can have a next contour if [Path.moveTo] was called after drawing began.
         // Return true if one exists, or false.
-        private bool NextContour()
+        internal bool NextContour()
         {
             bool next = NativeNextContour();
             if (next)
