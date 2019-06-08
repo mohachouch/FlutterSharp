@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 namespace FlutterSharp.Samples.Layers.Raw
 {
+    // This example shows how to use the ui.Canvas interface to draw various shapes
+    // with gradients and transforms.
     public class Canvas : IFlutterMain
     {
         private Picture Paint(Rect paintBounds)
