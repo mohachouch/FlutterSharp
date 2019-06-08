@@ -20,7 +20,7 @@ namespace FlutterSharp.Samples.Layers.Raw
 
             Rect physicalBounds = Offset.Zero & (logicalSize * devicePixelRatio);
             PictureRecorder recorder = new PictureRecorder();
-            Canvas canvas = new Canvas(recorder, physicalBounds);
+            UI.Canvas canvas = new UI.Canvas(recorder, physicalBounds);
             canvas.Scale(devicePixelRatio, devicePixelRatio);
             canvas.DrawParagraph(paragraph, new Offset(
               (logicalSize.Width - paragraph.MaxIntrinsicWidth) / 2.0,
