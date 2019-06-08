@@ -4,7 +4,7 @@ namespace FlutterSharp.Samples.Layers.Raw
 {
     // This example shows how to draw some bi-directional text using the raw
     // interface to the engine.
-    public class Text : IFlutterMain
+    public class TextSample : IFlutterMain
     {
         // A paragraph represents a rectangular region that contains some text.
         Paragraph paragraph;
