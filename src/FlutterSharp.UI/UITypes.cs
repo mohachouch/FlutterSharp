@@ -62,9 +62,12 @@ namespace FlutterSharp.UI
             return value;
         }
 
-        public static List<T> Sublist<T>(this List<T> list, int start, int end)
+        public static List<T> Sublist<T>(this List<T> list, int start, int? end = null)
         {
-            return list.Skip(list.Count - start).Take(list.Count - end).ToList();
+            if (end == null)
+                end = list.Count - 1;
+
+            return list.GetRange(start, end.Value - start);
         }
 
         public static double Clamp(this double value, int lower, int upper)
@@ -77,7 +80,6 @@ namespace FlutterSharp.UI
 
             return value;
         }
-
 
         /* Static method in text.dart */
 
