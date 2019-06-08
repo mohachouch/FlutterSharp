@@ -6,6 +6,8 @@ namespace FlutterSharp.UI
     // TODO : implement
     public class ByteData
     {
+        public int LengthInBytes { get; internal set; }
+
         public ByteData(int v)
         {
         }
@@ -36,6 +38,16 @@ namespace FlutterSharp.UI
         }
 
         internal double GetFloat32(int kMaskFilterSigmaOffset, Endian kFakeHostEndian)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal int GetInt64(int v, Endian kFakeHostEndian)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal double GetFloat64(int v, Endian kFakeHostEndian)
         {
             throw new NotImplementedException();
         }

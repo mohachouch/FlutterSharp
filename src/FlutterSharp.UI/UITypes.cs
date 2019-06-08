@@ -49,6 +49,8 @@ namespace FlutterSharp.UI
 
         public static string ToRadixString(this int value, int places) => value.ToString(); // TODO: implement this
 
+        public static bool IsEmpty(this string value) => string.IsNullOrWhiteSpace(value);
+
         public static int Clamp(this int value, int lower, int upper)
         {
             if (value > upper)
@@ -58,6 +60,11 @@ namespace FlutterSharp.UI
                 return lower;
 
             return value;
+        }
+
+        public static List<T> Sublist<T>(this List<T> list, int start, int end)
+        {
+            return list.Skip(list.Count - start).Take(list.Count - end).ToList();
         }
 
         public static double Clamp(this double value, int lower, int upper)

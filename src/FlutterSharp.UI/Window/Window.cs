@@ -230,7 +230,7 @@ namespace FlutterSharp.UI
         ///    register for notifications when this is called.
         ///  * [MediaQuery.of], a simpler mechanism for the same.
         private VoidCallback _onMetricsChanged;
-        private Zone _onMetricsChangedZone;
+        internal Zone _onMetricsChangedZone;
         public VoidCallback OnMetricsChanged
         {
             get
@@ -284,7 +284,7 @@ namespace FlutterSharp.UI
         ///  * [WidgetsBindingObserver], for a mechanism at the widgets layer to
         ///    observe when this callback is invoked.
         private VoidCallback _onLocaleChanged;
-        private Zone _onLocaleChangedZone;
+        internal Zone _onLocaleChangedZone;
         public VoidCallback OnLocaleChanged
         {
             get
@@ -323,7 +323,7 @@ namespace FlutterSharp.UI
         /// Tracks if the initial state has been accessed. Once accessed, we
         /// will stop updating the [initialLifecycleState], as it is not the
         /// preferred way to access the state.
-        private bool _initialLifecycleStateAccessed = false;
+        internal bool _initialLifecycleStateAccessed = false;
 
         /// The system-reported text scale.
         ///
@@ -355,7 +355,7 @@ namespace FlutterSharp.UI
         ///  * [WidgetsBindingObserver], for a mechanism at the widgets layer to
         ///    observe when this callback is invoked.
         private VoidCallback _onTextScaleFactorChanged;
-        private Zone _onTextScaleFactorChangedZone;
+        internal Zone _onTextScaleFactorChangedZone;
         public VoidCallback OnTextScaleFactorChanged
         {
             get
@@ -383,7 +383,7 @@ namespace FlutterSharp.UI
         ///  * [WidgetsBindingObserver], for a mechanism at the widgets layer to
         ///    observe when this callback is invoked.
         private VoidCallback _onPlatformBrightnessChanged;
-        private Zone _onPlatformBrightnessChangedZone;
+        internal Zone _onPlatformBrightnessChangedZone;
         public VoidCallback OnPlatformBrightnessChanged
         {
             get
@@ -417,7 +417,7 @@ namespace FlutterSharp.UI
         ///  * [RendererBinding], the Flutter framework class which manages layout and
         ///    painting.
         private FrameCallback _onBeginFrame;
-        private Zone _onBeginFrameZone;
+        internal Zone _onBeginFrameZone;
         public FrameCallback OnBeginFrame
         {
             get
@@ -446,7 +446,7 @@ namespace FlutterSharp.UI
         ///  * [RendererBinding], the Flutter framework class which manages layout and
         ///    painting.
         private VoidCallback _onDrawFrame;
-        private Zone _onDrawFrameZone;
+        internal Zone _onDrawFrameZone;
         public VoidCallback OnDrawFrame
         {
             get
@@ -478,7 +478,7 @@ namespace FlutterSharp.UI
         /// (measured on iPhone6S). The 0.1ms is about 0.6% of 16ms (frame budget for
         /// 60fps), or 0.01% CPU usage per second.
         private TimingsCallback _onReportTimings;
-        private Zone _onReportTimingsZone;
+        internal Zone _onReportTimingsZone;
         public TimingsCallback OnReportTimings
         {
             get
@@ -512,7 +512,7 @@ namespace FlutterSharp.UI
         ///  * [GestureBinding], the Flutter framework class which manages pointer
         ///    events.
         private PointerDataPacketCallback _onPointerDataPacket;
-        private Zone _onPointerDataPacketZone;
+        internal Zone _onPointerDataPacketZone;
         public PointerDataPacketCallback OnPointerDataPacket
         {
             get
@@ -618,7 +618,7 @@ namespace FlutterSharp.UI
         /// The framework invokes this callback in the same zone in which the
         /// callback was set.
         private VoidCallback _onSemanticsEnabledChanged;
-        private Zone _onSemanticsEnabledChangedZone;
+        internal Zone _onSemanticsEnabledChangedZone;
         public VoidCallback OnSemanticsEnabledChanged
         {
             get
@@ -641,7 +641,7 @@ namespace FlutterSharp.UI
         /// The framework invokes this callback in the same zone in which the
         /// callback was set.
         private SemanticsActionCallback _onSemanticsAction;
-        private Zone _onSemanticsActionZone;
+        internal Zone _onSemanticsActionZone;
         public SemanticsActionCallback OnSemanticsAction
         {
             get
@@ -656,14 +656,14 @@ namespace FlutterSharp.UI
         }
 
         /// Additional accessibility features that may be enabled by the platform.
-        AccessibilityFeatures AccessibilityFeatures { get; set; }
+        public AccessibilityFeatures AccessibilityFeatures { get; set; }
 
         /// A callback that is invoked when the value of [accessibilityFeatures] changes.
         ///
         /// The framework invokes this callback in the same zone in which the
         /// callback was set.
         private VoidCallback _onAccessibilityFeaturesChanged;
-        private Zone _onAccessibilityFlagsChangedZone;
+        internal Zone _onAccessibilityFlagsChangedZone;
         public VoidCallback OnAccessibilityFeaturesChanged
         {
             get
@@ -739,7 +739,7 @@ namespace FlutterSharp.UI
         /// The framework invokes this callback in the same zone in which the
         /// callback was set.
         private PlatformMessageCallback _onPlatformMessage;
-        private Zone _onPlatformMessageZone;
+        internal Zone _onPlatformMessageZone;
         public PlatformMessageCallback OnPlatformMessage
         {
             get
@@ -754,12 +754,11 @@ namespace FlutterSharp.UI
         }
 
         /// Called by [_dispatchPlatformMessage].
-        private void RespondToPlatformMessage(int responseId, ByteData data)
+        internal void RespondToPlatformMessage(int responseId, ByteData data)
         {
             // TODO : native 'Window_respondToPlatformMessage';
         }
-
-
+        
         /// Wraps the given [callback] in another callback that ensures that the
         /// original callback is called in the zone it was registered in.
         private static PlatformMessageResponseCallback ZonedPlatformMessageResponseCallback(PlatformMessageResponseCallback callback)
