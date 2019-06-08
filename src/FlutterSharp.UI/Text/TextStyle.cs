@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using static FlutterSharp.UI.UITypes;
+using static FlutterSharp.UI.TextMethods;
 
 namespace FlutterSharp.UI
 {

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using static FlutterSharp.UI.UITypes;
+using static FlutterSharp.UI.TextMethods;
 
 namespace FlutterSharp.UI
 {
