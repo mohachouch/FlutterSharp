@@ -28,6 +28,7 @@ namespace FlutterSharp.UI
         internal const int _kHasToggledStateIndex = 1 << 16;
         internal const int _kIsToggledIndex = 1 << 17;
         internal const int _kHasImplicitScrollingIndex = 1 << 18;
+        internal const int _kIsReadOnlyIndex = 1 << 20;
 
         public SemanticsFlag(int index)
         {
@@ -226,6 +227,11 @@ namespace FlutterSharp.UI
         /// navigate to the next page when reaching the end of the current one.
         public static readonly SemanticsFlag HasImplicitScrolling = new SemanticsFlag(_kHasImplicitScrollingIndex);
 
+        /// Whether the semantic node is read only.
+        ///
+        /// Only applicable when [isTextField] is true.
+        public static readonly SemanticsFlag IsReadOnly = new SemanticsFlag(_kIsReadOnlyIndex);
+
         /// The possible semantics flags.
         ///
         /// The map's key is the [index] of the flag and the value is the flag itself.
@@ -248,7 +254,8 @@ namespace FlutterSharp.UI
             { _kIsLiveRegionIndex , IsLiveRegion },
             { _kHasToggledStateIndex , HasToggledState },
             { _kIsToggledIndex , IsToggled },
-            { _kHasImplicitScrollingIndex , HasImplicitScrolling }
+            { _kHasImplicitScrollingIndex , HasImplicitScrolling },
+            { _kIsReadOnlyIndex , IsReadOnly }
         };
 
         public override string ToString()
@@ -293,6 +300,8 @@ namespace FlutterSharp.UI
                     return "SemanticsFlag.IsToggled";
                 case _kHasImplicitScrollingIndex:
                     return "SemanticsFlag.HasImplicitScrolling";
+                case _kIsReadOnlyIndex:
+                    return "SemanticsFlag.IsReadOnly";
             }
             return null;
         }
