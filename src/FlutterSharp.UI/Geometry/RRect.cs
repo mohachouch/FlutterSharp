@@ -441,12 +441,16 @@ namespace FlutterSharp.UI
             return min;
         }
 
-        // Scales all radii so that on each side their sum will not pass the size of
-        // the width/height.
-        //
-        // Inspired from:
-        //   https://github.com/google/skia/blob/master/src/core/SkRRect.cpp#L164
-        private RRect ScaleRadii()
+        /// Scales all radii so that on each side their sum will not exceed the size
+        /// of the width/height.
+        ///
+        /// Skia already handles RRects with radii that are too large in this way.
+        /// Therefore, this method is only needed for RRect use cases that require
+        /// the appropriately scaled radii values.
+        ///
+        /// See the [Skia scaling implementation](https://github.com/google/skia/blob/master/src/core/SkRRect.cpp)
+        /// for more details.
+        public RRect ScaleRadii()
         {
             double scale = 1.0;
             scale = GetMin(scale, BlRadiusY, TlRadiusY, Height);
