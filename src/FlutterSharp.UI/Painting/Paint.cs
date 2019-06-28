@@ -68,7 +68,8 @@ namespace FlutterSharp.UI
         internal List<dynamic> _objects;
         private static readonly int _kShaderIndex = 0;
         private static readonly int _kColorFilterMatrixIndex = 1;
-        private static readonly int _kObjectCount = 2; // Must be one larger than the largest index.
+        private static readonly int _kImageFilterIndex = 2;
+        private static readonly int _kObjectCount = 3; // Must be one larger than the largest index.
 
         /// Whether to apply anti-aliasing to lines and images drawn on the
         /// canvas.
@@ -416,6 +417,44 @@ namespace FlutterSharp.UI
             }
         }
 
+        /// The [ImageFilter] to use when drawing raster images.
+        ///
+        /// For example, to blur an image using [Canvas.drawImage], apply an
+        /// [ImageFilter.blur]:
+        ///
+        /// ```dart
+        /// import 'dart:ui' as ui;
+        ///
+        /// ui.Image image;
+        ///
+        /// void paint(Canvas canvas, Size size) {
+        ///   canvas.drawImage(
+        ///     image,
+        ///     Offset.zero,
+        ///     Paint()..imageFilter = ui.ImageFilter.blur(sigmaX: .5, sigmaY: .5),
+        ///   );
+        /// }
+        /// ```
+        ///
+        /// See also:
+        ///
+        ///  * [MaskFilter], which is used for drawing geometry.
+        public ImageFilter ImageFilter
+        {
+            get
+            {
+                if (_objects == null)
+                    return null;
+                return null; //_objects[_kImageFilterIndex]; TODO: Show how it work dynamic list
+            }
+            set
+            {
+                if (_objects == null)
+                    _objects = new List<dynamic>(_kObjectCount);
+                _objects[_kImageFilterIndex] = value;
+            }
+        }
+
         /// Whether the colors of the image are inverted when drawn.
         ///
         /// Inverting the colors of an image applies a new color filter that will
@@ -488,6 +527,11 @@ namespace FlutterSharp.UI
             if (Shader != null)
             {
                 result.Append($"{semicolon}shader: {Shader}");
+                semicolon = "; ";
+            }
+            if (ImageFilter != null)
+            {
+                result.Append($"{semicolon}imageFilter: {ImageFilter}");
                 semicolon = "; ";
             }
             if (InvertColors)
