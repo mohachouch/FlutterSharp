@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using static FlutterSharp.UI.PaintingMethods;
 
 namespace FlutterSharp.UI
@@ -17,46 +18,159 @@ namespace FlutterSharp.UI
             // TODO : native 'SceneBuilder_constructor';
         }
 
+        // Layers used in this scene.
+        //
+        // The key is the layer used. The value is the description of what the layer
+        // is used for, e.g. "pushOpacity" or "addRetained".
+        private Dictionary<EngineLayer, string> _usedLayers = new Dictionary<EngineLayer, string>();
+
+        // In debug mode checks that the `layer` is only used once in a given scene.
+        private bool _debugCheckUsedOnce(EngineLayer layer, string usage)
+        {
+            Debug.Assert(_debugCheckUsedOnceAssert(layer, usage));
+            return true;
+        }
+
+        private bool _debugCheckUsedOnceAssert(EngineLayer layer, string usage)
+        {
+            if (layer == null)
+            {
+                return true;
+            }
+
+            Debug.Assert(
+              !_usedLayers.ContainsKey(layer),
+              "Layer ${layer.runtimeType} already used.\n" +
+              "The layer is already being used as ${_usedLayers[layer]} in this scene.\n" +
+              "A layer may only be used once in a given scene."
+            );
+
+            _usedLayers[layer] = usage;
+            return true;
+        }
+
+        private bool _debugCheckCanBeUsedAsOldLayer(EngineLayerWrapper layer, string methodName)
+        {
+            Debug.Assert(_debugCheckCanBeUsedAsOldLayerAssert(layer, methodName));
+            return true;
+        }
+
+        private bool _debugCheckCanBeUsedAsOldLayerAssert(EngineLayerWrapper layer, string methodName)
+        {
+            if (layer == null)
+            {
+                return true;
+            }
+            layer.DebugCheckNotUsedAsOldLayer();
+            Debug.Assert(_debugCheckUsedOnce(layer, $"oldLayer in {methodName}"));
+            layer._debugWasUsedAsOldLayer = true;
+            return true;
+        }
+
+        private List<EngineLayerWrapper> _layerStack = new List<EngineLayerWrapper>();
+
+        // Pushes the `newLayer` onto the `_layerStack` and adds it to the
+        // `_debugChildren` of the current layer in the stack, if any.
+        private bool _debugPushLayer(EngineLayerWrapper newLayer)
+        {
+            Debug.Assert(_debugPushLayerAssert(newLayer));
+            return true;
+        }
+
+        private bool _debugPushLayerAssert(EngineLayerWrapper newLayer)
+        {
+            if (_layerStack.Count > 0)
+            {
+                EngineLayerWrapper currentLayer = _layerStack[_layerStack.Count - 1];
+                if (currentLayer._debugChildren == null)
+                    currentLayer._debugChildren = new List<EngineLayerWrapper>();
+                currentLayer._debugChildren.Add(newLayer);
+            }
+            _layerStack.Add(newLayer);
+            return true;
+        }
+
         /// Pushes a transform operation onto the operation stack.
         ///
         /// The objects are transformed by the given matrix before rasterization.
         ///
+        /// {@template dart.ui.sceneBuilder.oldLayer}
+        /// If `oldLayer` is not null the engine will attempt to reuse the resources
+        /// allocated for the old layer when rendering the new layer. This is purely
+        /// an optimization. It has no effect on the correctness of rendering.
+        /// {@endtemplate}
+        ///
+        /// {@template dart.ui.sceneBuilder.oldLayerVsRetained}
+        /// Passing a layer to [addRetained] or as `oldLayer` argument to a push
+        /// method counts as _usage_. A layer can be used no more than once in a scene.
+        /// For example, it may not be passed simultaneously to two push methods, or
+        /// to a push method and to `addRetained`.
+        ///
+        /// When a layer is passed to [addRetained] all descendant layers are also
+        /// considered as used in this scene. The same single-usage restriction
+        /// applies to descendants.
+        ///
+        /// When a layer is passed as an `oldLayer` argument to a push method, it may
+        /// no longer be used in subsequent frames. If you would like to continue
+        /// reusing the resources associated with the layer, store the layer object
+        /// returned by the push method and use that in the next frame instead of the
+        /// original object.
+        /// {@endtemplate}
+        ///
         /// See [pop] for details about the operation stack.
-        public EngineLayer PushTransform(Float64List matrix4)
+        public TransformEngineLayer PushTransform(Float64List matrix4, TransformEngineLayer oldLayer = null)
         {
             Debug.Assert(Matrix4IsValid(matrix4));
-
-            // TODO :native 'SceneBuilder_pushTransform'
-            return null;
+            Debug.Assert(_debugCheckCanBeUsedAsOldLayer(oldLayer, "pushTransform"));
+            TransformEngineLayer layer = null; // TODO :native 'SceneBuilder_pushTransform' TransformEngineLayer(_pushTransform(matrix4));
+            Debug.Assert(_debugPushLayer(layer));
+            return layer;
         }
 
         /// Pushes an offset operation onto the operation stack.
         ///
         /// This is equivalent to [pushTransform] with a matrix with only translation.
         ///
+        /// {@macro dart.ui.sceneBuilder.oldLayer}
+        ///
+        /// {@macro dart.ui.sceneBuilder.oldLayerVsRetained}
+        ///
         /// See [pop] for details about the operation stack.
-        public EngineLayer PushOffset(double dx, double dy)
+        public OffsetEngineLayer PushOffset(double dx, double dy, OffsetEngineLayer oldLayer = null)
         {
-            // TODO : native 'SceneBuilder_pushOffset';
-            return null;
+            Debug.Assert(_debugCheckCanBeUsedAsOldLayer(oldLayer, "pushOffset"));
+            OffsetEngineLayer layer = null; // TODO : native 'SceneBuilder_pushOffset';OffsetEngineLayer._(_pushOffset(dx, dy));
+            Debug.Assert(_debugPushLayer(layer));
+            return layer;
         }
 
         /// Pushes a rectangular clip operation onto the operation stack.
         ///
         /// Rasterization outside the given rectangle is discarded.
         ///
+        /// {@macro dart.ui.sceneBuilder.oldLayer}
+        ///
+        /// {@macro dart.ui.sceneBuilder.oldLayerVsRetained}
+        ///
         /// See [pop] for details about the operation stack, and [Clip] for different clip modes.
         /// By default, the clip will be anti-aliased (clip = [Clip.antiAlias]).
-        public EngineLayer PushClipRect(Rect rect, Clip clipBehavior = Clip.AntiAlias)
+        public ClipRectEngineLayer PushClipRect(Rect rect, Clip clipBehavior = Clip.AntiAlias, ClipRectEngineLayer oldLayer = null)
         {
             Debug.Assert(clipBehavior != Clip.None);
-            /*  TODO : return _pushClipRect(rect.left, rect.right, rect.top, rect.bottom, clipBehavior.index);
-              EngineLayer _pushClipRect(double left,
-                  double right,
-                  double top,
-                  double bottom,
-                  int clipBehavior) native 'SceneBuilder_pushClipRect';*/
 
+            Debug.Assert(_debugCheckCanBeUsedAsOldLayer(oldLayer, "pushClipRect"));
+            ClipRectEngineLayer layer = new ClipRectEngineLayer(this.PushClipRect(rect.Left, rect.Right, rect.Top, rect.Bottom, (int)clipBehavior));
+            Debug.Assert(_debugPushLayer(layer));
+            return layer;
+        }
+
+        private EngineLayer PushClipRect(double left,
+                            double right,
+                            double top,
+                            double bottom,
+                            int clipBehavior)
+        {
+            // TODO : native 'SceneBuilder_pushClipRect';
             return null;
         }
 
@@ -64,15 +178,24 @@ namespace FlutterSharp.UI
         ///
         /// Rasterization outside the given rounded rectangle is discarded.
         ///
+        /// {@macro dart.ui.sceneBuilder.oldLayer}
+        ///
+        /// {@macro dart.ui.sceneBuilder.oldLayerVsRetained}
+        ///
         /// See [pop] for details about the operation stack, and [Clip] for different clip modes.
         /// By default, the clip will be anti-aliased (clip = [Clip.antiAlias]).
-        public EngineLayer PushClipRRect(RRect rrect, Clip clipBehavior = Clip.AntiAlias)
+        public ClipRRectEngineLayer PushClipRRect(RRect rrect, Clip clipBehavior = Clip.AntiAlias, ClipRRectEngineLayer oldLayer = null)
         {
             Debug.Assert(clipBehavior != Clip.None);
+            Debug.Assert(_debugCheckCanBeUsedAsOldLayer(oldLayer, "pushClipRRect"));
+            ClipRRectEngineLayer layer = new ClipRRectEngineLayer(PushClipRRect(rrect._value32, (int)clipBehavior));
+            Debug.Assert(_debugPushLayer(layer));
+            return layer;
+        }
 
-            /*TODO : return _pushClipRRect(rrect._value32, clipBehavior.index);
-               EngineLayer _pushClipRRect(Float32List rrect, int clipBehavior) native 'SceneBuilder_pushClipRRect';*/
-
+        private EngineLayer PushClipRRect(Float32List rrect, int clipBehavior)
+        {
+            // TODO : native 'SceneBuilder_pushClipRRect';
             return null;
         }
 
@@ -80,15 +203,24 @@ namespace FlutterSharp.UI
         ///
         /// Rasterization outside the given path is discarded.
         ///
+        /// {@macro dart.ui.sceneBuilder.oldLayer}
+        ///
+        /// {@macro dart.ui.sceneBuilder.oldLayerVsRetained}
+        ///
         /// See [pop] for details about the operation stack. See [Clip] for different clip modes.
         /// By default, the clip will be anti-aliased (clip = [Clip.antiAlias]).
-        public EngineLayer PushClipPath(Path path, Clip clipBehavior = Clip.AntiAlias)
+        public ClipPathEngineLayer PushClipPath(Path path, Clip clipBehavior = Clip.AntiAlias, ClipPathEngineLayer oldLayer = null)
         {
             Debug.Assert(clipBehavior != Clip.None);
+            Debug.Assert(_debugCheckCanBeUsedAsOldLayer(oldLayer, "pushClipPath"));
+            ClipPathEngineLayer layer = new ClipPathEngineLayer(PushClipPath(path, (int)clipBehavior));
+            Debug.Assert(_debugPushLayer(layer));
+            return layer;
+        }
 
-            /*TODO : return _pushClipPath(path, clipBehavior.index);
-               EngineLayer _pushClipPath(Path path, int clipBehavior) native 'SceneBuilder_pushClipPath';*/
-
+        private EngineLayer PushClipPath(Path path, int clipBehavior)
+        {
+            // TODO : native 'SceneBuilder_pushClipPath';
             return null;
         }
 
@@ -99,15 +231,25 @@ namespace FlutterSharp.UI
         /// An alpha value of 255 has no effect (i.e., the objects retain the current
         /// opacity).
         ///
+        /// {@macro dart.ui.sceneBuilder.oldLayer}
+        ///
+        /// {@macro dart.ui.sceneBuilder.oldLayerVsRetained}
+        ///
         /// See [pop] for details about the operation stack.
-        public EngineLayer PushOpacity(int alpha, Offset offset = null)
+        public OpacityEngineLayer PushOpacity(int alpha, Offset offset = null, OpacityEngineLayer oldLayer = null)
         {
             if (offset == null)
                 offset = Offset.Zero;
 
-            /*TODO : return _pushOpacity(alpha, offset.dx, offset.dy);
-              EngineLayer _pushOpacity(int alpha, double dx, double dy) native 'SceneBuilder_pushOpacity';
-             */
+            Debug.Assert(_debugCheckCanBeUsedAsOldLayer(oldLayer, "pushOpacity"));
+            OpacityEngineLayer layer = new OpacityEngineLayer(PushOpacity(alpha, offset.Dx, offset.Dy));
+            Debug.Assert(_debugPushLayer(layer));
+            return layer;
+        }
+
+        private EngineLayer PushOpacity(int alpha, double dx, double dy)
+        {
+            // TODO : native 'SceneBuilder_pushOpacity';
             return null;
         }
 
@@ -116,13 +258,22 @@ namespace FlutterSharp.UI
         /// The given color is applied to the objects' rasterization using the given
         /// blend mode.
         ///
+        /// {@macro dart.ui.sceneBuilder.oldLayer}
+        ///
+        /// {@macro dart.ui.sceneBuilder.oldLayerVsRetained}
+        ///
         /// See [pop] for details about the operation stack.
-        public EngineLayer PushColorFilter(Color color, BlendMode blendMode)
+        public ColorFilterEngineLayer PushColorFilter(Color color, BlendMode blendMode, ColorFilterEngineLayer oldLayer = null)
         {
-            /*return _pushColorFilter(color.Value, blendMode.index);
-        EngineLayer _pushColorFilter(int color, int blendMode) native 'SceneBuilder_pushColorFilter';
-             */
+            Debug.Assert(_debugCheckCanBeUsedAsOldLayer(oldLayer, "pushColorFilter"));
+            ColorFilterEngineLayer layer = new ColorFilterEngineLayer(PushColorFilter(color.Value, (int)blendMode));
+            Debug.Assert(_debugPushLayer(layer));
+            return layer;
+        }
 
+        private EngineLayer PushColorFilter(int color, int blendMode)
+        {
+            // TODO : native 'SceneBuilder_pushColorFilter';
             return null;
         }
 
@@ -131,35 +282,50 @@ namespace FlutterSharp.UI
         /// The given filter is applied to the current contents of the scene prior to
         /// rasterizing the given objects.
         ///
+        /// {@macro dart.ui.sceneBuilder.oldLayer}
+        ///
+        /// {@macro dart.ui.sceneBuilder.oldLayerVsRetained}
+        ///
         /// See [pop] for details about the operation stack.
-        public EngineLayer PushBackdropFilter(ImageFilter filter)
+        public BackdropFilterEngineLayer PushBackdropFilter(ImageFilter filter, BackdropFilterEngineLayer oldLayer = null)
         {
-            // TODO :  native 'SceneBuilder_pushBackdropFilter';
-            return null;
+            Debug.Assert(_debugCheckCanBeUsedAsOldLayer(oldLayer, "pushBackdropFilter"));
+            BackdropFilterEngineLayer layer = null; // TODO :  native 'SceneBuilder_pushBackdropFilter'; new BackdropFilterEngineLayer(_pushBackdropFilter(filter));
+            Debug.Assert(_debugPushLayer(layer));
+            return layer;
         }
-
 
         /// Pushes a shader mask operation onto the operation stack.
         ///
         /// The given shader is applied to the object's rasterization in the given
         /// rectangle using the given blend mode.
         ///
+        /// {@macro dart.ui.sceneBuilder.oldLayer}
+        ///
+        /// {@macro dart.ui.sceneBuilder.oldLayerVsRetained}
+        ///
         /// See [pop] for details about the operation stack.
-        public EngineLayer PushShaderMask(Shader shader, Rect maskRect, BlendMode blendMode)
+        public ShaderMaskEngineLayer PushShaderMask(Shader shader, Rect maskRect, BlendMode blendMode, ShaderMaskEngineLayer oldLayer = null)
         {
-            /*TODO : return _pushShaderMask(shader,
-                maskRect.left,
-                maskRect.right,
-                maskRect.top,
-                maskRect.bottom,
-                blendMode.index);
-                 EngineLayer _pushShaderMask(Shader shader,
-            double maskRectLeft,
-            double maskRectRight,
-            double maskRectTop,
-            double maskRectBottom,
-            int blendMode) native 'SceneBuilder_pushShaderMask';
-             */
+            Debug.Assert(_debugCheckCanBeUsedAsOldLayer(oldLayer, "pushShaderMask"));
+            ShaderMaskEngineLayer layer = new ShaderMaskEngineLayer(PushShaderMask(shader,
+                                   maskRect.Left,
+                                   maskRect.Right,
+                                   maskRect.Top,
+                                   maskRect.Bottom,
+                                   (int)blendMode));
+            Debug.Assert(_debugPushLayer(layer));
+            return layer;
+        }
+
+        private EngineLayer PushShaderMask(Shader shader,
+                             double maskRectLeft,
+                             double maskRectRight,
+                             double maskRectTop,
+                             double maskRectBottom,
+                             int blendMode)
+        {
+            // TODO : native 'SceneBuilder_pushShaderMask';
             return null;
         }
 
@@ -174,18 +340,26 @@ namespace FlutterSharp.UI
         /// [shadowColor] defines the color of the shadow if present and [color] defines the
         /// color of the layer background.
         ///
+        /// {@macro dart.ui.sceneBuilder.oldLayer}
+        ///
+        /// {@macro dart.ui.sceneBuilder.oldLayerVsRetained}
+        ///
         /// See [pop] for details about the operation stack, and [Clip] for different clip modes.
         // ignore: deprecated_member_use
-        public EngineLayer PushPhysicalShape(Path path, double elevation, Color color, Color shadowColor, Clip clipBehavior = Clip.None)
+        public PhysicalShapeEngineLayer PushPhysicalShape(Path path, double elevation, Color color, Color shadowColor, Clip clipBehavior = Clip.None, PhysicalShapeEngineLayer oldLayer = null)
         {
-            /*TODO : return _pushPhysicalShape(path, elevation, color.value, shadowColor?.value ?? 0xFF000000, clipBehavior.index);
-               EngineLayer _pushPhysicalShape(Path path, double elevation, int color, int shadowColor, int clipBehavior) native
-        'SceneBuilder_pushPhysicalShape';
-         */
-            return null;
+            Debug.Assert(_debugCheckCanBeUsedAsOldLayer(oldLayer, "pushPhysicalShape"));
+            PhysicalShapeEngineLayer layer = null; // new PhysicalShapeEngineLayer(_pushPhysicalShape(path, elevation, color.Value, shadowColor?.Value ?? 0xFF000000, (int)clipBehavior));
+            Debug.Assert(_debugPushLayer(layer));
+            return layer;
         }
 
-
+        private EngineLayer PushPhysicalShape(Path path, double elevation, int color, int shadowColor, int clipBehavior)
+        {
+            // TODO : native 'SceneBuilder_pushPhysicalShape';
+            return null;
+        } 
+        
         /// Ends the effect of the most recently pushed operation.
         ///
         /// Internally the scene builder maintains a stack of operations. Each of the
@@ -194,6 +368,11 @@ namespace FlutterSharp.UI
         /// stack.
         public void Pop()
         {
+            if (_layerStack.Count > 0)
+            {
+                _layerStack.RemoveAt(_layerStack.Count - 1);
+            }
+
             // TODO :  native 'SceneBuilder_pop';
         }
 
@@ -205,11 +384,38 @@ namespace FlutterSharp.UI
         /// Therefore, when implementing a subclass of the [Layer] concept defined in
         /// the rendering layer of Flutter's framework, once this is called, there's
         /// no need to call [addToScene] for its children layers.
+        ///
+        /// {@macro dart.ui.sceneBuilder.oldLayerVsRetained}
         public void AddRetained(EngineLayer retainedLayer)
         {
-            // TODO :  native 'SceneBuilder_addRetained';
+            Debug.Assert(retainedLayer is EngineLayerWrapper);
+            Debug.Assert(_addRetainedAssert(retainedLayer));
+            EngineLayerWrapper wrapper = retainedLayer as EngineLayerWrapper;
+            // _addRetained(wrapper._nativeLayer); TODO :  native 'SceneBuilder_addRetained';
         }
 
+        private bool _addRetainedAssert(EngineLayer retainedLayer)
+        {
+            EngineLayerWrapper layer = retainedLayer as EngineLayerWrapper;
+
+            void recursivelyCheckChildrenUsedOnce(EngineLayerWrapper parentLayer)
+            {
+                _debugCheckUsedOnce(parentLayer, "retained layer");
+                parentLayer.DebugCheckNotUsedAsOldLayer();
+
+                if (parentLayer._debugChildren == null || parentLayer._debugChildren.Count == 0)
+                {
+                    return;
+                }
+
+                parentLayer._debugChildren.ForEach(x => recursivelyCheckChildrenUsedOnce(x));
+            }
+
+            recursivelyCheckChildrenUsedOnce(layer);
+
+            return true;
+        }
+        
         /// Adds an object to the scene that displays performance statistics.
         ///
         /// Useful during development to assess the performance of the application.
