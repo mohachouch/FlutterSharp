@@ -44,17 +44,17 @@ namespace FlutterSharp.Samples.Android
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7f040002
-			public const int colorAccent = 2130968578;
+			// aapt resource value: 0x7f030002
+			public const int colorAccent = 2130903042;
 			
-			// aapt resource value: 0x7f040000
-			public const int colorPrimary = 2130968576;
+			// aapt resource value: 0x7f030000
+			public const int colorPrimary = 2130903040;
 			
-			// aapt resource value: 0x7f040001
-			public const int colorPrimaryDark = 2130968577;
+			// aapt resource value: 0x7f030001
+			public const int colorPrimaryDark = 2130903041;
 			
-			// aapt resource value: 0x7f040003
-			public const int ic_launcher_background = 2130968579;
+			// aapt resource value: 0x7f030003
+			public const int ic_launcher_background = 2130903043;
 			
 			static Color()
 			{
@@ -69,8 +69,8 @@ namespace FlutterSharp.Samples.Android
 		public partial class Dimension
 		{
 			
-			// aapt resource value: 0x7f050000
-			public const int fab_margin = 2131034112;
+			// aapt resource value: 0x7f040000
+			public const int fab_margin = 2130968576;
 			
 			static Dimension()
 			{
@@ -78,22 +78,6 @@ namespace FlutterSharp.Samples.Android
 			}
 			
 			private Dimension()
-			{
-			}
-		}
-		
-		public partial class Layout
-		{
-			
-			// aapt resource value: 0x7f030000
-			public const int activity_main = 2130903040;
-			
-			static Layout()
-			{
-				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
-			}
-			
-			private Layout()
 			{
 			}
 		}
@@ -123,11 +107,11 @@ namespace FlutterSharp.Samples.Android
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f060001
-			public const int action_settings = 2131099649;
+			// aapt resource value: 0x7f050001
+			public const int action_settings = 2131034113;
 			
-			// aapt resource value: 0x7f060000
-			public const int app_name = 2131099648;
+			// aapt resource value: 0x7f050000
+			public const int app_name = 2131034112;
 			
 			static String()
 			{
@@ -142,8 +126,8 @@ namespace FlutterSharp.Samples.Android
 		public partial class Style
 		{
 			
-			// aapt resource value: 0x7f070000
-			public const int LaunchTheme = 2131165184;
+			// aapt resource value: 0x7f060000
+			public const int LaunchTheme = 2131099648;
 			
 			static Style()
 			{

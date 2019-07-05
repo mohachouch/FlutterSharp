@@ -1,5 +1,8 @@
 ﻿<metadata>
-  <!--
+  <remove-node path="/api/package[@name='io.flutter.embedding.engine.dart']/class[@name='DartExecutor']" />
+  <remove-node path="/api/package[@name='io.flutter.embedding.android']/class[@name='FlutterView']" />
+ 
+ <!--
   This sample removes the class: android.support.v4.content.AsyncTaskLoader.LoadTask:
   <remove-node path="/api/package[@name='android.support.v4.content']/class[@name='AsyncTaskLoader.LoadTask']" />
   
