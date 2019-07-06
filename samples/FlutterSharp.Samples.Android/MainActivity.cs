@@ -29,7 +29,14 @@ namespace FlutterSharp.Samples.Android
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            this.FlutterView.FirstFrame += FlutterView_FirstFrame;
         }
-	}
+
+        private void FlutterView_FirstFrame(object sender, System.EventArgs e)
+        {
+            this.FlutterView.FirstFrame -= FlutterView_FirstFrame;
+            this.ReportFullyDrawn();
+        }
+    }
 }
 
