@@ -1,7 +1,4 @@
-﻿using Android.App;
-using Android.Content.PM;
-using Android.OS;
-using Android.Views;
+﻿using Android.OS;
 using IO.Flutter.App;
 
 namespace FlutterSharp.UI.Android

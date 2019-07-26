@@ -16,5 +16,13 @@ namespace FlutterSharp.UI.Android
             : base(javaReference, transfer)
         {
         }
+
+        public override void OnCreate()
+        {
+            // Call register hooks before base OnCreate
+            Hooks.Register();
+
+            base.OnCreate();
+        }
     }
 }

@@ -2,12 +2,34 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using static FlutterSharp.UI.UITypes;
 
 namespace FlutterSharp.UI
 {
     public static class Hooks
     {
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        private delegate void UpdateWindowMetricsDelegate(double devicePixelRatio,
+                                 double width,
+                                 double height,
+                                 double viewPaddingTop,
+                                 double viewPaddingRight,
+                                 double viewPaddingBottom,
+                                 double viewPaddingLeft,
+                                 double viewInsetTop,
+                                 double viewInsetRight,
+                                 double viewInsetBottom,
+                                 double viewInsetLeft);
+
+        public static void Register()
+        {
+            Hooks_register(UpdateWindowMetrics);
+        }
+
+        [DllImport("libflutter.so")]
+        private static extern void Hooks_register(UpdateWindowMetricsDelegate updateWindowMetricsDelegate);
+
         // ignore: unused_element
         internal static string DecodeUTF8(ByteData message)
         {
@@ -53,7 +75,7 @@ namespace FlutterSharp.UI
                  bottom: Math.Max(0.0, viewPaddingBottom - viewInsetBottom),
                  left: Math.Max(0.0, viewPaddingLeft - viewInsetLeft));
 
-            Invoke(() => Window.Instance.OnMetricsChanged(), Window.Instance._onMetricsChangedZone);
+            //Invoke(() => Window.Instance.OnMetricsChanged(), Window.Instance._onMetricsChangedZone);
         }
 
         private delegate string _LocaleClosure();

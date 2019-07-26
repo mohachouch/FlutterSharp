@@ -59,6 +59,12 @@
   <ItemGroup>
     <EmbeddedJar Include="Jars\flutter.jar" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FlutterSharp.UI\FlutterSharp.UI.csproj">
+      <Project>{a581aaf4-756b-45ff-bdc9-701f6b24f079}</Project>
+      <Name>FlutterSharp.UI</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.Bindings.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
