@@ -22,13 +22,23 @@ namespace FlutterSharp.UI
                                  double viewInsetBottom,
                                  double viewInsetLeft);
 
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        private delegate void BeginFrameDelegate(int microseconds);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        private delegate void DrawFrameDelegate();
+
         public static void Register()
         {
-            Hooks_register(UpdateWindowMetrics);
+            Hooks_register(UpdateWindowMetrics, 
+                           BeginFrame,
+                           DrawFrame);
         }
 
         [DllImport("libflutter.so")]
-        private static extern void Hooks_register(UpdateWindowMetricsDelegate updateWindowMetricsDelegate);
+        private static extern void Hooks_register(UpdateWindowMetricsDelegate updateWindowMetricsDelegate,
+                                                  BeginFrameDelegate beginFrameDelegate,
+                                                  DrawFrameDelegate drawFrameDelegate);
 
         // ignore: unused_element
         internal static string DecodeUTF8(ByteData message)
@@ -75,7 +85,7 @@ namespace FlutterSharp.UI
                  bottom: Math.Max(0.0, viewPaddingBottom - viewInsetBottom),
                  left: Math.Max(0.0, viewPaddingLeft - viewInsetLeft));
 
-            //Invoke(() => Window.Instance.OnMetricsChanged(), Window.Instance._onMetricsChangedZone);
+            Invoke(Window.Instance.OnMetricsChanged, Window.Instance._onMetricsChangedZone);
         }
 
         private delegate string _LocaleClosure();
@@ -108,7 +118,7 @@ namespace FlutterSharp.UI
                   countryCode: countryCode.IsEmpty() ? null : countryCode,
                   scriptCode: scriptCode.IsEmpty() ? null : scriptCode);
             }
-            Invoke(() => Window.Instance.OnLocaleChanged(), Window.Instance._onLocaleChangedZone);
+            Invoke(Window.Instance.OnLocaleChanged, Window.Instance._onLocaleChangedZone);
         }
 
         // ignore: unused_element
@@ -136,7 +146,7 @@ namespace FlutterSharp.UI
         private static void UpdateTextScaleFactor(double textScaleFactor)
         {
             Window.Instance.TextScaleFactor = textScaleFactor;
-            Invoke(() => Window.Instance.OnTextScaleFactorChanged(), Window.Instance._onTextScaleFactorChangedZone);
+            Invoke(Window.Instance.OnTextScaleFactorChanged, Window.Instance._onTextScaleFactorChangedZone);
         }
 
         private static void UpdateAlwaysUse24HourFormat(bool alwaysUse24HourFormat)
@@ -147,14 +157,14 @@ namespace FlutterSharp.UI
         private static void UpdatePlatformBrightness(string brightnessName)
         {
             Window.Instance.PlatformBrightness = brightnessName == "dark" ? Brightness.Dark : Brightness.Light;
-            Invoke(() => Window.Instance.OnPlatformBrightnessChanged(), Window.Instance._onPlatformBrightnessChangedZone);
+            Invoke(Window.Instance.OnPlatformBrightnessChanged, Window.Instance._onPlatformBrightnessChangedZone);
         }
 
         // ignore: unused_element
         private static void UpdateSemanticsEnabled(bool enabled)
         {
             Window.Instance.SemanticsEnabled = enabled;
-            Invoke(() => Window.Instance.OnSemanticsEnabledChanged(), Window.Instance._onSemanticsEnabledChangedZone);
+            Invoke(Window.Instance.OnSemanticsEnabledChanged, Window.Instance._onSemanticsEnabledChangedZone);
         }
 
         // ignore: unused_element
@@ -164,7 +174,7 @@ namespace FlutterSharp.UI
             if (newFeatures == Window.Instance.AccessibilityFeatures)
                 return;
             Window.Instance.AccessibilityFeatures = newFeatures;
-            Invoke(() => Window.Instance.OnAccessibilityFeaturesChanged(), Window.Instance._onAccessibilityFlagsChangedZone);
+            Invoke(Window.Instance.OnAccessibilityFeaturesChanged, Window.Instance._onAccessibilityFlagsChangedZone);
         }
 
         private static void DispatchPlatformMessage(String name, ByteData data, int responseId)
@@ -206,7 +216,7 @@ namespace FlutterSharp.UI
         // ignore: unused_element
         private static void BeginFrame(int microseconds)
         {
-            Invoke1<Duration>((duration) => Window.Instance.OnBeginFrame(duration), Window.Instance._onBeginFrameZone, new Duration(microseconds: microseconds));
+            Invoke1<Duration>((duration) => Window.Instance.OnBeginFrame?.Invoke(duration), Window.Instance._onBeginFrameZone, new Duration(microseconds: microseconds));
         }
 
         // ignore: unused_element
@@ -224,7 +234,7 @@ namespace FlutterSharp.UI
         // ignore: unused_element
         private static void DrawFrame()
         {
-            Invoke(() => Window.Instance.OnDrawFrame(), Window.Instance._onDrawFrameZone);
+            Invoke(Window.Instance.OnDrawFrame, Window.Instance._onDrawFrameZone);
         }
 
         // ignore: always_declare_return_types, prefer_generic_function_type_aliases
@@ -264,21 +274,12 @@ namespace FlutterSharp.UI
         }
 
         /// Invokes [callback] inside the given [zone].
-        private static void Invoke(Action callback, Zone zone)
+        private static void Invoke(VoidCallback callback, Zone zone)
         {
             if (callback == null)
                 return;
-
-            Debug.Assert(zone != null);
-
-            if (Identical(zone, Zone.Current))
-            {
-                callback();
-            }
-            else
-            {
-                zone.RunGuarded(callback);
-            }
+            
+            callback();
         }
 
         /// Invokes [callback] inside the given [zone] passing it [arg].
@@ -287,16 +288,7 @@ namespace FlutterSharp.UI
             if (callback == null)
                 return;
 
-            Debug.Assert(zone != null);
-
-            if (Identical(zone, Zone.Current))
-            {
-                callback(arg);
-            }
-            else
-            {
-                zone.RunUnaryGuarded<A>(callback, arg);
-            }
+            callback(arg);
         }
 
         /// Invokes [callback] inside the given [zone] passing it [arg1] and [arg2].
