@@ -176,7 +176,7 @@ namespace FlutterSharp.UI
           string ellipsis,
           Locale locale)
         {
-            Int32List result = new Int32List(6); // also update paragraph_builder.cc
+            Int32List result = new Int32List(6) { 0, 0, 0, 0, 0, 0 }; // also update paragraph_builder.cc
             if (textAlign != null)
             {
                 result[0] |= 1 << 1;

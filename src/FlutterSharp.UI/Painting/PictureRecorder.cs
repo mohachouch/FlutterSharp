@@ -1,4 +1,7 @@
-﻿namespace FlutterSharp.UI
+﻿using System;
+using System.Runtime.InteropServices;
+
+namespace FlutterSharp.UI
 {
     /// Records a [Picture] containing a sequence of graphical operations.
     ///
@@ -10,8 +13,12 @@
         /// [Canvas] and begin recording, pass this [PictureRecorder] to the
         /// [Canvas] constructor.
         public PictureRecorder()
+           : base(PictureRecorder_constructor())
         {
-            Constructor();
+            if (this.Handle == IntPtr.Zero)
+            {
+                throw new InvalidOperationException("Unable to create a new PictureRecorder instance.");
+            }
         }
 
         private void Constructor()
@@ -38,8 +45,14 @@
         /// Returns null if the PictureRecorder is not associated with a canvas.
         public Picture EndRecording()
         {
-            // TODO : native 'PictureRecorder_endRecording';
-            return null;
+            IntPtr paragraphHandle = PictureRecorder_endRecording(this.Handle);
+            return paragraphHandle != IntPtr.Zero ? new Picture(paragraphHandle) : null;
         }
+
+        [DllImport("libflutter")]
+        public extern static IntPtr PictureRecorder_constructor();
+
+        [DllImport("libflutter")]
+        public extern static IntPtr PictureRecorder_endRecording(IntPtr pointer);
     }
 }

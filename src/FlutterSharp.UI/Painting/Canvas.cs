@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using static FlutterSharp.UI.PaintingMethods;
 
 namespace FlutterSharp.UI
@@ -55,7 +56,12 @@ namespace FlutterSharp.UI
             double right,
             double bottom)
         {
-            // TODO : native 'Canvas_constructor';
+            this.Handle = Canvas_constructor(recorder.Handle, left, top, right, bottom);
+
+            if (this.Handle == IntPtr.Zero)
+            {
+                throw new InvalidOperationException("Unable to create a new Canvas instance.");
+            }
         }
 
         /// Saves a copy of the current transform and clip on the save stack.
@@ -235,7 +241,7 @@ namespace FlutterSharp.UI
         /// horizontally by the first argument and vertically by the second argument.
         public void Translate(double dx, double dy)
         {
-            // TODO : native 'Canvas_translate';
+            Canvas_translate(this.Handle, dx, dy);
         }
 
         /// Add an axis-aligned scale to the current transform, scaling by the first
@@ -251,13 +257,13 @@ namespace FlutterSharp.UI
 
         private void Scale(double sx, double sy)
         {
-            // TODO : ' native 'Canvas_scale';
+            Canvas_scale(this.Handle, sx, sy);
         }
 
         /// Add a rotation to the current transform. The argument is in radians clockwise.
         public void Rotate(double radians)
         {
-            // TODO : native 'Canvas_rotate';
+            Canvas_rotate(this.Handle, radians);
         }
 
         /// Add an axis-aligned skew to the current transform, with the first argument
@@ -853,5 +859,20 @@ namespace FlutterSharp.UI
         {
             // TODO : native 'Canvas_drawShadow';
         }
+
+        [DllImport("libflutter")]
+        public extern static IntPtr Canvas_constructor(IntPtr pRecorder, double left,
+                  double top,
+                  double right,
+                  double bottom);
+
+        [DllImport("libflutter")]
+        public extern static IntPtr Canvas_scale(IntPtr pCanvas, double sx, double sy);
+
+        [DllImport("libflutter")]
+        public extern static IntPtr Canvas_translate(IntPtr pCanvas, double dx, double dy);
+
+        [DllImport("libflutter")]
+        public extern static IntPtr Canvas_rotate(IntPtr pCanvas, double radians);
     }
 }

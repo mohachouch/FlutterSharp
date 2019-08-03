@@ -35,7 +35,7 @@ namespace FlutterSharp.UI
                            DrawFrame);
         }
 
-        [DllImport("libflutter.so")]
+        [DllImport("libflutter")]
         private static extern void Hooks_register(UpdateWindowMetricsDelegate updateWindowMetricsDelegate,
                                                   BeginFrameDelegate beginFrameDelegate,
                                                   DrawFrameDelegate drawFrameDelegate);

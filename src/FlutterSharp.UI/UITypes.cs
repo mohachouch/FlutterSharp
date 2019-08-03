@@ -49,6 +49,8 @@ namespace FlutterSharp.UI
 
         public static string ToRadixString(this int value, int places) => value.ToString(); // TODO: implement this
 
+        public static string ToRadixString(this uint value, uint places) => value.ToString(); // TODO: implement this
+
         public static bool IsEmpty(this string value) => string.IsNullOrWhiteSpace(value);
 
         public static int Clamp(this int value, int lower, int upper)

@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using static FlutterSharp.UI.PaintingMethods;
 
 namespace FlutterSharp.UI
@@ -13,9 +15,13 @@ namespace FlutterSharp.UI
     /// it to the scene using [addPicture].
     public class SceneBuilder : NativeFieldWrapperClass2
     {
-        public SceneBuilder()
+        public SceneBuilder() 
+            : base(SceneBuilder_constructor())
         {
-            // TODO : native 'SceneBuilder_constructor';
+            if (this.Handle == IntPtr.Zero)
+            {
+                throw new InvalidOperationException("Unable to create a new SceneBuilder instance.");
+            }
         }
 
         // Layers used in this scene.
@@ -170,8 +176,9 @@ namespace FlutterSharp.UI
                             double bottom,
                             int clipBehavior)
         {
-            // TODO : native 'SceneBuilder_pushClipRect';
-            return null;
+            
+            IntPtr engineHandle = SceneBuilder_pushClipRect(this.Handle, left, right, top, bottom, clipBehavior);
+            return engineHandle != IntPtr.Zero ? new EngineLayer(engineHandle) : null;
         }
 
         /// Pushes a rounded-rectangular clip operation onto the operation stack.
@@ -373,7 +380,7 @@ namespace FlutterSharp.UI
                 _layerStack.RemoveAt(_layerStack.Count - 1);
             }
 
-            // TODO :  native 'SceneBuilder_pop';
+            SceneBuilder_pop(this.Handle);
         }
 
         /// Add a retained engine layer subtree from previous frames.
@@ -465,8 +472,7 @@ namespace FlutterSharp.UI
             if (willChangeHint)
                 hints |= 2;
 
-            /*TODO : _addPicture(offset.dx, offset.dy, picture, hints);
-            void _addPicture(double dx, double dy, Picture picture, int hints) native 'SceneBuilder_addPicture';*/
+            SceneBuilder_addPicture(this.Handle, offset.Dx, offset.Dy, picture.Handle, hints);
         }
 
         /// Adds a backend texture to the scene.
@@ -587,8 +593,32 @@ namespace FlutterSharp.UI
         /// cannot be used further.
         public Scene Build()
         {
-            // TODO : native 'SceneBuilder_build';
-            return null;
+            IntPtr sceneHandle = SceneBuilder_build(this.Handle);
+            return sceneHandle != IntPtr.Zero ? new Scene(sceneHandle) : null;
         }
+
+        [DllImport("libflutter")]
+        public extern static IntPtr SceneBuilder_constructor();
+
+        [DllImport("libflutter")]
+        public extern static IntPtr SceneBuilder_pushClipRect(IntPtr pSceneBuilder,
+            double left,
+            double right,
+            double top,
+            double bottom,
+            int clipBehavior);
+
+        [DllImport("libflutter")]
+        public extern static void SceneBuilder_addPicture(IntPtr pSceneBuilder,
+            double dx,
+            double dy,
+            IntPtr picture,
+            int hints);
+        
+        [DllImport("libflutter")]
+        public extern static void SceneBuilder_pop(IntPtr pSceneBuilder);
+
+        [DllImport("libflutter")]
+        public extern static IntPtr SceneBuilder_build(IntPtr pSceneBuilder);
     }
 }

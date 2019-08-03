@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace FlutterSharp.UI
 {
@@ -34,6 +35,7 @@ namespace FlutterSharp.UI
                 if (style._strutStyle._fontFamilyFallback != null)
                     strutFontFamilies.AddRange(style._strutStyle._fontFamilyFallback);
             }
+            
             Constructor(
                 style._encoded,
                 style._strutStyle?._encoded,
@@ -57,7 +59,8 @@ namespace FlutterSharp.UI
             string locale
         )
         {
-            // TODO : native 'ParagraphBuilder_constructor';
+            this.Handle = ParagraphBuilder_constructor(encoded.ToArray(), encoded.Count, fontFamily ?? "",
+              fontSize ?? 0, height ?? 0, ellipsis ?? "", locale ?? "");
         }
 
         /// The number of placeholders currently in the paragraph.
@@ -138,7 +141,7 @@ namespace FlutterSharp.UI
         /// in effect.
         public void Pop()
         {
-            // TODO : native 'ParagraphBuilder_pop';
+            ParagraphBuilder_pop(this.Handle);
         }
 
         /// Adds the given text to the paragraph.
@@ -146,17 +149,14 @@ namespace FlutterSharp.UI
         /// The text will be styled according to the current stack of text styles.
         public void AddText(string text)
         {
-            string error = _addText(text);
+            IntPtr pointertext = ParagraphBuilder_addText(this.Handle, text);
+
+            string error = Marshal.PtrToStringAnsi(pointertext);
+            
             if (error != null)
                 throw new ArgumentException(error);
         }
-
-        private string _addText(string text)
-        {
-            // TODO : native 'ParagraphBuilder_addText';
-            return null;
-        }
-
+        
         /// Adds an inline placeholder space to the paragraph.
         ///
         /// The paragraph will contain a rectangular space with no text of the dimensions
@@ -230,8 +230,21 @@ namespace FlutterSharp.UI
         /// cannot be used further.
         public Paragraph Build()
         {
-            // TODO : native 'ParagraphBuilder_build';
-            return null;
+            IntPtr paragraphHandle = ParagraphBuilder_build(this.Handle);
+            return paragraphHandle != IntPtr.Zero ? new Paragraph(paragraphHandle) : null;
         }
+
+        [DllImport("libflutter")]
+        public extern static IntPtr ParagraphBuilder_constructor(int[] encoded, int encodedCount,
+            string fontFamily, double fontSize, double lineHeight, string ellipsis, string locale);
+        
+        [DllImport("libflutter")]
+        public extern static IntPtr ParagraphBuilder_addText(IntPtr pointer, string text);
+
+        [DllImport("libflutter")]
+        public extern static void ParagraphBuilder_pop(IntPtr pointer);
+
+        [DllImport("libflutter")]
+        public extern static IntPtr ParagraphBuilder_build(IntPtr pointer);
     }
 }

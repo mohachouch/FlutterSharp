@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace FlutterSharp.UI
 {
@@ -576,7 +577,7 @@ namespace FlutterSharp.UI
         ///    scheduling of frames.
         public void ScheduleFrame()
         {
-            // TODO : native 'Window_scheduleFrame';
+            Window_scheduleFrame();
         }
 
         /// Updates the application's rendering on the GPU with the newly provided
@@ -605,7 +606,7 @@ namespace FlutterSharp.UI
         ///    painting.
         public void Render(Scene scene)
         {
-            // TODO : native 'Window_render';
+            Window_render(scene.Handle);
         }
 
         /// Whether the user has requested that [updateSemantics] be called when
@@ -776,5 +777,11 @@ namespace FlutterSharp.UI
                 registrationZone.runUnaryGuarded(callback, data);
             };*/
         }
+
+        [DllImport("libflutter")]
+        public extern static void Window_render(IntPtr scene);
+
+        [DllImport("libflutter")]
+        public extern static void Window_scheduleFrame();
     }
 }

@@ -13,6 +13,7 @@ namespace FlutterSharp.UI
     public abstract class EngineLayerWrapper : EngineLayer
     {
         public EngineLayerWrapper(EngineLayer _nativeLayer)
+            : base(_nativeLayer.Handle)
         {
             this._nativeLayer = _nativeLayer;
         }

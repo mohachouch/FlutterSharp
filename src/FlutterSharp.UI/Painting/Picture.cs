@@ -15,9 +15,13 @@ namespace FlutterSharp.UI
         /// or extended directly.
         ///
         /// To create a [Picture], use a [PictureRecorder].
-        public Picture()
+        public Picture(IntPtr paragraphHandle)
+            : base(paragraphHandle)
         {
-
+            if (this.Handle == IntPtr.Zero)
+            {
+                throw new InvalidOperationException("Unable to create a new Picture instance.");
+            }
         }
 
         /// Creates an image from this picture.

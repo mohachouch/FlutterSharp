@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace FlutterSharp.UI
 {
@@ -17,7 +19,8 @@ namespace FlutterSharp.UI
         /// or extended directly.
         ///
         /// To create a [Paragraph] object, use a [ParagraphBuilder].
-        public Paragraph()
+        public Paragraph(IntPtr handle)
+            : base(handle)
         {
 
         }
@@ -30,7 +33,7 @@ namespace FlutterSharp.UI
         /// The amount of vertical space this paragraph occupies.
         ///
         /// Valid only after [layout] has been called.
-        public double Height => 0.0; // TODO: native 'Paragraph_height';
+        public double Height => Paragraph_height(this.Handle);
 
         /// The distance from the left edge of the leftmost glyph to the right edge of
         /// the rightmost glyph in the paragraph.
@@ -48,7 +51,7 @@ namespace FlutterSharp.UI
         /// decreases the height.
         ///
         /// Valid only after [layout] has been called.
-        public double MaxIntrinsicWidth => 0.0; // TODO: native 'Paragraph_maxIntrinsicWidth';
+        public double MaxIntrinsicWidth => Paragraph_maxIntrinsicWidth(this.Handle);
 
         /// The distance from the top of the paragraph to the alphabetic
         /// baseline of the first line, in logical pixels.
@@ -70,13 +73,8 @@ namespace FlutterSharp.UI
         /// Computes the size and position of each glyph in the paragraph.
         ///
         /// The [ParagraphConstraints] control how wide the text is allowed to be.
-        public void Layout(ParagraphConstraints constraints) => Layout(constraints.Width);
-
-        private void Layout(double width)
-        {
-            //TODO: native 'Paragraph_layout';
-        }
-
+        public void Layout(ParagraphConstraints constraints) => Paragraph_layout(this.Handle, constraints.Width);
+        
         /// Returns a list of text boxes that enclose the given text range.
         ///
         /// The [boxHeightStyle] and [boxWidthStyle] parameters allow customization
@@ -143,7 +141,19 @@ namespace FlutterSharp.UI
         // this indirection.
         internal void Paint(Canvas canvas, double x, double y)
         {
-            // TODO : native 'Paragraph_paint';
+            Paragraph_paint(this.Handle, canvas.Handle, x, y);
         }
+
+        [DllImport("libflutter")]
+        public extern static void Paragraph_layout(IntPtr pParagraph, double width);
+
+        [DllImport("libflutter")]
+        public extern static void Paragraph_paint(IntPtr pParagraph, IntPtr canvas, double x, double y);
+
+        [DllImport("libflutter")]
+        public extern static double Paragraph_height(IntPtr pParagraph);
+
+        [DllImport("libflutter")]
+        public extern static double Paragraph_maxIntrinsicWidth(IntPtr pParagraph);
     }
 }

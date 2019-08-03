@@ -11,9 +11,13 @@ namespace FlutterSharp.UI
     /// [Window.render] method.
     public class Scene : NativeFieldWrapperClass2
     {
-        public Scene()
+        public Scene(IntPtr handle)
+            : base(handle)
         {
-
+            if (this.Handle == IntPtr.Zero)
+            {
+                throw new InvalidOperationException("Unable to create a new Scene instance.");
+            }
         }
 
         // Creates a raster image representation of the current state of the scene.
