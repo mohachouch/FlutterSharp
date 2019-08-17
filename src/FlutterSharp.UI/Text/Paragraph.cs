@@ -28,7 +28,7 @@ namespace FlutterSharp.UI
         /// The amount of horizontal space this paragraph occupies.
         ///
         /// Valid only after [layout] has been called.
-        public double Width => 0.0; // TODO: native 'Paragraph_width';
+        public double Width => Paragraph_width(this.Handle);
 
         /// The amount of vertical space this paragraph occupies.
         ///
@@ -39,13 +39,13 @@ namespace FlutterSharp.UI
         /// the rightmost glyph in the paragraph.
         ///
         /// Valid only after [layout] has been called.
-        public double LongestLine => 0.0; // TODO: native 'Paragraph_longestLine';
+        public double LongestLine => Paragraph_longestLine(this.Handle);
 
         /// The minimum width that this paragraph could be without failing to paint
         /// its contents within itself.
         ///
         /// Valid only after [layout] has been called.
-        public double MinIntrinsicWidth => 0.0; // TODO: native 'Paragraph_minIntrinsicWidth';
+        public double MinIntrinsicWidth => Paragraph_minIntrinsicWidth(this.Handle);
 
         /// Returns the smallest width beyond which increasing the width never
         /// decreases the height.
@@ -55,11 +55,11 @@ namespace FlutterSharp.UI
 
         /// The distance from the top of the paragraph to the alphabetic
         /// baseline of the first line, in logical pixels.
-        public double AlphabeticBaseline => 0.0; // TODO: native 'Paragraph_alphabeticBaseline';
+        public double AlphabeticBaseline => Paragraph_alphabeticBaseline(this.Handle);
 
         /// The distance from the top of the paragraph to the ideographic
         /// baseline of the first line, in logical pixels.
-        public double IdeographicBaseline => 0.0; // TODO: native 'Paragraph_ideographicBaseline';
+        public double IdeographicBaseline => Paragraph_ideographicBaseline(this.Handle);
 
         /// True if there is more vertical content, but the text was truncated, either
         /// because we reached `maxLines` lines of text or because the `maxLines` was
@@ -68,7 +68,7 @@ namespace FlutterSharp.UI
         ///
         /// See the discussion of the `maxLines` and `ellipsis` arguments at
         /// [new ParagraphStyle].
-        public double DidExceedMaxLines => 0.0; // TODO: native 'Paragraph_didExceedMaxLines';
+        public double DidExceedMaxLines => Paragraph_didExceedMaxLines(this.Handle);
 
         /// Computes the size and position of each glyph in the paragraph.
         ///
@@ -143,17 +143,35 @@ namespace FlutterSharp.UI
         {
             Paragraph_paint(this.Handle, canvas.Handle, x, y);
         }
+        
+        [DllImport("libflutter")]
+        public extern static double Paragraph_width(IntPtr pParagraph); 
+
+        [DllImport("libflutter")]
+        public extern static double Paragraph_height(IntPtr pParagraph);
+
+        [DllImport("libflutter")]
+        public extern static double Paragraph_longestLine(IntPtr pParagraph);
+
+        [DllImport("libflutter")]
+        public extern static double Paragraph_minIntrinsicWidth(IntPtr pParagraph);
+        
+        [DllImport("libflutter")]
+        public extern static double Paragraph_maxIntrinsicWidth(IntPtr pParagraph);
+
+        [DllImport("libflutter")]
+        public extern static double Paragraph_alphabeticBaseline(IntPtr pParagraph);
+
+        [DllImport("libflutter")]
+        public extern static double Paragraph_ideographicBaseline(IntPtr pParagraph);
+
+        [DllImport("libflutter")]
+        public extern static double Paragraph_didExceedMaxLines(IntPtr pParagraph);
 
         [DllImport("libflutter")]
         public extern static void Paragraph_layout(IntPtr pParagraph, double width);
 
         [DllImport("libflutter")]
         public extern static void Paragraph_paint(IntPtr pParagraph, IntPtr canvas, double x, double y);
-
-        [DllImport("libflutter")]
-        public extern static double Paragraph_height(IntPtr pParagraph);
-
-        [DllImport("libflutter")]
-        public extern static double Paragraph_maxIntrinsicWidth(IntPtr pParagraph);
     }
 }
