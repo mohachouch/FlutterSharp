@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using FlutterSharp.UI.Types;
 
 namespace FlutterSharp.UI
@@ -6,10 +7,18 @@ namespace FlutterSharp.UI
     // TODO : implement
     public class ByteData
     {
-        public int LengthInBytes { get; internal set; }
+        private BinaryWriter _dataWriter;
+        private BinaryReader _dataReader;
 
-        public ByteData(int v)
+        public byte[] Data { get; private set; }
+
+        public int LengthInBytes => Data.Length;
+
+        public ByteData(int capacity)
         {
+            Data = new byte[capacity];
+            _dataWriter = new BinaryWriter(new MemoryStream(Data));
+            _dataReader = new BinaryReader(new MemoryStream(this.Data));
         }
 
         public void SetUint8(int i, char v)
@@ -17,29 +26,33 @@ namespace FlutterSharp.UI
 
         }
 
-        public void SetInt32(int number, int value, Endian endian)
+        public void SetInt32(int offset, int value, Endian endian)
         {
-
+            this._dataWriter.BaseStream.Position = offset;
+            this._dataWriter.Write(value);
         }
+
+        public int GetInt32(int offset, Endian endian)
+        {
+            this._dataReader.BaseStream.Position = offset;
+            return this._dataReader.ReadInt32();
+        } 
 
         internal void SetInt8(int byteCount, int index)
         {
-            throw new NotImplementedException();
+
         }
 
-        internal void SetFloat32(int byteCount, double leading, Endian kFakeHostEndian)
+        internal void SetFloat32(int offset, double value, Endian kFakeHostEndian)
         {
-            throw new NotImplementedException();
+            this._dataWriter.BaseStream.Position = offset;
+            this._dataWriter.Write((float)value);
         }
 
-        internal int GetInt32(int kMaskFilterOffset, Endian kFakeHostEndian)
+        internal double GetFloat32(int offset, Endian kFakeHostEndian)
         {
-            throw new NotImplementedException();
-        }
-
-        internal double GetFloat32(int kMaskFilterSigmaOffset, Endian kFakeHostEndian)
-        {
-            throw new NotImplementedException();
+            this._dataReader.BaseStream.Position = offset;
+            return this._dataReader.ReadSingle();
         }
 
         internal int GetInt64(int v, Endian kFakeHostEndian)

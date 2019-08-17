@@ -121,9 +121,9 @@ namespace FlutterSharp.UI
             double? height,
             double? decorationThickness,
             string locale,
-            List<dynamic> backgroundObjects,
+            object[] backgroundObjects,
             ByteData backgroundData,
-            List<dynamic> foregroundObjects,
+            object[] foregroundObjects,
             ByteData foregroundData,
             ByteData shadowsData,
             ByteData fontFeaturesData)

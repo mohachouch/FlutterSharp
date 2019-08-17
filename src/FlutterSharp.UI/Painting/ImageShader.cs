@@ -6,6 +6,12 @@ namespace FlutterSharp.UI
     /// A shader (as used by [Paint.shader]) that tiles an image.
     public class ImageShader : Shader
     {
+        public ImageShader(IntPtr handle)
+            : base(handle)
+        {
+
+        }
+
         /// Creates an image-tiling shader. The first argument specifies the image to
         /// tile. The second and third arguments specify the [TileMode] for the x
         /// direction and y direction respectively. The fourth argument gives the

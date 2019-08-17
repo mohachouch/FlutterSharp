@@ -16,6 +16,11 @@ namespace FlutterSharp.UI
     ///
     public class Gradient : Shader
     {
+        public Gradient()
+            : base(IntPtr.Zero)
+        {
+        }
+
         private void Constructor()
         {
             // TODO : native 'Gradient_constructor';

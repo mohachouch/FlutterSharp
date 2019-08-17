@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
 using System.Text;
 using static FlutterSharp.UI.UITypes;
 
@@ -65,7 +63,7 @@ namespace FlutterSharp.UI
         private static readonly int _kDataByteCount = 75;
 
         // Binary format must match the deserialization code in paint.cc.
-        internal List<dynamic> _objects;
+        internal object[] _objects;
         private static readonly int _kShaderIndex = 0;
         private static readonly int _kColorFilterMatrixIndex = 1;
         private static readonly int _kImageFilterIndex = 2;
@@ -342,12 +340,12 @@ namespace FlutterSharp.UI
             {
                 if (_objects == null)
                     return null;
-                return null; //_objects[_kShaderIndex]; TODO: Show how it work dynamic list
+                return _objects[_kShaderIndex] as Shader;
             }
             set
             {
                 if (_objects == null)
-                    _objects = new List<dynamic>(_kObjectCount);
+                    _objects = new object[_kObjectCount];
                 _objects[_kShaderIndex] = value;
             }
         }
@@ -371,7 +369,7 @@ namespace FlutterSharp.UI
                             new Color(_data.GetInt32(_kColorFilterColorOffset, _kFakeHostEndian)),
                             (BlendMode)(_data.GetInt32(_kColorFilterBlendModeOffset, _kFakeHostEndian)));
                     case ColorFilter._TypeMatrix:
-                        return null; //ColorFilter.Matrix(_objects[_kColorFilterMatrixIndex]); TODO: Show how it work dynamic list
+                        return ColorFilter.Matrix(_objects[_kColorFilterMatrixIndex] as Float32List);
                     case ColorFilter._TypeLinearToSrgbGamma:
                         return ColorFilter.LinearToSrgbGamma();
                     case ColorFilter._TypeSrgbToLinearGamma:
@@ -410,7 +408,7 @@ namespace FlutterSharp.UI
                         Debug.Assert(value._matrix != null);
 
                         if (_objects == null)
-                            _objects = new List<dynamic>(_kObjectCount);
+                            _objects = new object[_kObjectCount];
                         _objects[_kColorFilterMatrixIndex] = Float32List.FromList(value._matrix);
                     }
                 }
@@ -445,12 +443,12 @@ namespace FlutterSharp.UI
             {
                 if (_objects == null)
                     return null;
-                return null; //_objects[_kImageFilterIndex]; TODO: Show how it work dynamic list
+                return _objects[_kImageFilterIndex] as ImageFilter;
             }
             set
             {
                 if (_objects == null)
-                    _objects = new List<dynamic>(_kObjectCount);
+                    _objects = new object[_kObjectCount];
                 _objects[_kImageFilterIndex] = value;
             }
         }

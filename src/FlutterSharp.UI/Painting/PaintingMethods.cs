@@ -164,9 +164,11 @@ namespace FlutterSharp.UI
         internal static Int32List EncodeColorList(List<Color> colors)
         {
             int colorCount = colors.Count;
+            
             Int32List result = new Int32List(colorCount);
             for (int i = 0; i < colorCount; ++i)
-                result[i] = colors[i].Value;
+                result.Add(colors[i].Value);
+
             return result;
         }
 
@@ -191,7 +193,7 @@ namespace FlutterSharp.UI
         {
             Debug.Assert(OffsetIsValid(pointA));
             Debug.Assert(OffsetIsValid(pointB));
-            Float32List result = new Float32List(4);
+            Float32List result = new Float32List(4) { 0, 0, 0, 0 };
             result[0] = pointA.Dx;
             result[1] = pointA.Dy;
             result[2] = pointB.Dx;

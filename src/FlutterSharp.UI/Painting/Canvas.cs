@@ -201,7 +201,7 @@ namespace FlutterSharp.UI
             }
         }
 
-        private void SaveLayerWithoutBounds(List<dynamic> paintObjects, ByteData paintData)
+        private void SaveLayerWithoutBounds(object[] paintObjects, ByteData paintData)
         {
             // TODO :   native 'Canvas_saveLayerWithoutBounds';
         }
@@ -211,7 +211,7 @@ namespace FlutterSharp.UI
             double top,
             double right,
             double bottom,
-            List<dynamic> paintObjects,
+            object[] paintObjects,
             ByteData paintData)
         {
             // TODO : native 'Canvas_saveLayer';
@@ -362,7 +362,7 @@ namespace FlutterSharp.UI
 
         private void DrawColor(int color, int blendMode)
         {
-            // TODO : native 'Canvas_drawColor';
+            Canvas_drawColor(this.Handle, color, blendMode);
         }
 
         /// Draws a line between the given points using the given paint. The line is
@@ -381,7 +381,7 @@ namespace FlutterSharp.UI
             double y1,
             double x2,
             double y2,
-            List<dynamic> paintObjects,
+            object[] paintObjects,
             ByteData paintData)
         {
             // TODO : native 'Canvas_drawLine';
@@ -397,9 +397,9 @@ namespace FlutterSharp.UI
             DrawPaint(paint._objects, paint._data);
         }
 
-        private void DrawPaint(List<dynamic> paintObjects, ByteData paintData)
+        private void DrawPaint(object[] paintObjects, ByteData paintData)
         {
-            // TODO : native 'Canvas_drawPaint';
+            Canvas_drawPaint(this.Handle, paintData.Data, paintData.LengthInBytes);
         }
 
         /// Draws a rectangle with the given [Paint]. Whether the rectangle is filled
@@ -412,10 +412,10 @@ namespace FlutterSharp.UI
                 paint._objects, paint._data);
         }
 
-        private void DrawRect(double left, double top, double right, double bottom, List<dynamic> paintObjects,
+        private void DrawRect(double left, double top, double right, double bottom, object[] paintObjects,
             ByteData paintData)
         {
-            // TODO : native 'Canvas_drawRect';
+            Canvas_drawRect(this.Handle, left, top, right, bottom, paintData.Data, paintData.LengthInBytes);
         }
 
         /// Draws a rounded rectangle with the given [Paint]. Whether the rectangle is
@@ -427,7 +427,7 @@ namespace FlutterSharp.UI
             DrawRRect(rrect._value32, paint._objects, paint._data);
         }
 
-        private void DrawRRect(Float32List rrect, List<dynamic> paintObjects, ByteData paintData)
+        private void DrawRRect(Float32List rrect, object[] paintObjects, ByteData paintData)
         {
             // TODO :  native 'Canvas_drawRRect';
         }
@@ -445,7 +445,7 @@ namespace FlutterSharp.UI
             DrawDRRect(outer._value32, inner._value32, paint._objects, paint._data);
         }
 
-        private void DrawDRRect(Float32List outer, Float32List inner, List<dynamic> paintObjects, ByteData paintData)
+        private void DrawDRRect(Float32List outer, Float32List inner, object[] paintObjects, ByteData paintData)
         {
             // TODO : native 'Canvas_drawDRRect';
         }
@@ -461,7 +461,7 @@ namespace FlutterSharp.UI
                 paint._objects, paint._data);
         }
 
-        private void DrawOval(double left, double top, double right, double bottom, List<dynamic> paintObjects,
+        private void DrawOval(double left, double top, double right, double bottom, object[] paintObjects,
             ByteData paintData)
         {
             // TODO :  native 'Canvas_drawOval';
@@ -478,7 +478,7 @@ namespace FlutterSharp.UI
             DrawCircle(c.Dx, c.Dy, radius, paint._objects, paint._data);
         }
 
-        private void DrawCircle(double x, double y, double radius, List<dynamic> paintObjects, ByteData paintData)
+        private void DrawCircle(double x, double y, double radius, object[] paintObjects, ByteData paintData)
         {
             // TODO :  native 'Canvas_drawCircle';
         }
@@ -502,7 +502,7 @@ namespace FlutterSharp.UI
         }
 
         private void DrawArc(double left, double top, double right, double bottom, double startAngle, double sweepAngle,
-            bool useCenter, List<dynamic> paintObjects, ByteData paintData)
+            bool useCenter, object[] paintObjects, ByteData paintData)
         {
             // TODO :  native 'Canvas_drawArc';
         }
@@ -517,7 +517,7 @@ namespace FlutterSharp.UI
             DrawPath(path, paint._objects, paint._data);
         }
 
-        private void DrawPath(Path path, List<dynamic> paintObjects, ByteData paintData)
+        private void DrawPath(Path path, object[] paintObjects, ByteData paintData)
         {
             // TODO :  native 'Canvas_drawPath';
         }
@@ -535,7 +535,7 @@ namespace FlutterSharp.UI
         private void DrawImage(Image image,
             double x,
             double y,
-            List<dynamic> paintObjects,
+            object[] paintObjects,
             ByteData paintData)
         {
             // TODO : native 'Canvas_drawImage';
@@ -578,7 +578,7 @@ namespace FlutterSharp.UI
             double dstTop,
             double dstRight,
             double dstBottom,
-            List<dynamic> paintObjects,
+            object[] paintObjects,
             ByteData paintData)
         {
             // TODO :  native 'Canvas_drawImageRect';
@@ -625,7 +625,7 @@ namespace FlutterSharp.UI
             double dstTop,
             double dstRight,
             double dstBottom,
-            List<dynamic> paintObjects,
+            object[] paintObjects,
             ByteData paintData)
         {
             // TODO : native 'Canvas_drawImageNine';
@@ -701,7 +701,7 @@ namespace FlutterSharp.UI
             DrawPoints(paint._objects, paint._data, (int)pointMode, points);
         }
 
-        private void DrawPoints(List<dynamic> paintObjects,
+        private void DrawPoints(object[] paintObjects,
             ByteData paintData,
             int pointMode,
             Float32List points)
@@ -719,7 +719,7 @@ namespace FlutterSharp.UI
 
         private void DrawVertices(Vertices vertices,
             int blendMode,
-            List<dynamic> paintObjects,
+            object[] paintObjects,
             ByteData paintData)
         {
             // TODO :  native 'Canvas_drawVertices';
@@ -826,7 +826,7 @@ namespace FlutterSharp.UI
             );
         }
 
-        private void DrawAtlas(List<dynamic> paintObjects,
+        private void DrawAtlas(object[] paintObjects,
             ByteData paintData,
             Image atlas,
             Float32List rstTransforms,
@@ -874,5 +874,14 @@ namespace FlutterSharp.UI
 
         [DllImport("libflutter")]
         public extern static IntPtr Canvas_rotate(IntPtr pCanvas, double radians);
+        
+        [DllImport("libflutter")]
+        public extern static IntPtr Canvas_drawColor(IntPtr pCanvas, int color, int blendMode);
+
+        [DllImport("libflutter")]
+        public extern static IntPtr Canvas_drawPaint(IntPtr pCanvas, byte[] paint_data, int paint_data_count);
+
+        [DllImport("libflutter")]
+        public extern static IntPtr Canvas_drawRect(IntPtr pCanvas, double left, double top, double right, double bottom, byte[] paint_data, int paint_data_count);
     }
 }

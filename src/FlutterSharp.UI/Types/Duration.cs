@@ -13,8 +13,8 @@
             this.milliseconds = milliseconds;
         }
 
-        public static int MicrosecondsPerMillisecond { get; set; }
-        public int InMicroseconds { get; set; }
+        public static int MicrosecondsPerMillisecond = 1000;
+        public int InMicroseconds => microseconds;
 
         public static Duration operator -(Duration b, Duration c)
         {
