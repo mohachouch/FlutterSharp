@@ -21,11 +21,6 @@ namespace FlutterSharp.UI
             }
         }
 
-        private void Constructor()
-        {
-            //TODO : native 'PictureRecorder_constructor';
-        }
-
         /// Whether this object is currently recording commands.
         ///
         /// Specifically, this returns true if a [Canvas] object has been
@@ -33,9 +28,8 @@ namespace FlutterSharp.UI
         /// call to [endRecording], and false if either this
         /// [PictureRecorder] has not yet been associated with a [Canvas],
         /// or the [endRecording] method has already been called.
-        public bool IsRecording => false;  // TODO : native 'PictureRecorder_isRecording';
-
-
+        public bool IsRecording => PictureRecorder_isRecording(this.Handle);
+        
         /// Finishes recording graphical operations.
         ///
         /// Returns a picture containing the graphical operations that have been
@@ -45,14 +39,17 @@ namespace FlutterSharp.UI
         /// Returns null if the PictureRecorder is not associated with a canvas.
         public Picture EndRecording()
         {
-            IntPtr paragraphHandle = PictureRecorder_endRecording(this.Handle);
-            return paragraphHandle != IntPtr.Zero ? new Picture(paragraphHandle) : null;
+            IntPtr pictureHandle = PictureRecorder_endRecording(this.Handle);
+            return pictureHandle != IntPtr.Zero ? new Picture(pictureHandle) : null;
         }
 
         [DllImport("libflutter")]
         public extern static IntPtr PictureRecorder_constructor();
 
         [DllImport("libflutter")]
-        public extern static IntPtr PictureRecorder_endRecording(IntPtr pointer);
+        public extern static bool PictureRecorder_isRecording(IntPtr pPictureRecorder);
+
+        [DllImport("libflutter")]
+        public extern static IntPtr PictureRecorder_endRecording(IntPtr pPictureRecorder);
     }
 }
