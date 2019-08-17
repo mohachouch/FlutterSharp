@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using static FlutterSharp.UI.PaintingMethods;
 
 namespace FlutterSharp.UI
@@ -25,13 +27,21 @@ namespace FlutterSharp.UI
     {
         /// Create a new empty [Path] object.
         public Path()
+            : base(Path_constructor())
         {
-            Constructor();
+            if (this.Handle == IntPtr.Zero)
+            {
+                throw new InvalidOperationException("Unable to create a new Path instance.");
+            }
         }
 
-        private void Constructor()
+        public Path(IntPtr handle)
+           : base(handle)
         {
-            // TODO : native 'Path_constructor';
+            if (this.Handle == IntPtr.Zero)
+            {
+                throw new InvalidOperationException("Unable to create a new Path instance.");
+            }
         }
 
         /// Creates a copy of another [Path].
@@ -45,8 +55,8 @@ namespace FlutterSharp.UI
 
         private Path Clone()
         {
-            // TODO : native 'Path_clone';
-            return null;
+            IntPtr pathHandle = Path_clone(this.Handle);
+            return pathHandle != IntPtr.Zero ? new Path(pathHandle) : null;
         }
 
         /// Determines how the interior of this path is calculated.
@@ -60,39 +70,38 @@ namespace FlutterSharp.UI
 
         private int GetFillType()
         {
-            // TODO : native 'Path_getFillType';
-            return 0;
+            return Path_getFillType(this.Handle);
         }
 
         private void SetFillType(int fillType)
         {
-            // TODO : native 'Path_setFillType';
+            Path_setFillType(this.Handle, fillType);
         }
 
         /// Starts a new sub-path at the given coordinate.
         public void MoveTo(double x, double y)
         {
-            // TODO : native 'Path_moveTo';
+            Path_moveTo(this.Handle, x, y);
         }
 
         /// Starts a new sub-path at the given offset from the current point.
         public void RelativeMoveTo(double dx, double dy)
         {
-            // TODO : native 'Path_relativeMoveTo';
+            Path_relativeMoveTo(this.Handle, dx, dy);
         }
 
         /// Adds a straight line segment from the current point to the given
         /// point.
         public void LineTo(double x, double y)
         {
-            // TODO : native 'Path_lineTo';
+            Path_lineTo(this.Handle, x, y);
         }
 
         /// Adds a straight line segment from the current point to the point
         /// at the given offset from the current point.
         public void RelativeLineTo(double dx, double dy)
         {
-            // TODO :  native 'Path_relativeLineTo';
+            Path_relativeLineTo(this.Handle, dx, dy);
         }
 
         /// Adds a quadratic bezier segment that curves from the current
@@ -100,7 +109,7 @@ namespace FlutterSharp.UI
         /// (x1,y1).
         public void QuadraticBezierTo(double x1, double y1, double x2, double y2)
         {
-            // TODO : native 'Path_quadraticBezierTo';
+            Path_quadraticBezierTo(this.Handle, x1, y1, x2, y2);
         }
 
         /// Adds a quadratic bezier segment that curves from the current
@@ -109,7 +118,7 @@ namespace FlutterSharp.UI
         /// point.
         public void RelativeQuadraticBezierTo(double x1, double y1, double x2, double y2)
         {
-            // TODO :  native 'Path_relativeQuadraticBezierTo';
+            Path_relativeQuadraticBezierTo(this.Handle, x1, y1, x2, y2);
         }
 
         /// Adds a cubic bezier segment that curves from the current point
@@ -117,7 +126,7 @@ namespace FlutterSharp.UI
         /// (x2,y2).
         public void CubicTo(double x1, double y1, double x2, double y2, double x3, double y3)
         {
-            // TODO : native 'Path_cubicTo';
+            Path_cubicTo(this.Handle, x1, y1, x2, y2, x3, y3);
         }
 
         /// Adds a cubic bezier segment that curves from the current point
@@ -126,7 +135,7 @@ namespace FlutterSharp.UI
         /// current point.
         public void RelativeCubicTo(double x1, double y1, double x2, double y2, double x3, double y3)
         {
-            // TODO :native 'Path_relativeCubicTo';
+            Path_relativeCubicTo(this.Handle, x1, y1, x2, y2, x3, y3);
         }
 
         /// Adds a bezier segment that curves from the current point to the
@@ -136,7 +145,7 @@ namespace FlutterSharp.UI
         /// less than 1, it is an ellipse.
         public void ConicTo(double x1, double y1, double x2, double y2, double w)
         {
-            // TODO : native 'Path_conicTo';
+            Path_conicTo(this.Handle, x1, y1, x2, y2, w);
         }
 
         /// Adds a bezier segment that curves from the current point to the
@@ -147,7 +156,7 @@ namespace FlutterSharp.UI
         /// is less than 1, it is an ellipse.
         public void RelativeConicTo(double x1, double y1, double x2, double y2, double w)
         {
-            // TODO : native 'Path_relativeConicTo';
+            Path_relativeConicTo(this.Handle, x1, y1, x2, y2, w);
         }
 
         /// If the `forceMoveTo` argument is false, adds a straight line
@@ -175,7 +184,7 @@ namespace FlutterSharp.UI
         private void ArcTo(double left, double top, double right, double bottom,
                     double startAngle, double sweepAngle, bool forceMoveTo)
         {
-            // TODO : native 'Path_arcTo';
+            Path_arcTo(this.Handle, left, top, right, bottom, startAngle, sweepAngle, forceMoveTo);
         }
 
         /// Appends up to four conic curves weighted to describe an oval of `radius`
@@ -207,7 +216,7 @@ namespace FlutterSharp.UI
                      double radiusY, double rotation, bool largeArc,
                      bool clockwise)
         {
-            // TODO : native 'Path_arcToPoint';
+            Path_arcToPoint(this.Handle, arcEndX, arcEndY, radiusX, radiusY, rotation, largeArc, clockwise);
         }
 
         /// Appends up to four conic curves weighted to describe an oval of `radius`
@@ -239,12 +248,13 @@ namespace FlutterSharp.UI
                              double radiusY, double rotation,
                              bool largeArc, bool clockwise)
         {
-            // TODO : native 'Path_relativeArcToPoint';
+            Path_relativeArcToPoint(this.Handle, arcEndX, arcEndY, radiusX,
+                            radiusY, rotation, largeArc, clockwise);
         }
 
         /// Adds a new sub-path that consists of four lines that outline the
         /// given rectangle.
-        public void addRect(Rect rect)
+        public void AddRect(Rect rect)
         {
             Debug.Assert(RectIsValid(rect));
             AddRect(rect.Left, rect.Top, rect.Right, rect.Bottom);
@@ -252,7 +262,7 @@ namespace FlutterSharp.UI
 
         private void AddRect(double left, double top, double right, double bottom)
         {
-            // TODO :  native 'Path_addRect';
+            Path_addRect(this.Handle, left, top, right, bottom);
         }
 
         /// Adds a new sub-path that consists of a curve that forms the
@@ -268,7 +278,7 @@ namespace FlutterSharp.UI
 
         private void AddOval(double left, double top, double right, double bottom)
         {
-            // TODO : native 'Path_addOval';
+            Path_addOval(this.Handle, left, top, right, bottom);
         }
 
         /// Adds a new sub-path with one arc segment that consists of the arc
@@ -285,10 +295,9 @@ namespace FlutterSharp.UI
             AddArc(oval.Left, oval.Top, oval.Right, oval.Bottom, startAngle, sweepAngle);
         }
 
-        private void AddArc(double left, double top, double right, double bottom,
-                     double startAngle, double sweepAngle)
+        private void AddArc(double left, double top, double right, double bottom, double startAngle, double sweepAngle)
         {
-            // TODO : native 'Path_addArc';
+            Path_addArc(this.Handle, left, top, right, bottom, startAngle, sweepAngle);
         }
 
         /// Adds a new sub-path with a sequence of line segments that connect the given
@@ -346,7 +355,7 @@ namespace FlutterSharp.UI
 
         private void AddPath(Path path, double dx, double dy)
         {
-            // TODO :  native 'Path_addPath';
+            Path_addPath(this.Handle, path.Handle, dx, dy);
         }
 
         private void AddPathWithMatrix(Path path, double dx, double dy, Float64List matrix)
@@ -377,7 +386,7 @@ namespace FlutterSharp.UI
 
         private void ExtendWithPath(Path path, double dx, double dy)
         {
-            // TODO : native 'Path_extendWithPath';
+            Path_extendWithPath(this.Handle, path.Handle, dx, dy);
         }
 
         private void ExtendWithPathAndMatrix(Path path, double dx, double dy, Float64List matrix)
@@ -389,7 +398,7 @@ namespace FlutterSharp.UI
         /// from the current point to the first point of the sub-path.
         public void Close()
         {
-            // TODO : native 'Path_close';
+            Path_close(this.Handle);
         }
         
         /// Clears the [Path] object of all sub-paths, returning it to the
@@ -397,7 +406,7 @@ namespace FlutterSharp.UI
         /// reset to the origin.
         public void Reset()
         {
-            // TODO : native 'Path_reset';
+            Path_reset(this.Handle);
         }
         
         /// Tests to see if the given point is within the path. (That is, whether the
@@ -415,8 +424,7 @@ namespace FlutterSharp.UI
 
         private bool Contains(double x, double y)
         {
-            // TODO : native 'Path_contains';
-            return false;
+            return Path_contains(this.Handle, x, y);
         }
 
         /// Returns a copy of the path with all the segments of every
@@ -429,8 +437,8 @@ namespace FlutterSharp.UI
 
         private Path Shift(double dx, double dy)
         {
-            // TODO : native 'Path_shift';
-            return null;
+            IntPtr pathHandle = Path_shift(this.Handle, dx, dy);
+            return pathHandle != IntPtr.Zero ? new Path(pathHandle) : null;
         }
         
         /// Returns a copy of the path with all the segments of every
@@ -483,8 +491,7 @@ namespace FlutterSharp.UI
 
         private bool Op(Path path1, Path path2, int operation)
         {
-            // TODO : native 'Path_op';
-            return false;
+            return Path_op(this.Handle, path1.Handle, path2.Handle, operation);
         }
 
         /// Creates a [PathMetrics] object for this path.
@@ -495,5 +502,89 @@ namespace FlutterSharp.UI
         {
             return new PathMetrics(this, forceClosed);
         }
+
+        [DllImport("libflutter")]
+        public extern static IntPtr Path_constructor();
+
+        [DllImport("libflutter")]
+        public extern static IntPtr Path_clone(IntPtr pPath);
+            
+        [DllImport("libflutter")]
+        public extern static int Path_getFillType(IntPtr pPath); 
+
+        [DllImport("libflutter")]
+        public extern static void Path_setFillType(IntPtr pPath, int fillType); 
+
+        [DllImport("libflutter")]
+        public extern static void Path_moveTo(IntPtr pPath, double x, double y);
+
+        [DllImport("libflutter")]
+        public extern static void Path_relativeMoveTo(IntPtr pPath, double dx, double dy);
+            
+        [DllImport("libflutter")]
+        public extern static void Path_lineTo(IntPtr pPath, double x, double y);
+
+        [DllImport("libflutter")]
+        public extern static void Path_relativeLineTo(IntPtr pPath, double dx, double dy);
+        
+        [DllImport("libflutter")]
+        public extern static void Path_quadraticBezierTo(IntPtr pPath, double x1, double y1, double x2, double y2);
+
+        [DllImport("libflutter")]
+        public extern static void Path_relativeQuadraticBezierTo(IntPtr pPath, double x1, double y1, double x2, double y2);
+
+        [DllImport("libflutter")]
+        public extern static void Path_cubicTo(IntPtr pPath, double x1, double y1, double x2, double y2, double x3, double y3);
+
+        [DllImport("libflutter")]
+        public extern static void Path_relativeCubicTo(IntPtr pPath, double x1, double y1, double x2, double y2, double x3, double y3);
+
+        [DllImport("libflutter")]
+        public extern static void Path_conicTo(IntPtr pPath, double x1, double y1, double x2, double y2, double w);
+
+        [DllImport("libflutter")]
+        public extern static void Path_relativeConicTo(IntPtr pPath, double x1, double y1, double x2, double y2, double w);
+
+        [DllImport("libflutter")]
+        public extern static void Path_arcTo(IntPtr pPath, double left, double top, double right, double bottom, double startAngle, 
+            double sweepAngle, bool forceMoveTo);
+
+        [DllImport("libflutter")]
+        public extern static void Path_arcToPoint(IntPtr pPath, double arcEndX, double arcEndY, double radiusX, double radiusY, 
+            double rotation, bool largeArc, bool clockwise);
+        
+        [DllImport("libflutter")]
+        public extern static void Path_relativeArcToPoint(IntPtr pPath, double arcEndX, double arcEndY, double radiusX, double radiusY,
+            double rotation, bool largeArc, bool clockwise);
+
+        [DllImport("libflutter")]
+        public extern static void Path_addRect(IntPtr pPath, double left, double top, double right, double bottom);
+
+        [DllImport("libflutter")]
+        public extern static void Path_addOval(IntPtr pPath, double left, double top, double right, double bottom);
+
+        [DllImport("libflutter")]
+        public extern static void Path_addArc(IntPtr pPath, double left, double top, double right, double bottom, double startAngle, double sweepAngle);
+
+        [DllImport("libflutter")]
+        public extern static void Path_addPath(IntPtr pPath, IntPtr pAddPath, double dx, double dy);
+
+        [DllImport("libflutter")]
+        public extern static void Path_extendWithPath(IntPtr pPath, IntPtr pAddPath, double dx, double dy);
+
+        [DllImport("libflutter")]
+        public extern static void Path_close(IntPtr pPath);
+
+        [DllImport("libflutter")]
+        public extern static void Path_reset(IntPtr pPath); 
+
+        [DllImport("libflutter")]
+        public extern static bool Path_contains(IntPtr pPath, double x, double y);
+
+        [DllImport("libflutter")]
+        public extern static IntPtr Path_shift(IntPtr pPath, double dx, double dy);
+
+        [DllImport("libflutter")]
+        public extern static bool Path_op(IntPtr pPath, IntPtr pPath1, IntPtr pPath2, int operation);
     }
 }
