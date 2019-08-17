@@ -74,7 +74,7 @@ namespace FlutterSharp.UI
         ///    commands done until the matching [restore].
         public void Save()
         {
-            // TODO : native 'Canvas_save';
+            Canvas_save(this.Handle);
         }
 
         /// Saves a copy of the current transform and clip on the save stack, and then
@@ -226,7 +226,7 @@ namespace FlutterSharp.UI
         /// cause the new layer to be composited into the previous layer.
         public void Restore()
         {
-            // TODO :  native 'Canvas_restore';
+            Canvas_restore(this.Handle);
         }
 
         /// Returns the number of items on the save stack, including the
@@ -235,7 +235,7 @@ namespace FlutterSharp.UI
         /// each matching call to [restore] decrements it.
         ///
         /// This number cannot go below 1.
-        public int GetSaveCount() => 0; // TODO: native 'Canvas_getSaveCount';
+        public int GetSaveCount() => Canvas_getSaveCount(this.Handle);
 
         /// Add a translation to the current transform, shifting the coordinate space
         /// horizontally by the first argument and vertically by the second argument.
@@ -272,7 +272,7 @@ namespace FlutterSharp.UI
         /// units clockwise around the origin.
         public void Skew(double sx, double sy)
         {
-            // TODO : native 'Canvas_skew';
+            Canvas_skew(this.Handle, sx, sy);
         }
 
         /// Multiply the current transform by the specified 4⨉4 transformation matrix
@@ -308,10 +308,9 @@ namespace FlutterSharp.UI
 
         private void ClipRect(double left, double top, double right, double bottom, int clipOp, bool doAntiAlias)
         {
-            // TODO : native 'Canvas_clipRect';
+            Canvas_clipRect(this.Handle, left, top, right, bottom, clipOp, doAntiAlias);
         }
-
-
+        
         /// Reduces the clip region to the intersection of the current clip and the
         /// given rounded rectangle.
         ///
@@ -347,7 +346,7 @@ namespace FlutterSharp.UI
             Debug.Assert(path != null); // path is checked on the engine side
             Debug.Assert(doAntiAlias != null);
 
-            // TODO : native 'Canvas_clipPath';
+            Canvas_clipPath(this.Handle, path.Handle, doAntiAlias);
         }
 
         /// Paints the given [Color] onto the canvas, applying the given
@@ -852,36 +851,51 @@ namespace FlutterSharp.UI
             DrawShadow(path, color.Value, elevation, transparentOccluder);
         }
 
-        private void DrawShadow(Path path,
-            int color,
-            double elevation,
-            bool transparentOccluder)
+        private void DrawShadow(Path path, int color, double elevation, bool transparentOccluder)
         {
-            // TODO : native 'Canvas_drawShadow';
+            Canvas_drawShadow(this.Handle, path.Handle, color, elevation, transparentOccluder);
         }
 
         [DllImport("libflutter")]
-        public extern static IntPtr Canvas_constructor(IntPtr pRecorder, double left,
-                  double top,
-                  double right,
-                  double bottom);
+        public extern static IntPtr Canvas_constructor(IntPtr pRecorder, double left, double top, double right, double bottom);
 
         [DllImport("libflutter")]
-        public extern static IntPtr Canvas_scale(IntPtr pCanvas, double sx, double sy);
+        public extern static void Canvas_save(IntPtr pCanvas);
 
         [DllImport("libflutter")]
-        public extern static IntPtr Canvas_translate(IntPtr pCanvas, double dx, double dy);
+        public extern static void Canvas_restore(IntPtr pCanvas);
 
         [DllImport("libflutter")]
-        public extern static IntPtr Canvas_rotate(IntPtr pCanvas, double radians);
+        public extern static int Canvas_getSaveCount(IntPtr pCanvas);
         
         [DllImport("libflutter")]
-        public extern static IntPtr Canvas_drawColor(IntPtr pCanvas, int color, int blendMode);
+        public extern static void Canvas_translate(IntPtr pCanvas, double dx, double dy);
 
         [DllImport("libflutter")]
-        public extern static IntPtr Canvas_drawPaint(IntPtr pCanvas, byte[] paint_data, int paint_data_count);
+        public extern static void Canvas_scale(IntPtr pCanvas, double sx, double sy);
+        
+        [DllImport("libflutter")]
+        public extern static void Canvas_rotate(IntPtr pCanvas, double radians);
 
         [DllImport("libflutter")]
-        public extern static IntPtr Canvas_drawRect(IntPtr pCanvas, double left, double top, double right, double bottom, byte[] paint_data, int paint_data_count);
+        public extern static void Canvas_skew(IntPtr pCanvas, double sx, double sy); 
+
+        [DllImport("libflutter")]
+        public extern static void Canvas_clipRect(IntPtr pCanvas, double left, double top, double right, double bottom, int clipOp, bool doAntiAlias);
+
+        [DllImport("libflutter")]
+        public extern static void Canvas_clipPath(IntPtr pCanvas, IntPtr pPath, bool doAntiAlias);
+
+        [DllImport("libflutter")]
+        public extern static void Canvas_drawColor(IntPtr pCanvas, int color, int blendMode);
+
+        [DllImport("libflutter")]
+        public extern static void Canvas_drawPaint(IntPtr pCanvas, byte[] paint_data, int paint_data_count);
+
+        [DllImport("libflutter")]
+        public extern static void Canvas_drawRect(IntPtr pCanvas, double left, double top, double right, double bottom, byte[] paint_data, int paint_data_count);
+        
+        [DllImport("libflutter")]
+        public extern static void Canvas_drawShadow(IntPtr pCanvas, IntPtr pPath, int color, double elevation, bool transparentOccluder);
     }
 }
