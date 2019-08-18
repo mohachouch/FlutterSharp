@@ -518,7 +518,7 @@ namespace FlutterSharp.UI
 
         private void DrawPath(Path path, object[] paintObjects, ByteData paintData)
         {
-            // TODO :  native 'Canvas_drawPath';
+            Canvas_drawPath(this.Handle, path.Handle, paintData.Data, paintData.LengthInBytes);
         }
 
         /// Draws the given [Image] into the canvas with its top-left corner at the
@@ -894,7 +894,10 @@ namespace FlutterSharp.UI
 
         [DllImport("libflutter")]
         public extern static void Canvas_drawRect(IntPtr pCanvas, double left, double top, double right, double bottom, byte[] paint_data, int paint_data_count);
-        
+
+        [DllImport("libflutter")]
+        public extern static void Canvas_drawPath(IntPtr pCanvas, IntPtr pPath, byte[] paint_data, int paint_data_count);
+
         [DllImport("libflutter")]
         public extern static void Canvas_drawShadow(IntPtr pCanvas, IntPtr pPath, int color, double elevation, bool transparentOccluder);
     }
