@@ -449,16 +449,12 @@ namespace FlutterSharp.UI
         // Values above must match constants in //engine/src/sky/compositor/performance_overlay_layer.h
         public void AddPerformanceOverlay(int enabledOptions, Rect bounds)
         {
-            /*TODO:_addPerformanceOverlay(enabledOptions,
-                bounds.left,
-                bounds.right,
-                bounds.top,
-                bounds.bottom);
-                 void _addPerformanceOverlay(int enabledOptions,
-            double left,
-            double right,
-            double top,
-            double bottom) native 'SceneBuilder_addPerformanceOverlay';*/
+            AddPerformanceOverlay(enabledOptions, bounds.Left, bounds.Right, bounds.Top, bounds.Bottom);
+        }
+
+        private void AddPerformanceOverlay(int enabledOptions, double left, double right, double top, double bottom)
+        {
+            SceneBuilder_addPerformanceOverlay(this.Handle, enabledOptions, left, right, top, bottom);
         }
 
         /// Adds a [Picture] to the scene.
@@ -607,6 +603,14 @@ namespace FlutterSharp.UI
             double top,
             double bottom,
             int clipBehavior);
+
+        [DllImport("libflutter")]
+        public extern static void SceneBuilder_addPerformanceOverlay(IntPtr pSceneBuilder,
+            int enabledOptions,
+            double left, 
+            double right,
+            double top, 
+            double bottom);
 
         [DllImport("libflutter")]
         public extern static void SceneBuilder_addPicture(IntPtr pSceneBuilder,
