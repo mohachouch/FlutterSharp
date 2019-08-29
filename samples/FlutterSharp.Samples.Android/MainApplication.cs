@@ -6,6 +6,7 @@ using FlutterSharp.UI.Android;
 
 namespace FlutterSharp.Samples.Android
 {
+    [Preserve]
     [Application]
     public class MainApplication : FlutterSharpApplication
     {
