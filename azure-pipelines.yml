@@ -21,7 +21,6 @@ steps:
 - task: XamarinAndroid@1
   inputs:
     projectFile: '**/FlutterSharp.Samples.Android.csproj'
-    outputDirectory: '$(outputDirectory)'
     configuration: '$(buildConfiguration)'
     msbuildArguments: '/p:JavaSdkDirectory="$(JAVA_HOME)/" /p:AndroidNdkDirectory=$(ANDROID_NDK_HOME) /t:SignAndroidPackage /p:AndroidKeyStore=false' 
 
@@ -36,6 +35,6 @@ steps:
     
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(outputDirectory)'
+    PathtoPublish: '$(Build.SourcesDirectory)'
     ArtifactName: 'Output'
     publishLocation: 'Container'
