@@ -22,7 +22,7 @@ steps:
     configuration: '$(buildConfiguration)'
     msbuildArchitectureOption: x64
     createAppPackage: true
-    msbuildArguments: /p:JavaSdkDirectory="$(JAVA_HOME)/"
+    msbuildArguments: '/p:JavaSdkDirectory="$(JAVA_HOME)/" /p:AndroidNdkDirectory=$(ANDROID_NDK_HOME)' 
     
 - task: PublishBuildArtifacts@1
   inputs:
