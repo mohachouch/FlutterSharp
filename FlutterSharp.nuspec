@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>FlutterSharp</id>
+    <version>$version$</version>
+    <title>Flutter Sharp</title>
+    <authors>Mohamed CHOUCHANE</authors>
+    <owners>Mohamed CHOUCHANE</owners>
+    <licenseUrl>https://github.com/mohachouch/FlutterSharp/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/mohachouch/FlutterSharp</projectUrl>    
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Flutter framework in C#</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2019 - Mohamed CHOUCHANE</copyright>
+    <tags>Flutter C#</tags>
+  </metadata>
+  <files>
+    <!--netstandard-->
+    <file src="..\src\FlutterSharp.UI\bin\$Configuration$\netstandard2.0\FlutterSharp.UI.dll" target="lib\netstandard2.0" />
+    <file src="..\src\FlutterSharp.UI\bin\$Configuration$\netstandard2.0\FlutterSharp.UI.*pdb" target="lib\netstandard2.0" />
+   
+    <!--android-->
+    <file src="..\src\FlutterSharp.UI\bin\$Configuration$\netstandard2.0\FlutterSharp.UI.dll" target="lib\MonoAndroid81" />
+    <file src="..\src\FlutterSharp.UI\bin\$Configuration$\netstandard2.0\FlutterSharp.UI.*pdb" target="lib\MonoAndroid81" />
+    <file src="..\src\FlutterSharp.UI.Android\bin\$Configuration$\FlutterSharp.UI.Android.dll" target="lib\MonoAndroid81" />
+    <file src="..\src\FlutterSharp.UI.Android\bin\$Configuration$\FlutterSharp.UI.Android.*pdb" target="lib\MonoAndroid81" />
+ </files>    
+</package>
