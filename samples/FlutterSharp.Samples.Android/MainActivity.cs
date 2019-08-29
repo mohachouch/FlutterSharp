@@ -2,6 +2,7 @@
 using Android.Content.PM;
 using Android.OS;
 using Android.Views;
+using FlutterSharp.Samples.Layers.Raw;
 using FlutterSharp.UI.Android;
 
 namespace FlutterSharp.Samples.Android
@@ -29,6 +30,7 @@ namespace FlutterSharp.Samples.Android
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            new SpinningSquareSample().Main();
             this.FlutterView.FirstFrame += FlutterView_FirstFrame;
         }
 
