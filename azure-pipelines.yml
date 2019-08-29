@@ -20,6 +20,9 @@ steps:
     projectFile: '**/FlutterSharp.Samples.Android.csproj'
     outputDirectory: '$(outputDirectory)'
     configuration: '$(buildConfiguration)'
+    msbuildArchitectureOption: x64
+    createAppPackage: true
+    msbuildArguments: /p:JavaSdkDirectory="$(JAVA_HOME)/"
     
 - task: PublishBuildArtifacts@1
   inputs:
