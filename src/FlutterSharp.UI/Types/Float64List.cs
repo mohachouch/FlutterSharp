@@ -6,6 +6,8 @@ namespace FlutterSharp.UI
     {
         public Float64List(int capacity) : base(capacity)
         {
+            for (int i = 0; i < capacity; i++)
+                this.Add(0);
         }
 
         public Float64List(IEnumerable<double> collection) : base(collection)

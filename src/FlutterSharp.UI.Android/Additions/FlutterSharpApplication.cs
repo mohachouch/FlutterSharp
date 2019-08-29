@@ -5,7 +5,6 @@ using IO.Flutter.App;
 
 namespace FlutterSharp.UI.Android
 {
-    [Application]
     public class FlutterSharpApplication : FlutterApplication
     {
         public FlutterSharpApplication()
