@@ -15,10 +15,11 @@ steps:
   inputs:
     restoreSolution: '**/*.sln'
 
-- task: MSBuild@1
+- task: XamarinAndroid@1
   inputs:
-    solution: '**/*.sln'
-    configuration: 'Release'
+    projectFile: '**/*.csproj'
+    outputDirectory: '$(outputDirectory)'
+    configuration: '$(buildConfiguration)'
 
 - task: PublishBuildArtifacts@1
   inputs:
