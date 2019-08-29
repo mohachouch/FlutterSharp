@@ -20,10 +20,10 @@ steps:
     projectFile: '**/FlutterSharp.Samples.Android.csproj'
     outputDirectory: '$(outputDirectory)'
     configuration: '$(buildConfiguration)'
-    msbuildArguments: '/t:SignAndroidPackage'
+    msbuildArguments: '/t:SignAndroidPackage /p:AndroidKeyStore=false'
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.SourcesDirectory)'
-    ArtifactName: 'SourcesDirectory'
+    PathtoPublish: '$(outputDirectory)'
+    ArtifactName: 'Output'
     publishLocation: 'Container'
