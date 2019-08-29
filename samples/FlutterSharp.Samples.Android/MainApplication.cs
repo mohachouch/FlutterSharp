@@ -6,11 +6,11 @@ using FlutterSharp.UI.Android;
 
 namespace FlutterSharp.Samples.Android
 {
-    [Preserve]
+    [Preserve(AllMembers = true)]
     [Application]
     public class MainApplication : FlutterSharpApplication
     {
-        public MainApplication()
+        public MainApplication() 
         {
         }
 

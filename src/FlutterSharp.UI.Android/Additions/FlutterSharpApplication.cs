@@ -5,13 +5,16 @@ using IO.Flutter.App;
 
 namespace FlutterSharp.UI.Android
 {
+    [Preserve(AllMembers = true)]
     public class FlutterSharpApplication : FlutterApplication
     {
         public FlutterSharpApplication()
         {
+
+
         }
 
-        protected FlutterSharpApplication(IntPtr javaReference, JniHandleOwnership transfer)
+        public FlutterSharpApplication(IntPtr javaReference, JniHandleOwnership transfer)
             : base(javaReference, transfer)
         {
         }
