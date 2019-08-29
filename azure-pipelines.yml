@@ -21,7 +21,13 @@ steps:
     outputDirectory: '$(outputDirectory)'
     configuration: '$(buildConfiguration)'
     msbuildArguments: '/p:JavaSdkDirectory="$(JAVA_HOME)/" /p:AndroidNdkDirectory=$(ANDROID_NDK_HOME) /t:SignAndroidPackage /p:AndroidKeyStore=false' 
-    
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'pack'
+    packagesToPack: 'FlutterSharp.nuspec'
+    versioningScheme: 'off'
+ 
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(outputDirectory)'
