@@ -7,6 +7,9 @@ pool:
 variables:
   buildConfiguration: 'Release'
   outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
+  Major: '0'
+  Minor: '0'
+  Patch: '1'
 
 steps:
 - task: NuGetToolInstaller@1
@@ -26,7 +29,10 @@ steps:
   inputs:
     command: 'pack'
     packagesToPack: 'FlutterSharp.nuspec'
-    versioningScheme: 'byBuildNumber'
+    versioningScheme: byPrereleaseNumber
+    majorVersion: '$(Major)'
+    minorVersion: '$(Minor)'
+    patchVersion: '$(Patch)'
     
 - task: PublishBuildArtifacts@1
   inputs:
