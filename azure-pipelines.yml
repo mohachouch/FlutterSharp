@@ -21,7 +21,7 @@ steps:
     outputDirectory: '$(outputDirectory)'
     configuration: '$(buildConfiguration)'
     msbuildArguments: '/t:SignAndroidPackage /p:AndroidKeyStore=false'
-
+    jdkOption: 'JDKVersion'
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(outputDirectory)'
