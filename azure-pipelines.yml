@@ -26,8 +26,8 @@ steps:
   inputs:
     command: 'pack'
     packagesToPack: 'FlutterSharp.nuspec'
-    versioningScheme: 'off'
- 
+    versioningScheme: 'byBuildNumber'
+    
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(outputDirectory)'
