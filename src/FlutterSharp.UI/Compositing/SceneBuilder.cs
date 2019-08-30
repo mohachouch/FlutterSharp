@@ -145,9 +145,15 @@ namespace FlutterSharp.UI
         public OffsetEngineLayer PushOffset(double dx, double dy, OffsetEngineLayer oldLayer = null)
         {
             Debug.Assert(_debugCheckCanBeUsedAsOldLayer(oldLayer, "pushOffset"));
-            OffsetEngineLayer layer = null; // TODO : native 'SceneBuilder_pushOffset';OffsetEngineLayer._(_pushOffset(dx, dy));
+            OffsetEngineLayer layer = new OffsetEngineLayer(this.PushOffset(dx, dy));
             Debug.Assert(_debugPushLayer(layer));
             return layer;
+        }
+
+        private EngineLayer PushOffset(double dx, double dy)
+        {
+            IntPtr engineHandle = SceneBuilder_pushOffset(this.Handle, dx, dy);
+            return engineHandle != IntPtr.Zero ? new EngineLayer(engineHandle) : null;
         }
 
         /// Pushes a rectangular clip operation onto the operation stack.
@@ -227,8 +233,8 @@ namespace FlutterSharp.UI
 
         private EngineLayer PushClipPath(Path path, int clipBehavior)
         {
-            // TODO : native 'SceneBuilder_pushClipPath';
-            return null;
+            IntPtr engineHandle = SceneBuilder_pushClipPath(this.Handle, path.Handle, clipBehavior);
+            return engineHandle != IntPtr.Zero ? new EngineLayer(engineHandle) : null;
         }
 
         /// Pushes an opacity operation onto the operation stack.
@@ -398,7 +404,12 @@ namespace FlutterSharp.UI
             Debug.Assert(retainedLayer is EngineLayerWrapper);
             Debug.Assert(_addRetainedAssert(retainedLayer));
             EngineLayerWrapper wrapper = retainedLayer as EngineLayerWrapper;
-            // _addRetained(wrapper._nativeLayer); TODO :  native 'SceneBuilder_addRetained';
+            AddRetained(wrapper._nativeLayer.Handle);
+        }
+
+        private void AddRetained(IntPtr pRetainedLayer)
+        {
+            SceneBuilder_addRetained(this.Handle, pRetainedLayer);
         }
 
         private bool _addRetainedAssert(EngineLayer retainedLayer)
@@ -487,9 +498,12 @@ namespace FlutterSharp.UI
             if (offset == null)
                 offset = Offset.Zero;
 
-            /*TODO :_addTexture(offset.dx, offset.dy, width, height, textureId, freeze);
-             void _addTexture(double dx, double dy, double width, double height, int textureId, bool freeze) native 'SceneBuilder_addTexture';
-             */
+            AddTexture(offset.Dx, offset.Dy, width, height, textureId, freeze);
+        }
+
+        private void AddTexture(double dx, double dy, double width, double height, int textureId, bool freeze)
+        {
+            SceneBuilder_addTexture(this.Handle, dx, dy, width, height, textureId, freeze);
         }
 
         /// Adds a platform view (e.g an iOS UIView) to the scene.
@@ -513,9 +527,12 @@ namespace FlutterSharp.UI
             if (offset == null)
                 offset = Offset.Zero;
 
-            /*TODO: _addPlatformView(offset.dx, offset.dy, width, height, viewId);
-              void _addPlatformView(double dx, double dy, double width, double height, int viewId) native 'SceneBuilder_addPlatformView';
-             */
+            AddPlatformView(offset.Dx, offset.Dy, width, height, viewId);
+        }
+
+        private void AddPlatformView(double dx, double dy, double width, double height, int viewId)
+        {
+            SceneBuilder_addPlatformView(this.Handle, dx, dy, width, height, viewId);
         }
 
         /// (Fuchsia-only) Adds a scene rendered by another application to the scene
@@ -547,7 +564,7 @@ namespace FlutterSharp.UI
         /// to you.
         public void SetRasterizerTracingThreshold(int frameInterval)
         {
-            // TODO :  native 'SceneBuilder_setRasterizerTracingThreshold';
+            SceneBuilder_setRasterizerTracingThreshold(this.Handle, frameInterval);
         }
 
         /// Sets whether the raster cache should checkerboard cached entries. This is
@@ -567,7 +584,7 @@ namespace FlutterSharp.UI
         /// interested in using this feature, please contact [flutter-dev](https://groups.google.com/forum/#!forum/flutter-dev).
         public void SetCheckerboardRasterCacheImages(bool checkerboard)
         {
-            // TODO : native 'SceneBuilder_setCheckerboardRasterCacheImages';
+            SceneBuilder_setCheckerboardRasterCacheImages(this.Handle, checkerboard);
         }
 
         /// Sets whether the compositor should checkerboard layers that are rendered
@@ -576,7 +593,7 @@ namespace FlutterSharp.UI
         /// This is only useful for debugging purposes.
         public void SetCheckerboardOffscreenLayers(bool checkerboard)
         {
-            // TODO : native 'SceneBuilder_setCheckerboardOffscreenLayers';
+            SceneBuilder_setCheckerboardOffscreenLayers(this.Handle, checkerboard);
         }
 
         /// Finishes building the scene.
@@ -594,10 +611,13 @@ namespace FlutterSharp.UI
         }
 
         [DllImport("libflutter")]
-        public extern static IntPtr SceneBuilder_constructor();
+        private extern static IntPtr SceneBuilder_constructor();
 
         [DllImport("libflutter")]
-        public extern static IntPtr SceneBuilder_pushClipRect(IntPtr pSceneBuilder,
+        private extern static IntPtr SceneBuilder_pushOffset(IntPtr pSceneBuilder, double dx, double dy);
+
+        [DllImport("libflutter")]
+        private extern static IntPtr SceneBuilder_pushClipRect(IntPtr pSceneBuilder,
             double left,
             double right,
             double top,
@@ -605,7 +625,10 @@ namespace FlutterSharp.UI
             int clipBehavior);
 
         [DllImport("libflutter")]
-        public extern static void SceneBuilder_addPerformanceOverlay(IntPtr pSceneBuilder,
+        private extern static IntPtr SceneBuilder_pushClipPath(IntPtr pSceneBuilder, IntPtr pPath, int clipBehavior);
+
+        [DllImport("libflutter")]
+        private extern static void SceneBuilder_addPerformanceOverlay(IntPtr pSceneBuilder,
             int enabledOptions,
             double left, 
             double right,
@@ -613,16 +636,32 @@ namespace FlutterSharp.UI
             double bottom);
 
         [DllImport("libflutter")]
-        public extern static void SceneBuilder_addPicture(IntPtr pSceneBuilder,
-            double dx,
-            double dy,
-            IntPtr picture,
-            int hints);
-        
-        [DllImport("libflutter")]
-        public extern static void SceneBuilder_pop(IntPtr pSceneBuilder);
+        private extern static void SceneBuilder_pop(IntPtr pSceneBuilder);
 
         [DllImport("libflutter")]
-        public extern static IntPtr SceneBuilder_build(IntPtr pSceneBuilder);
+        private extern static void SceneBuilder_addRetained(IntPtr pSceneBuilder, IntPtr pRetainedLayer);
+
+        [DllImport("libflutter")]
+        private extern static void SceneBuilder_addPicture(IntPtr pSceneBuilder, double dx, double dy, IntPtr picture, int hints);
+
+        [DllImport("libflutter")]
+        private extern static void SceneBuilder_addTexture(IntPtr pSceneBuilder, double dx, double dy, double width, double height,
+            int textureId, bool freeze);
+
+        [DllImport("libflutter")]
+        private extern static void SceneBuilder_addPlatformView(IntPtr pSceneBuilder, double dx, double dy, double width, 
+            double height, int viewId);
+
+        [DllImport("libflutter")]
+        private extern static void SceneBuilder_setRasterizerTracingThreshold(IntPtr pSceneBuilder, int frameInterval);
+
+        [DllImport("libflutter")]
+        private extern static void SceneBuilder_setCheckerboardRasterCacheImages(IntPtr pSceneBuilder, bool checkerboard);
+
+        [DllImport("libflutter")]
+        private extern static void SceneBuilder_setCheckerboardOffscreenLayers(IntPtr pSceneBuilder, bool checkerboard);
+
+        [DllImport("libflutter")]
+        private extern static IntPtr SceneBuilder_build(IntPtr pSceneBuilder);
     }
 }

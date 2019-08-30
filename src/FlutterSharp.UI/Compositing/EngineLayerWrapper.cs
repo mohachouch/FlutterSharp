@@ -18,7 +18,7 @@ namespace FlutterSharp.UI
             this._nativeLayer = _nativeLayer;
         }
 
-        private readonly EngineLayer _nativeLayer;
+        internal readonly EngineLayer _nativeLayer;
 
         // Children of this layer.
         //
