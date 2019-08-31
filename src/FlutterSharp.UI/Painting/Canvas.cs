@@ -479,7 +479,7 @@ namespace FlutterSharp.UI
 
         private void DrawCircle(double x, double y, double radius, object[] paintObjects, ByteData paintData)
         {
-            // TODO :  native 'Canvas_drawCircle';
+            Canvas_drawCircle(this.Handle, x, y, radius, paintData.Data, paintData.LengthInBytes);
         }
 
         /// Draw an arc scaled to fit inside the given rectangle. It starts from
@@ -894,6 +894,9 @@ namespace FlutterSharp.UI
 
         [DllImport("libflutter")]
         public extern static void Canvas_drawRect(IntPtr pCanvas, double left, double top, double right, double bottom, byte[] paint_data, int paint_data_count);
+
+        [DllImport("libflutter")]
+        public extern static void Canvas_drawCircle(IntPtr pCanvas, double x, double y, double radius, byte[] paint_data, int paint_data_count);
 
         [DllImport("libflutter")]
         public extern static void Canvas_drawPath(IntPtr pCanvas, IntPtr pPath, byte[] paint_data, int paint_data_count);

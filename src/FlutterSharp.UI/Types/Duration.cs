@@ -4,17 +4,17 @@
     public class Duration
     {
         internal int inMicroseconds;
-        private int microseconds;
+        private long microseconds;
         private int milliseconds;
 
-        public Duration(int microseconds = 0, int milliseconds = 0)
+        public Duration(long microseconds = 0, int milliseconds = 0)
         {
             this.microseconds = microseconds;
             this.milliseconds = milliseconds;
         }
 
         public static int MicrosecondsPerMillisecond = 1000;
-        public int InMicroseconds => microseconds;
+        public long InMicroseconds => microseconds;
 
         public static Duration operator -(Duration b, Duration c)
         {

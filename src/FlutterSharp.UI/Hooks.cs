@@ -28,17 +28,22 @@ namespace FlutterSharp.UI
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate void DrawFrameDelegate();
 
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        private delegate void DispatchPointerDataPacketDelegate([MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] byte[] array, int count);
+
         public static void Register()
         {
             Hooks_register(UpdateWindowMetrics, 
                            BeginFrame,
-                           DrawFrame);
+                           DrawFrame,
+                           DispatchPointerDataPacket);
         }
 
         [DllImport("libflutter")]
         private static extern void Hooks_register(UpdateWindowMetricsDelegate updateWindowMetricsDelegate,
                                                   BeginFrameDelegate beginFrameDelegate,
-                                                  DrawFrameDelegate drawFrameDelegate);
+                                                  DrawFrameDelegate drawFrameDelegate,
+                                                  DispatchPointerDataPacketDelegate dispatchPointerDataPacketeDelegate);
 
         // ignore: unused_element
         internal static string DecodeUTF8(ByteData message)
@@ -197,8 +202,10 @@ namespace FlutterSharp.UI
         }
 
         // ignore: unused_element
-        private static void DispatchPointerDataPacket(ByteData packet)
+        private static void DispatchPointerDataPacket(byte[] array, int count)
         {
+            ByteData packet = new ByteData(array);
+
             if (Window.Instance.OnPointerDataPacket != null)
                 Invoke1<PointerDataPacket>((data) => Window.Instance.OnPointerDataPacket(data), Window.Instance._onPointerDataPacketZone, UnpackPointerDataPacket(packet));
         }
@@ -346,7 +353,7 @@ namespace FlutterSharp.UI
             for (int i = 0; i < length; ++i)
             {
                 int offset = i * _kPointerDataFieldCount;
-                data[i] = new PointerData(
+                data.Add(new PointerData(
                   timeStamp: new Duration(microseconds: packet.GetInt64(kStride * offset++, _kFakeHostEndian)),
                   change: (PointerChange)packet.GetInt64(kStride * offset++, _kFakeHostEndian),
                   kind: (PointerDeviceKind)packet.GetInt64(kStride * offset++, _kFakeHostEndian),
@@ -371,7 +378,7 @@ namespace FlutterSharp.UI
                   platformData: packet.GetInt64(kStride * offset++, _kFakeHostEndian),
                   scrollDeltaX: packet.GetFloat64(kStride * offset++, _kFakeHostEndian),
                   scrollDeltaY: packet.GetFloat64(kStride * offset++, _kFakeHostEndian)
-                );
+                ));
                 Debug.Assert(offset == (i + 1) * _kPointerDataFieldCount);
             }
             return new PointerDataPacket(data: data);

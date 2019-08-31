@@ -30,7 +30,7 @@ namespace FlutterSharp.Samples.Android
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            new SpinningSquareSample().Main();
+            new TouchInputSample().Main();
             this.FlutterView.FirstFrame += FlutterView_FirstFrame;
         }
 

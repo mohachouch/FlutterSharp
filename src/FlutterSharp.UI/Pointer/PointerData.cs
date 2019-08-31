@@ -7,10 +7,10 @@
                 PointerChange change,
                 PointerDeviceKind kind,
                 PointerSignalKind signalKind,
-                int device,
+                long device,
                 double physicalX,
                 double physicalY,
-                int buttons,
+                long buttons,
                 bool obscured,
                 double pressure,
                 double pressureMin,
@@ -24,7 +24,7 @@
                 double radiusMax,
                 double orientation,
                 double tilt,
-                int platformData,
+                long platformData,
                 double scrollDeltaX,
                 double scrollDeltaY)
         {
@@ -67,7 +67,7 @@
         public readonly PointerSignalKind SignalKind;
 
         /// Unique identifier for the pointing device, reused across interactions.
-        public readonly int Device;
+        public readonly long Device;
 
         /// X coordinate of the position of the pointer, in physical pixels in the
         /// global coordinate space.
@@ -81,7 +81,7 @@
         /// secondaryStylusButton, etc). For example, if this has the value 6 and the
         /// [kind] is [PointerDeviceKind.invertedStylus], then this indicates an
         /// upside-down stylus with both its primary and secondary buttons pressed.
-        public readonly int Buttons;
+        public readonly long Buttons;
 
         /// Set if an application from a different security domain is in any way
         /// obscuring this application's window. (Aspirational; not currently
@@ -177,7 +177,7 @@
         public readonly double Tilt;
 
         /// Opaque platform-specific data associated with the event.
-        public readonly int PlatformData;
+        public readonly long PlatformData;
 
         /// For events with signalKind of PointerSignalKind.scroll:
         ///

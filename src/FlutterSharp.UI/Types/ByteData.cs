@@ -9,6 +9,7 @@ namespace FlutterSharp.UI
     {
         private BinaryWriter _dataWriter;
         private BinaryReader _dataReader;
+        private byte[] array;
 
         public byte[] Data { get; private set; }
 
@@ -17,6 +18,13 @@ namespace FlutterSharp.UI
         public ByteData(int capacity)
         {
             Data = new byte[capacity];
+            _dataWriter = new BinaryWriter(new MemoryStream(Data));
+            _dataReader = new BinaryReader(new MemoryStream(this.Data));
+        }
+
+        public ByteData(byte[] array)
+        {
+            Data = array;
             _dataWriter = new BinaryWriter(new MemoryStream(Data));
             _dataReader = new BinaryReader(new MemoryStream(this.Data));
         }
@@ -55,14 +63,16 @@ namespace FlutterSharp.UI
             return this._dataReader.ReadSingle();
         }
 
-        internal int GetInt64(int v, Endian kFakeHostEndian)
+        internal long GetInt64(int offset, Endian kFakeHostEndian)
         {
-            throw new NotImplementedException();
+            this._dataReader.BaseStream.Position = offset;
+            return this._dataReader.ReadInt64();
         }
 
-        internal double GetFloat64(int v, Endian kFakeHostEndian)
+        internal double GetFloat64(int offset, Endian kFakeHostEndian)
         {
-            throw new NotImplementedException();
+            this._dataReader.BaseStream.Position = offset;
+            return this._dataReader.ReadDouble();
         }
     }
 }
