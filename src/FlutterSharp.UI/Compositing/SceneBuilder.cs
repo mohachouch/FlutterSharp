@@ -128,9 +128,15 @@ namespace FlutterSharp.UI
         {
             Debug.Assert(Matrix4IsValid(matrix4));
             Debug.Assert(_debugCheckCanBeUsedAsOldLayer(oldLayer, "pushTransform"));
-            TransformEngineLayer layer = null; // TODO :native 'SceneBuilder_pushTransform' TransformEngineLayer(_pushTransform(matrix4));
+            TransformEngineLayer layer = new TransformEngineLayer(PushTransform(matrix4));
             Debug.Assert(_debugPushLayer(layer));
             return layer;
+        }
+
+        private EngineLayer PushTransform(Float64List matrix4)
+        {
+            IntPtr engineHandle = SceneBuilder_pushTransform(this.Handle, matrix4.ToArray(), matrix4.Count);
+            return engineHandle != IntPtr.Zero ? new EngineLayer(engineHandle) : null;
         }
 
         /// Pushes an offset operation onto the operation stack.
@@ -262,8 +268,8 @@ namespace FlutterSharp.UI
 
         private EngineLayer PushOpacity(int alpha, double dx, double dy)
         {
-            // TODO : native 'SceneBuilder_pushOpacity';
-            return null;
+            IntPtr engineHandle = SceneBuilder_pushOpacity(this.Handle, alpha, dx, dy);
+            return engineHandle != IntPtr.Zero ? new EngineLayer(engineHandle) : null;
         }
 
         /// Pushes a color filter operation onto the operation stack.
@@ -286,8 +292,8 @@ namespace FlutterSharp.UI
 
         private EngineLayer PushColorFilter(int color, int blendMode)
         {
-            // TODO : native 'SceneBuilder_pushColorFilter';
-            return null;
+            IntPtr engineHandle = SceneBuilder_pushColorFilter(this.Handle, color, blendMode);
+            return engineHandle != IntPtr.Zero ? new EngineLayer(engineHandle) : null;
         }
 
         /// Pushes a backdrop filter operation onto the operation stack.
@@ -614,6 +620,9 @@ namespace FlutterSharp.UI
         private extern static IntPtr SceneBuilder_constructor();
 
         [DllImport("libflutter")]
+        private extern static IntPtr SceneBuilder_pushTransform(IntPtr pSceneBuilder, double[] matrix, int matrixCount);
+
+        [DllImport("libflutter")]
         private extern static IntPtr SceneBuilder_pushOffset(IntPtr pSceneBuilder, double dx, double dy);
 
         [DllImport("libflutter")]
@@ -626,6 +635,12 @@ namespace FlutterSharp.UI
 
         [DllImport("libflutter")]
         private extern static IntPtr SceneBuilder_pushClipPath(IntPtr pSceneBuilder, IntPtr pPath, int clipBehavior);
+
+        [DllImport("libflutter")]
+        private extern static IntPtr SceneBuilder_pushOpacity(IntPtr pSceneBuilder, int alpha, double dx, double dy);
+
+        [DllImport("libflutter")]
+        private extern static IntPtr SceneBuilder_pushColorFilter(IntPtr pSceneBuilder, int color, int blendMode);
 
         [DllImport("libflutter")]
         private extern static void SceneBuilder_addPerformanceOverlay(IntPtr pSceneBuilder,

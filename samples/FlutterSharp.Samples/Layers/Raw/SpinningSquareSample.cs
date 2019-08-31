@@ -41,10 +41,9 @@ namespace FlutterSharp.Samples.Layers.Raw
             deviceTransform[10] = 1.0;
             deviceTransform[15] = 1.0;
             SceneBuilder sceneBuilder = new SceneBuilder();
-            //  sceneBuilder.PushTransform(deviceTransform);
-            sceneBuilder.PushClipRect(paintBounds);
+            sceneBuilder.PushTransform(deviceTransform);
             sceneBuilder.AddPicture(Offset.Zero, picture);
-            sceneBuilder.AddPerformanceOverlay(0x0F, new Rect(30, 30, Window.Instance.PhysicalSize.Width - 30, 300));
+            sceneBuilder.AddPerformanceOverlay(0x0F, Rect.FromLTWH(30, 30, paintBounds.Width - 60, 300));
             sceneBuilder.Pop();
             Window.Instance.Render(sceneBuilder.Build());
 
