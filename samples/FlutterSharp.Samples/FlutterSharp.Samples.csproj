@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\FlutterSharp.SDK\FlutterSharp.SDK.csproj" />
     <ProjectReference Include="..\..\src\FlutterSharp.UI\FlutterSharp.UI.csproj" />
   </ItemGroup>
 
