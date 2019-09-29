@@ -2,10 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\FlutterSharp.UI\FlutterSharp.UI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Additions\Foundation\" />
+    <Folder Include="Generated\" />
   </ItemGroup>
 
 </Project>
