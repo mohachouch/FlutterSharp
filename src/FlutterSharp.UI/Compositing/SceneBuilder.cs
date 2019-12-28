@@ -479,6 +479,9 @@ namespace FlutterSharp.UI
         /// The picture is rasterized at the given offset.
         public void AddPicture(Offset offset, Picture picture, bool isComplexHint = false, bool willChangeHint = false)
         {
+            if (offset == null)
+                offset = Offset.Zero;
+
             int hints = 0;
             if (isComplexHint)
                 hints |= 1;
