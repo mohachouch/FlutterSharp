@@ -65,7 +65,7 @@ namespace FlutterSharp.SDK.Internal
         /// calling [updateSubtreeNeedsAddToScene].
         public bool DebugSubtreeNeedsAddToScene => false;
 
-        private EngineLayer _engineLayer;
+        internal EngineLayer _engineLayer;
         public EngineLayer EngineLayer
         {
             get

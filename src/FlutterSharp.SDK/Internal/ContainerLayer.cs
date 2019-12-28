@@ -204,9 +204,8 @@ namespace FlutterSharp.SDK.Internal
         ///
         /// Used by [FollowerLayer] to transform its child to a [LeaderLayer]'s
         /// position.
-        public void ApplyTransform(Layer child, object transform)
+        public virtual void ApplyTransform(Layer child, Matrix4 transform)
         {
-
         }
 
         /// Returns the descendants of this layer in depth first order.

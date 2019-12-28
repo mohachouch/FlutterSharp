@@ -24,18 +24,13 @@ namespace FlutterSharp.SDK.Internal
         /// The pixel density of the output surface.
         public readonly double DevicePixelRatio;
 
-        internal object ToMatrix()
+        public Matrix4 ToMatrix()
         {
-            return null;
-           // throw new NotImplementedException();
+            return Matrix4.Diagonal3Values(DevicePixelRatio, DevicePixelRatio, 1.0);
         }
 
         /// Creates a transformation matrix that applies the [devicePixelRatio].
-        /*Matrix4 toMatrix()
-        {
-            return Matrix4.diagonal3Values(devicePixelRatio, devicePixelRatio, 1.0);
-        }
-
+       /*
         @override
         String toString() => '$size at ${debugFormatDouble(devicePixelRatio)}x';*/
     }
@@ -128,7 +123,7 @@ namespace FlutterSharp.SDK.Internal
             ScheduleInitialPaint(_updateMatricesAndCreateNewRootLayer() as ContainerLayer);
         }
 
-        Object _rootTransform; // TODO : Matrix4
+        Matrix4 _rootTransform; 
 
         private Layer _updateMatricesAndCreateNewRootLayer()
         {
@@ -168,10 +163,10 @@ namespace FlutterSharp.SDK.Internal
                 context.PaintChild(Child, offset);
         }
 
-        public void ApplyPaintTransform(RenderBox child, object transform)
+        public void ApplyPaintTransform(RenderBox child, Matrix4 transform)
         {
-            //transform.multiply(_rootTransform);
-            //super.applyPaintTransform(child, transform);
+            transform.Multiply(_rootTransform);
+            base.ApplyPaintTransform(child, transform);
         }
 
         /// Uploads the composited layer tree to the engine.
@@ -180,7 +175,6 @@ namespace FlutterSharp.SDK.Internal
         public void CompositeFrame()
         {
             SceneBuilder builder = new SceneBuilder();
-            builder.PushClipRect(Rect.FromLTWH(0, 0, 500, 500));
             Scene scene = Layer.BuildScene(builder);
             if (AutomaticSystemUiAdjustment)
                 _updateSystemChrome();

@@ -407,33 +407,4 @@ namespace FlutterSharp.SDK.Internal
             return layer;
         }
     }
-
-    public class OpacityLayer : ContainerLayer
-    {
-        public int Alpha { get; internal set; }
-        public Offset Offset { get; internal set; }
-    }
-
-    public class ClipRRectLayer : ContainerLayer
-    {
-        public RRect ClipRRect { get; internal set; }
-        public Clip ClipBehavior { get; internal set; }
-    }
-    public class ClipPathLayer : ContainerLayer
-    {
-        public Path ClipPath { get; internal set; }
-        public Clip ClipBehavior { get; internal set; }
-    }
-
-
-    public class ClipRectLayer : ContainerLayer
-    {
-        public Rect ClipRect { get; internal set; }
-        public Clip ClipBehavior { get; internal set; }
-    }
-
-    public class OffsetLayer : ContainerLayer
-    {
-        public Offset Offset { get; internal set; }
-    }
 }
