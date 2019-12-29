@@ -1,4 +1,6 @@
-﻿using FlutterSharp.UI;
+﻿using System;
+using FlutterSharp.SDK.Internal;
+using FlutterSharp.UI;
 
 namespace FlutterSharp.Samples.Layers.Raw
 {
@@ -42,12 +44,62 @@ namespace FlutterSharp.Samples.Layers.Raw
         // calls main() as soon as it has loaded your code.
         public void Main()
         {
-            // The engine calls onBeginFrame whenever it wants us to produce a frame.
-            Window.Instance.OnBeginFrame += OnBeginFrame;
-            // Here we kick off the whole process by asking the engine to schedule a new
-            // frame. The engine will eventually call onBeginFrame when it is time for us
-            // to actually produce the frame.
-            Window.Instance.ScheduleFrame();
+            new RenderingFlutterBinding
+                (
+                    root: new RenderPadding(new CustomRenderBox(), new EdgeInsets(100))
+                );
         }
     }
+
+    public class CustomRenderBox : RenderBox
+    {
+       // public override bool IsRepaintBoundary => true;
+
+
+        public override void Paint(PaintingContext context, Offset offset)
+        {
+            base.Paint(context, offset);
+            
+            var bounds = (offset * 1.5) & (Size * 1.5);
+
+            // this.PaintBounds
+
+            // context.Canvas.DrawRect(bounds, new UI.Paint() { Color = Color.FromARGB(255, 140, 100, 155) });
+
+
+            context.Canvas.ClipRect(bounds);
+
+            context.Canvas.DrawColor(Color.FromARGB(255, 140, 100, 155), BlendMode.Src);
+        }
+
+        protected override void PerformLayout()
+        {
+            var t = Constraints;
+            var parent = this.ParentData;
+
+            this.Size = new Size(Constraints.MaxWidth, Constraints.MaxHeight);
+        }
+    }
+
+
+
+    /*class MyApp : StatelessWidget
+    {
+        public new Widget Build(BuildContext context) {
+            return new MaterialApp(
+              title: "Welcome to Flutter",
+              home: new Scaffold(
+                appBar: new AppBar(
+                  title: new Text("Welcome to Flutter"),
+                ),
+                body: new Center(
+                  child: new Text("Hello World"),
+      
+                ),
+        
+              ),
+        
+            );
+        }
+    }*/
 }

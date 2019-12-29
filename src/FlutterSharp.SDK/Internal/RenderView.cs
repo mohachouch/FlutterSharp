@@ -45,6 +45,50 @@ namespace FlutterSharp.SDK.Internal
         }
     }
 
+    public class RenderBoxWithChildMixin<ChildType> : RenderBox
+        where ChildType : RenderObject
+    {
+        private ChildType _child;
+        /// The render object's unique child
+        public ChildType Child
+        {
+            get { return _child; }
+            set
+            {
+                if (_child != null)
+                    DropChild(_child);
+                _child = value;
+                if (_child != null)
+                    AdoptChild(_child);
+            }
+        }
+        
+        public override void Attach(object owner)
+        {
+            base.Attach(owner);
+            if (_child != null)
+                _child.Attach(owner);
+        }
+
+        public override void Detach()
+        {
+            base.Detach();
+            if (_child != null)
+                _child.Detach();
+        }
+
+        public override void RedepthChildren()
+        {
+            if (_child != null)
+                RedepthChild(_child);
+        }
+
+        public override void VisitChildren(RenderObjectVisitor visitor)
+        {
+            if (_child != null)
+                visitor(_child);
+        }
+    }
 
     public class RenderView : RenderObjectWithChildMixin<RenderBox>
     {

@@ -20,6 +20,23 @@ namespace FlutterSharp.SDK.Internal
             MaxHeight = maxHeight;
         }
 
+        internal Size Constrain(Size size)
+        {
+            Size result = new Size(ConstrainWidth(size.Width), ConstrainHeight(size.Height));
+            
+            return result;
+        }
+
+        private double ConstrainHeight(double height = double.PositiveInfinity)
+        {
+            return height.Clamp(MinHeight, MaxHeight);
+        }
+
+        private double ConstrainWidth(double width = double.PositiveInfinity)
+        {
+            return width.Clamp(MinWidth, MaxWidth);
+        }
+
         public readonly double MinWidth;
         public readonly double MaxWidth;
         public readonly double MinHeight;
@@ -29,7 +46,40 @@ namespace FlutterSharp.SDK.Internal
 
         internal static Constraints Tight(Size size)
         {
-            return new BoxConstraints(0, size.Width, 0, size.Height);
+            return new BoxConstraints(size.Width, size.Width, size.Height, size.Height);
+        }
+
+        public BoxConstraints Deflate(EdgeInsets edges)
+        {
+            double horizontal = edges.Horizontal;
+            double vertical = edges.Vertical;
+            double deflatedMinWidth = Math.Max(0.0, MinWidth - horizontal);
+            double deflatedMinHeight = Math.Max(0.0, MinHeight - vertical);
+            return new BoxConstraints(
+              minWidth: deflatedMinWidth,
+              maxWidth: Math.Max(deflatedMinWidth, MaxWidth - horizontal),
+              minHeight: deflatedMinHeight,
+              maxHeight: Math.Max(deflatedMinHeight, MaxHeight - vertical)
+        
+            );
+        }
+    }
+
+    public class EdgeInsets
+    {
+        public double Vertical => Top + Bottom;
+        public double Horizontal => Left + Right;
+        public int Left { get; internal set; }
+        public int Top { get; internal set; }
+        public int Right { get; internal set; }
+        public int Bottom { get; internal set; }
+
+        public EdgeInsets(int uniform)
+        {
+            Left = uniform;
+            Top = uniform;
+            Right = uniform;
+            Bottom = uniform;
         }
     }
 
@@ -144,11 +194,11 @@ namespace FlutterSharp.SDK.Internal
             return result;
         }
 
-        protected virtual double? GetDistanceToActualBaseline(TextBaseline baseline)
+        public virtual double? GetDistanceToActualBaseline(TextBaseline baseline)
         {
             _cachedBaselines = _cachedBaselines ?? new Map<TextBaseline, double>();
-           //_cachedBaselines.putIfAbsent(baseline, () => computeDistanceToActualBaseline(baseline));
-            return null; //_cachedBaselines[baseline];
+            //_cachedBaselines.putIfAbsent(baseline, () => computeDistanceToActualBaseline(baseline));
+            return ComputeDistanceToActualBaseline(baseline);// null; //_cachedBaselines[baseline];
         }
 
         protected virtual double? ComputeDistanceToActualBaseline(TextBaseline baseline)

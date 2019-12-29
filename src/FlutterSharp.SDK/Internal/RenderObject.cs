@@ -132,7 +132,7 @@ namespace FlutterSharp.SDK.Internal
         /// Calls visitor for each immediate child of this render object.
         ///
         /// Override in subclasses with children and call the visitor for each child.
-        public void VisitChildren(RenderObjectVisitor visitor)
+        public virtual void VisitChildren(RenderObjectVisitor visitor)
         {
         }
 

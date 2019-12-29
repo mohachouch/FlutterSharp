@@ -82,7 +82,18 @@ namespace FlutterSharp.UI
 
             return value;
         }
-        
+
+        public static double Clamp(this double value, double lower, double upper)
+        {
+            if (value > upper)
+                return upper;
+
+            if (value < lower)
+                return lower;
+
+            return value;
+        }
+
         /// Determines if lists [a] and [b] are deep equivalent.
         ///
         /// Returns true if the lists are both null, or if they are both non-null, have
