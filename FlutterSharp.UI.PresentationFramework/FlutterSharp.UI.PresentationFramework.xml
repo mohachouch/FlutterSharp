@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FlutterSharp.UI.PresentationFramework</name>
+    </assembly>
+    <members>
+        <member name="T:FlutterSharp.UI.PresentationFramework.Application">
+            <summary>
+            Encapsulates a FlutterSharp application.
+            </summary>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Application.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:FlutterSharp.UI.PresentationFramework.Application"/> class.
+            </summary>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Application.MainWindow">
+            <summary>
+            Gets or sets the main window of the application.
+            </summary>
+        </member>
+        <member name="T:FlutterSharp.UI.PresentationFramework.FrameworkElement">
+            <summary>
+            <see cref="T:FlutterSharp.UI.PresentationFramework.FrameworkElement"/> is a base class for FlutterSharp core level implementations building on FlutterSharp elements and basic presentation characteristics.
+            </summary>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.FrameworkElement.X">
+            <summary>
+            Get the X top left coordinate on window
+            </summary>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.FrameworkElement.Y">
+            <summary>
+            Get the Y top left coordinate on window
+            </summary>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.FrameworkElement.ActualWidth">
+            <summary>
+            Gets the rendered width of this element.
+            </summary>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.FrameworkElement.ActualHeight">
+            <summary>
+            Gets the rendered height of this element.
+            </summary>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.FrameworkElement.Width">
+            <summary>
+            Gets or sets the width of the element.
+            </summary>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.FrameworkElement.Height">
+            <summary>
+            Gets or sets the height of the element.
+            </summary>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.FrameworkElement.Background">
+            <summary>
+            Gets or sets a brush that describes the background of a control.
+            </summary>
+        </member>
+        <member name="T:FlutterSharp.UI.PresentationFramework.Shape">
+            <summary>
+            Provides a base class for shape elements, such as Ellipse, Polygon, and Rectangle.
+            </summary>
+        </member>
+        <member name="T:FlutterSharp.UI.PresentationFramework.Window">
+            <summary>
+            Provides the ability to create, configure, show, and manage the lifetime of windows and dialog boxes.
+            </summary>
+        </member>
+    </members>
+</doc>

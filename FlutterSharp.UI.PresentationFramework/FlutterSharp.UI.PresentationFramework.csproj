@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>J:\Xamarin\FlutterSharp\FlutterSharp.UI.PresentationFramework\FlutterSharp.UI.PresentationFramework.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\src\FlutterSharp.UI\FlutterSharp.UI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="FlutterSharp.UI.PresentationFramework.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

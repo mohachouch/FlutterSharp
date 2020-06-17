@@ -1,19 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.168
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30104.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{ABFE0B21-1289-42D6-A5E8-DD8BB8DC004B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{AF0FB68D-9F2C-42EB-AE09-75E3B8C9E546}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlutterSharp.UI", "src\FlutterSharp.UI\FlutterSharp.UI.csproj", "{A581AAF4-756B-45FF-BDC9-701F6B24F079}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlutterSharp.UI", "src\FlutterSharp.UI\FlutterSharp.UI.csproj", "{A581AAF4-756B-45FF-BDC9-701F6B24F079}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlutterSharp.UI.Android", "src\FlutterSharp.UI.Android\FlutterSharp.UI.Android.csproj", "{DC3752E3-A219-4E80-8B07-00273182766A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlutterSharp.Samples", "samples\FlutterSharp.Samples\FlutterSharp.Samples.csproj", "{C1F29B81-F605-4432-8BC0-C31DF33B4B94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlutterSharp.Samples", "samples\FlutterSharp.Samples\FlutterSharp.Samples.csproj", "{C1F29B81-F605-4432-8BC0-C31DF33B4B94}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlutterSharp.Samples.Android", "samples\FlutterSharp.Samples.Android\FlutterSharp.Samples.Android.csproj", "{3BC0AC7E-3B3B-4D3F-9CC0-B2BDECC460A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlutterSharp.UI.PresentationFramework", "FlutterSharp.UI.PresentationFramework\FlutterSharp.UI.PresentationFramework.csproj", "{8669EC68-8839-4033-BD4B-1A8855D5FB29}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{3BC0AC7E-3B3B-4D3F-9CC0-B2BDECC460A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BC0AC7E-3B3B-4D3F-9CC0-B2BDECC460A6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3BC0AC7E-3B3B-4D3F-9CC0-B2BDECC460A6}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{8669EC68-8839-4033-BD4B-1A8855D5FB29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8669EC68-8839-4033-BD4B-1A8855D5FB29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8669EC68-8839-4033-BD4B-1A8855D5FB29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8669EC68-8839-4033-BD4B-1A8855D5FB29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +54,7 @@ Global
 		{DC3752E3-A219-4E80-8B07-00273182766A} = {ABFE0B21-1289-42D6-A5E8-DD8BB8DC004B}
 		{C1F29B81-F605-4432-8BC0-C31DF33B4B94} = {AF0FB68D-9F2C-42EB-AE09-75E3B8C9E546}
 		{3BC0AC7E-3B3B-4D3F-9CC0-B2BDECC460A6} = {AF0FB68D-9F2C-42EB-AE09-75E3B8C9E546}
+		{8669EC68-8839-4033-BD4B-1A8855D5FB29} = {ABFE0B21-1289-42D6-A5E8-DD8BB8DC004B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {87D462AC-74AD-463F-910A-A76A56501E12}

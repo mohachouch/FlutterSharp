@@ -23,7 +23,7 @@ namespace FlutterSharp.Samples.Layers.Raw
             UI.Canvas canvas = new UI.Canvas(recorder, paintBounds);
 
             Paint paint = new Paint();
-            canvas.DrawPaint(new Paint() { Color = new Color(0xFFFFFFFF) });
+            canvas.DrawPaint(new Paint() { Color = new Color(0xFF0000FF) });
 
             Size size = paintBounds.Size;
             Offset mid = size.Center(Offset.Zero);
