@@ -191,7 +191,6 @@
             <summary>
             Initializes a new instance of the <see cref="T:FlutterSharp.UI.PresentationFramework.DependencyProperty"/> class.
             </summary>
-            <param name="propertyType">Type of the property.</param>
             <param name="defaultValue">Default value for this property.</param>
         </member>
         <member name="T:FlutterSharp.UI.PresentationFramework.FrameworkElement">
@@ -293,6 +292,195 @@
             </summary>
             <param name="canvas">The canvas.</param>
         </member>
+        <member name="T:FlutterSharp.UI.PresentationFramework.Media.Brush">
+            <summary>
+            Defines objects used to paint graphical objects. Classes that derive from <see cref="T:FlutterSharp.UI.PresentationFramework.Media.Brush"/> describe how the area is painted.
+            </summary>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Media.Brush.Opacity">
+            <summary>
+            Gets or sets the degree of opacity of a Brush.
+            </summary>
+            <value>
+            The value of the Opacity property is expressed as a value between 0.0 and 1.0. The default value is 1.0.
+            </value>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Media.Brush.ToPaint">
+            <summary>
+            Converts the <see cref="T:FlutterSharp.UI.PresentationFramework.Media.Brush"/> to flutter <see cref="T:FlutterSharp.UI.Paint"/> object.
+            </summary>
+            <returns>The <see cref="T:FlutterSharp.UI.Paint"/> used to draw the <see cref="T:FlutterSharp.UI.PresentationFramework.Media.Brush"/></returns>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Media.Brush.ApplyOpacity(FlutterSharp.UI.Color)">
+            <summary>
+            Applies the <see cref="P:FlutterSharp.UI.PresentationFramework.Media.Brush.Opacity"/> to the color <paramref name="from"/>.
+            </summary>
+            <param name="from">The color to apply <see cref="P:FlutterSharp.UI.PresentationFramework.Media.Brush.Opacity"/>.</param>
+            <returns>The color with opacity</returns>
+        </member>
+        <member name="T:FlutterSharp.UI.PresentationFramework.Media.Brushes">
+            <summary>
+            Implements a set of predefined SolidColorBrush objects.
+            </summary>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Media.Brushes.Transparent">
+            <summary>
+            Gets the solid fill color that has a hexadecimal value of #00FFFFFF.
+            </summary>
+            <value>
+            A solid fill color.
+            </value>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Media.Brushes.Red">
+            <summary>
+            Gets the solid fill color that has a hexadecimal value of #FFFF0000.
+            </summary>
+            <value>
+            A solid fill color.
+            </value>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Media.Brushes.Green">
+            <summary>
+            Gets the solid fill color that has a hexadecimal value of #FF00FF00.
+            </summary>
+            <value>
+            A solid fill color.
+            </value>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Media.Brushes.Blue">
+            <summary>
+            Gets the solid fill color that has a hexadecimal value of #FF0000FF.
+            </summary>
+            <value>
+            A solid fill color.
+            </value>
+        </member>
+        <member name="T:FlutterSharp.UI.PresentationFramework.Media.Colors">
+            <summary>
+            Implements a set of predefined colors.
+            </summary>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Media.Colors.Transparent">
+            <summary>
+            Gets the system-defined color that has an ARGB value of #00FFFFFF.
+            </summary>
+            <value>
+            Represents colors in terms of alpha, red, green, and blue channels.
+            </value>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Media.Colors.Red">
+            <summary>
+            Gets the system-defined color that has an ARGB value of #FFFF0000.
+            </summary>
+            <value>
+            Represents colors in terms of alpha, red, green, and blue channels.
+            </value>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Media.Colors.Green">
+            <summary>
+            Gets the system-defined color that has an ARGB value of #FF00FF00.
+            </summary>
+            <value>
+            Represents colors in terms of alpha, red, green, and blue channels.
+            </value>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Media.Colors.Blue">
+            <summary>
+            Gets the system-defined color that has an ARGB value of #FF0000FF.
+            </summary>
+            <value>
+            Represents colors in terms of alpha, red, green, and blue channels.
+            </value>
+        </member>
+        <member name="T:FlutterSharp.UI.PresentationFramework.Media.GradientBrush">
+            <summary>
+            An abstract class that describes a gradient, composed of gradient stops. Classes that inherit from <see cref="T:FlutterSharp.UI.PresentationFramework.Media.GradientBrush"/> describe different ways of interpreting gradient stops.
+            </summary>
+            <seealso cref="T:FlutterSharp.UI.PresentationFramework.Media.Brush" />
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Media.GradientBrush.GradientStops">
+             <summary>
+            Gets or sets the brush's gradient stops.
+             </summary>
+             <value>
+             A collection of the <seealso cref="T:FlutterSharp.UI.PresentationFramework.Media.GradientStop"/> objects associated with the brush, each of which specifies a color and an offset along the brush's gradient axis. The default is an empty gradient stop collection.
+             </value>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Media.GradientBrush.GradientStopsToFluttersLists">
+            <summary>
+            Transforms the <see cref="T:FlutterSharp.UI.Gradient"/> collection into separate lists of colors and offsets for flutter's <see cref="T:FlutterSharp.UI.Gradient"/> class.
+            </summary>
+            <returns>List of colors and list of offsets</returns>
+        </member>
+        <member name="T:FlutterSharp.UI.PresentationFramework.Media.GradientStop">
+            <summary>
+            Describes the location and color of a transition point in a gradient.
+            </summary>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Media.GradientStop.Color">
+            <summary>
+            Gets or sets the color of the gradient stop.
+            </summary>
+            <value>
+            The color of the gradient stop. The default value is <seealso cref="P:FlutterSharp.UI.PresentationFramework.Media.Colors.Transparent"/>.
+            </value>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Media.GradientStop.Offset">
+            <summary>
+            Gets the location of the gradient stop within the gradient vector.
+            </summary>
+            <value>
+            The relative location of this gradient stop along the gradient vector. The default value is 0.0.
+            </value>
+        </member>
+        <member name="T:FlutterSharp.UI.PresentationFramework.Media.LinearGradientBrush">
+            <summary>
+            Paints an area with a linear gradient.
+            </summary>
+            <seealso cref="T:FlutterSharp.UI.PresentationFramework.Media.GradientBrush" />
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Media.LinearGradientBrush.StartPoint">
+            <summary>
+            Gets or sets the starting two-dimensional coordinates of the linear gradient.
+            </summary>
+            <value>
+            The starting two-dimensional coordinates of the linear gradient. The default is (0,0).
+            </value>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Media.LinearGradientBrush.EndPoint">
+            <summary>
+            Gets or sets the ending two-dimensional coordinates of the linear gradient.
+            </summary>
+            <value>
+            The ending two-dimensional coordinates of the linear gradient. The default is (1,1).
+            </value>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Media.LinearGradientBrush.ToPaint">
+            <summary>
+            Converts the <see cref="T:FlutterSharp.UI.PresentationFramework.Media.Brush"/> to flutter <see cref="T:FlutterSharp.UI.Paint"/> object.
+            </summary>
+            <returns>The <see cref="T:FlutterSharp.UI.Paint"/> used to draw the <see cref="T:FlutterSharp.UI.PresentationFramework.Media.Brush"/></returns>
+        </member>
+        <member name="T:FlutterSharp.UI.PresentationFramework.Media.SolidColorBrush">
+            <summary>
+            Paints an area with a solid color.
+            </summary>
+            <seealso cref="T:FlutterSharp.UI.PresentationFramework.Media.Brush" />
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Media.SolidColorBrush.Color">
+            <summary>
+            Gets or sets the color of this SolidColorBrush.
+            </summary>
+            <value>
+            The brush's color. The default value is Transparent.
+            </value>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Media.SolidColorBrush.ToPaint">
+            <summary>
+            Converts the <see cref="T:FlutterSharp.UI.PresentationFramework.Media.Brush"/> to flutter <see cref="T:FlutterSharp.UI.Paint"/> object.
+            </summary>
+            <returns>The <see cref="T:FlutterSharp.UI.Paint"/> used to draw the <see cref="T:FlutterSharp.UI.PresentationFramework.Media.Brush"/></returns>
+        </member>
         <member name="T:FlutterSharp.UI.PresentationFramework.Panel">
             <summary>
             Provides a base class for all Panel elements. Use Panel elements to position and arrange child objects in flutter sharp applications.
@@ -329,9 +517,42 @@
             </summary>
             <param name="canvas">The canvas.</param>
         </member>
+        <member name="T:FlutterSharp.UI.PresentationFramework.Point">
+            <summary>
+            Represents an x- and y-coordinate pair in two-dimensional space.
+            </summary>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Point.#ctor(System.Double,System.Double)">
+            <summary>
+            Creates a new <see cref="T:FlutterSharp.UI.PresentationFramework.Point"/> structure that contains the specified coordinates.
+            </summary>
+            <param name="x">The x-coordinate of the new <see cref="T:FlutterSharp.UI.PresentationFramework.Point"/> structure.</param>
+            <param name="y">The y-coordinate of the new <see cref="T:FlutterSharp.UI.PresentationFramework.Point"/> structure.</param>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Point.X">
+            <summary>
+            Gets or sets the X-coordinate value of this <see cref="T:FlutterSharp.UI.PresentationFramework.Point"/> structure.
+            </summary>
+            <value>
+            The X-coordinate value of this <see cref="T:FlutterSharp.UI.PresentationFramework.Point"/> structure. The default value is 0.
+            </value>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Point.Y">
+            <summary>
+            Gets or sets the Y-coordinate value of this <see cref="T:FlutterSharp.UI.PresentationFramework.Point"/> structure.
+            </summary>
+            <value>
+            The Y-coordinate value of this <see cref="T:FlutterSharp.UI.PresentationFramework.Point"/> structure. The default value is 0.
+            </value>
+        </member>
         <member name="T:FlutterSharp.UI.PresentationFramework.Shape">
             <summary>
             Provides a base class for shape elements, such as Ellipse, Polygon, and Rectangle.
+            </summary>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Shape.DefiningGeometry">
+            <summary>
+            Gets a value that represents the <see cref="T:FlutterSharp.UI.PresentationFramework.Media.Geometry"/> of the <see cref="T:FlutterSharp.UI.PresentationFramework.Shape"/>.
             </summary>
         </member>
         <member name="T:FlutterSharp.UI.PresentationFramework.Thickness">

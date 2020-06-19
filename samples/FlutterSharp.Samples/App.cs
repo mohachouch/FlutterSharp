@@ -1,4 +1,5 @@
 ﻿using FlutterSharp.UI.PresentationFramework;
+using FlutterSharp.UI.PresentationFramework.Media;
 
 namespace FlutterSharp.Samples
 {
@@ -6,14 +7,18 @@ namespace FlutterSharp.Samples
     {
         public App()
         {
-            this.MainWindow = new Window { Background = UI.Color.FromARGB(255, 255, 0, 0) };
-            var canvas = new Canvas { Background = UI.Color.FromARGB(255, 0, 255, 0), Margin = new Thickness(20) };
+            this.MainWindow = new Window { Background = Brushes.Red };
+            var canvas = new Canvas { Background = Brushes.Green, Margin = new Thickness(20) };
             this.MainWindow.Content = canvas;
 
-            var firstElement = new FrameworkElement { Width = 100, Height = 50, Background = UI.Color.FromARGB(0xFF, 0xFF, 0xAA, 0x0) };
+            var firstElement = new FrameworkElement { Width = 100, Height = 50, Background = Brushes.Blue };
             canvas.Children.Add(firstElement);
 
-            var secondElement = new FrameworkElement { Width = 50, Height = 100, Background = UI.Color.FromARGB(0xFF, 0xAA, 0xAA, 0x33) };
+            var linearGradientBrush = new LinearGradientBrush();
+            linearGradientBrush.GradientStops.Add(new GradientStop { Color = Colors.Red });
+            linearGradientBrush.GradientStops.Add(new GradientStop { Color = Colors.Green, Offset = 0.5 });
+            linearGradientBrush.GradientStops.Add(new GradientStop { Color = Colors.Blue, Offset = 1 });
+            var secondElement = new FrameworkElement { Width = 200, Height = 300, Background = linearGradientBrush };
             canvas.Children.Add(secondElement);
 
             Canvas.SetLeft(firstElement, 10);

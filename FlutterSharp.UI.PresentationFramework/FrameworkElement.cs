@@ -1,4 +1,6 @@
-﻿namespace FlutterSharp.UI.PresentationFramework
+﻿using FlutterSharp.UI.PresentationFramework.Media;
+
+namespace FlutterSharp.UI.PresentationFramework
 {
     /// <summary>
     /// <see cref="FrameworkElement"/> is a base class for FlutterSharp core level implementations building on FlutterSharp elements and basic presentation characteristics.
@@ -40,7 +42,7 @@
         /// <summary>
         /// Gets or sets a brush that describes the background of a control.
         /// </summary>
-        public Color Background { get; set; }
+        public Brush Background { get; set; }
 
         /// <summary>
         /// Gets or sets the margin.
@@ -144,7 +146,7 @@
         /// <param name="canvas">The canvas.</param>
         public virtual void Draw(UI.Canvas canvas)
         {
-            canvas.DrawRect(new Rect(this.X, this.Y, this.X + this.ActualWidth, this.Y + this.ActualHeight), new Paint() { Color = this.Background });
+            canvas.DrawRect(new Rect(this.X, this.Y, this.X + this.ActualWidth, this.Y + this.ActualHeight), this.Background.ToPaint());
         }
     }
 }
