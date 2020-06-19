@@ -41,11 +41,11 @@ namespace FlutterSharp.UI
         /// Releases the resources used by this scene.
         ///
         /// After calling this function, the scene is cannot be used further.
-        private void Dispose()
+        protected override void Dispose(bool disposing)
         {
+            base.Dispose(disposing);
             // TODO : native 'Scene_dispose';
         }
-
 
         // A NETTOYER
         public static Future<T> _futurize<T>(Action<_Callback<T>> callback)

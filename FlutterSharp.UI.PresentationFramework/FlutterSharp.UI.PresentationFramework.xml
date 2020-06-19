@@ -19,6 +19,181 @@
             Gets or sets the main window of the application.
             </summary>
         </member>
+        <member name="T:FlutterSharp.UI.PresentationFramework.Canvas">
+            <summary>
+            Defines an area within which you can explicitly position child elements by using coordinates that are relative to the Canvas area.
+            </summary>
+            <seealso cref="T:FlutterSharp.UI.PresentationFramework.Panel" />
+        </member>
+        <member name="F:FlutterSharp.UI.PresentationFramework.Canvas.LeftProperty">
+            <summary>
+            Gets or sets a value that represents the distance between the left of an element and the left of its parent Canvas.
+            </summary>
+        </member>
+        <member name="F:FlutterSharp.UI.PresentationFramework.Canvas.TopProperty">
+            <summary>
+            Gets or sets a value that represents the distance between the top of an element and the top of its parent Canvas.
+            </summary>
+        </member>
+        <member name="F:FlutterSharp.UI.PresentationFramework.Canvas.RightProperty">
+            <summary>
+            Gets or sets a value that represents the distance between the right of an element and the right of its parent Canvas.
+            </summary>
+        </member>
+        <member name="F:FlutterSharp.UI.PresentationFramework.Canvas.BottomProperty">
+            <summary>
+            Gets or sets a value that represents the distance between the bottom of an element and the bottom of its parent Canvas.
+            </summary>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Canvas.GetLeft(FlutterSharp.UI.PresentationFramework.DependencyObject)">
+            <summary>
+            Returns the value of the Left attached property for a given dependency object.
+            </summary>
+            <param name="element">The element from which the property value is read.</param>
+            <returns>The Left coordinate of the specified element.</returns>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Canvas.SetLeft(FlutterSharp.UI.PresentationFramework.DependencyObject,System.Double)">
+            <summary>
+            Sets the value of the Left attached property for a given dependency object.
+            </summary>
+            <param name="element">The element to which the property value is written.</param>
+            <param name="value">Sets the Left coordinate of the specified element.</param>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Canvas.GetTop(FlutterSharp.UI.PresentationFramework.FrameworkElement)">
+            <summary>
+            Returns the value of the Top attached property for a given dependency object.
+            </summary>
+            <param name="element">The element from which the property value is read.</param>
+            <returns>The Top coordinate of the specified element.</returns>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Canvas.SetTop(FlutterSharp.UI.PresentationFramework.FrameworkElement,System.Double)">
+            <summary>
+            Sets the value of the Top attached property for a given dependency object.
+            </summary>
+            <param name="element">The element to which the property value is written.</param>
+            <param name="value">Sets the Top coordinate of the specified element.</param>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Canvas.GetRight(FlutterSharp.UI.PresentationFramework.FrameworkElement)">
+            <summary>
+            Returns the value of the Right attached property for a given dependency object.
+            </summary>
+            <param name="element">The element from which the property value is read.</param>
+            <returns>The Right coordinate of the specified element.</returns>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Canvas.SetRight(FlutterSharp.UI.PresentationFramework.FrameworkElement,System.Double)">
+            <summary>
+            Sets the value of the Right attached property for a given dependency object.
+            </summary>
+            <param name="element">The element to which the property value is written.</param>
+            <param name="value">Sets the Right coordinate of the specified element.</param>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Canvas.GetBottom(FlutterSharp.UI.PresentationFramework.FrameworkElement)">
+            <summary>
+            Returns the value of the Bottom attached property for a given dependency object.
+            </summary>
+            <param name="element">The element from which the property value is read.</param>
+            <returns>The Bottom coordinate of the specified element.</returns>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Canvas.SetBottom(FlutterSharp.UI.PresentationFramework.FrameworkElement,System.Double)">
+            <summary>
+            Sets the value of the Bottom attached property for a given dependency object.
+            </summary>
+            <param name="element">The element to which the property value is written.</param>
+            <param name="value">Sets the Bottom coordinate of the specified element.</param>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Canvas.MeasureOverride(FlutterSharp.UI.Size)">
+            <summary>
+            Measures the override.
+            </summary>
+            <param name="availableSize">Size of the available.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Canvas.ArrangeOverride(FlutterSharp.UI.Size)">
+            <summary>
+            When overridden in a derived class, positions child elements and determines a size for a FrameworkElement derived class.
+            </summary>
+            <param name="finalSize">The final area within the parent that this element should use to arrange itself and its children.</param>
+            <returns>
+            The actual size used.
+            </returns>
+        </member>
+        <member name="T:FlutterSharp.UI.PresentationFramework.ContentControl">
+            <summary>
+            Represents a control with a single piece of content of any type.
+            </summary>
+            <seealso cref="T:FlutterSharp.UI.PresentationFramework.FrameworkElement" />
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.ContentControl.Content">
+            <summary>
+            Gets or sets the content.
+            </summary>
+            <value>
+            The content.
+            </value>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.ContentControl.MeasureCore(FlutterSharp.UI.Size)">
+            <summary>
+            When overridden in a derived class, provides measurement logic for sizing this element properly, with consideration of the size of any child element content.
+            </summary>
+            <param name="availableSize">The available size that the parent element can allocate for the child.</param>
+            <returns>
+            The desired size of this element in layout.
+            </returns>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.ContentControl.ArrangeOverride(FlutterSharp.UI.Size)">
+            <summary>
+            When overridden in a derived class, positions child elements and determines a size for a FrameworkElement derived class.
+            </summary>
+            <param name="finalSize">The final area within the parent that this element should use to arrange itself and its children.</param>
+            <returns>
+            The actual size used.
+            </returns>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.ContentControl.Draw(FlutterSharp.UI.Canvas)">
+            <summary>
+            Draws this component on the specified canvas.
+            </summary>
+            <param name="canvas">The canvas.</param>
+        </member>
+        <member name="T:FlutterSharp.UI.PresentationFramework.DependencyObject">
+            <summary>
+            Represents an object that participates in the dependency property system.
+            </summary>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.DependencyObject.GetValue(FlutterSharp.UI.PresentationFramework.DependencyProperty)">
+             <summary>
+            Returns the current effective value of a dependency property on this instance of a <see cref="T:FlutterSharp.UI.PresentationFramework.DependencyObject"/>.
+             </summary>
+             <param name="property">The dependency property.</param>
+             <returns>The value.</returns>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.DependencyObject.SetValue(FlutterSharp.UI.PresentationFramework.DependencyProperty,System.Object)">
+            <summary>
+            Sets the local value of a dependency property.
+            </summary>
+            <param name="property">The dependency property.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="T:FlutterSharp.UI.PresentationFramework.DependencyProperty">
+            <summary>
+            Base class to declare dependency property
+            </summary>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.DependencyProperty.DefaultValue">
+            <summary>
+            Gets the default value.
+            </summary>
+            <value>
+            The default value.
+            </value>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.DependencyProperty.#ctor(System.Object)">
+            <summary>
+            Initializes a new instance of the <see cref="T:FlutterSharp.UI.PresentationFramework.DependencyProperty"/> class.
+            </summary>
+            <param name="propertyType">Type of the property.</param>
+            <param name="defaultValue">Default value for this property.</param>
+        </member>
         <member name="T:FlutterSharp.UI.PresentationFramework.FrameworkElement">
             <summary>
             <see cref="T:FlutterSharp.UI.PresentationFramework.FrameworkElement"/> is a base class for FlutterSharp core level implementations building on FlutterSharp elements and basic presentation characteristics.
@@ -59,10 +234,212 @@
             Gets or sets a brush that describes the background of a control.
             </summary>
         </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.FrameworkElement.Margin">
+            <summary>
+            Gets or sets the margin.
+            </summary>
+            <value>
+            The margin.
+            </value>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.FrameworkElement.DesiredSize">
+            <summary>
+            Gets the size that this element computed during the measure pass of the layout process.
+            </summary>
+            <value>
+            The computed size, which becomes the desired size for the arrange pass.
+            </value>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.FrameworkElement.Load">
+            <summary>
+            Call when this instance is initialized
+            </summary>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.FrameworkElement.Measure(FlutterSharp.UI.Size)">
+            <summary>
+            Updates the DesiredSize of a UIElement. Parent elements call this method from their own MeasureCore(Size) implementations to form a recursive layout update. Calling this method constitutes the first pass (the "Measure" pass) of a layout update.
+            </summary>
+            <param name="availableSize">The available space that a parent element can allocate a child element. A child element can request a larger space than what is available; the provided size might be accommodated if scrolling is possible in the content model for the current element.</param>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.FrameworkElement.MeasureCore(FlutterSharp.UI.Size)">
+            <summary>
+            When overridden in a derived class, provides measurement logic for sizing this element properly, with consideration of the size of any child element content.
+            </summary>
+            <param name="availableSize">The available size that the parent element can allocate for the child.</param>
+            <returns>The desired size of this element in layout.</returns>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.FrameworkElement.Arrange(FlutterSharp.UI.Rect)">
+            <summary>
+            Positions child elements and determines a size for a UIElement. Parent elements call this method from their ArrangeCore(Rect) implementation to form a recursive layout update. This method constitutes the second pass of a layout update.
+            </summary>
+            <param name="finalRect">The final rect.</param>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.FrameworkElement.ArrangeCore(FlutterSharp.UI.Rect)">
+            <summary>
+            Defines the template for core-level arrange layout definition.
+            </summary>
+            <param name="finalRect">The final area within the parent that element should use to arrange itself and its child elements.</param>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.FrameworkElement.ArrangeOverride(FlutterSharp.UI.Size)">
+            <summary>
+            When overridden in a derived class, positions child elements and determines a size for a FrameworkElement derived class.
+            </summary>
+            <param name="finalSize">The final area within the parent that this element should use to arrange itself and its children.</param>
+            <returns>The actual size used.</returns>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.FrameworkElement.Draw(FlutterSharp.UI.Canvas)">
+            <summary>
+            Draws this component on the specified canvas.
+            </summary>
+            <param name="canvas">The canvas.</param>
+        </member>
+        <member name="T:FlutterSharp.UI.PresentationFramework.Panel">
+            <summary>
+            Provides a base class for all Panel elements. Use Panel elements to position and arrange child objects in flutter sharp applications.
+            </summary>
+            <seealso cref="T:FlutterSharp.UI.PresentationFramework.FrameworkElement" />
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Panel.Children">
+            <summary>
+            Gets a UIElementCollection of child elements of this Panel.
+            </summary>
+            <value>
+            A UIElementCollection. The default is an empty UIElementCollection.
+            </value>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Panel.MeasureCore(FlutterSharp.UI.Size)">
+            <summary>
+            When overridden in a derived class, provides measurement logic for sizing this element properly, with consideration of the size of any child element content.
+            </summary>
+            <param name="availableSize">The available size that the parent element can allocate for the child.</param>
+            <returns>
+            The desired size of this element in layout.
+            </returns>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Panel.MeasureOverride(FlutterSharp.UI.Size)">
+            <summary>
+            Measures the override.
+            </summary>
+            <param name="availableSize">Size of the available.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Panel.Draw(FlutterSharp.UI.Canvas)">
+            <summary>
+            Draws this component on the specified canvas.
+            </summary>
+            <param name="canvas">The canvas.</param>
+        </member>
         <member name="T:FlutterSharp.UI.PresentationFramework.Shape">
             <summary>
             Provides a base class for shape elements, such as Ellipse, Polygon, and Rectangle.
             </summary>
+        </member>
+        <member name="T:FlutterSharp.UI.PresentationFramework.Thickness">
+            <summary>
+            Describes the thickness of a frame around a rectangle. Four Double values describe the Left, Top, Right, and Bottom sides of the rectangle, respectively.
+            </summary>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Thickness.#ctor(System.Double)">
+            <summary>
+            Initializes a new instance of the <see cref="T:FlutterSharp.UI.PresentationFramework.Thickness"/> structure that has the specified uniform length on each side.
+            </summary>
+            <param name="uniformLength">The uniform length applied to all four sides of the bounding rectangle.</param>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Thickness.#ctor(System.Double,System.Double)">
+            <summary>
+            Initializes a new instance of the <see cref="T:FlutterSharp.UI.PresentationFramework.Thickness"/> structure that has specific lengths (supplied as a Double) applied to each side of the rectangle.
+            </summary>
+            <param name="leftRight">The thickness for the left and right side of the rectangle.</param>
+            <param name="topBottom">The thickness for the upper and lower side of the rectangle.</param>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Thickness.#ctor(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Initializes a new instance of the <see cref="T:FlutterSharp.UI.PresentationFramework.Thickness"/> structure that has specific lengths (supplied as a Double) applied to each side of the rectangle.
+            </summary>
+            <param name="left">The thickness for the left side of the rectangle.</param>
+            <param name="top">The thickness for the upper side of the rectangle.</param>
+            <param name="right">The thickness for the right side of the rectangle.</param>
+            <param name="bottom">The thickness for the lower side of the rectangle.</param>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Thickness.Left">
+            <summary>
+            A Double that represents the width of the left side of the bounding rectangle for this instance of <see cref="T:FlutterSharp.UI.PresentationFramework.Thickness"/>.
+            </summary>
+            <value>
+            The left.
+            </value>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Thickness.Top">
+            <summary>
+            A Double that represents the width of the upper side of the bounding rectangle for this instance of <see cref="T:FlutterSharp.UI.PresentationFramework.Thickness"/>.
+            </summary>
+            <value>
+            The top.
+            </value>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Thickness.Right">
+            <summary>
+            A Double that represents the width of the right side of the bounding rectangle for this instance of <see cref="T:FlutterSharp.UI.PresentationFramework.Thickness"/>.
+            </summary>
+            <value>
+            The right.
+            </value>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Thickness.Bottom">
+            <summary>
+            A Double that represents the width of the lower side of the bounding rectangle for this instance of <see cref="T:FlutterSharp.UI.PresentationFramework.Thickness"/>.
+            </summary>
+            <value>
+            The bottom.
+            </value>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Thickness.Equals(FlutterSharp.UI.PresentationFramework.Thickness)">
+            <summary>
+            Indicates whether the current object is equal to another object of the same type.
+            </summary>
+            <param name="other">An object to compare with this object.</param>
+            <returns>
+            true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Thickness.Equals(System.Object)">
+            <summary>
+            Determines whether the specified <see cref="T:FlutterSharp.UI.PresentationFramework.Thickness" />, is equal to this instance.
+            </summary>
+            <param name="obj">The <see cref="T:System.Object" /> to compare with this instance.</param>
+            <returns>
+              <c>true</c> if the specified <see cref="T:System.Object" /> is equal to this instance; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Thickness.GetHashCode">
+            <summary>
+            Returns a hash code for the structure.
+            </summary>
+            <returns>
+            A hash code for this instance of <see cref="T:FlutterSharp.UI.PresentationFramework.Thickness"/>.
+            </returns>
+        </member>
+        <member name="T:FlutterSharp.UI.PresentationFramework.WeakReferenceList`1">
+            <summary>
+            Manage a list of weak references.
+            </summary>
+            <typeparam name="T">Type of collection element</typeparam>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.WeakReferenceList`1.Add(`0)">
+            <summary>
+            Add a new weak reference on <paramref name="instance"/>
+            </summary>
+            <param name="instance">Instance to add</param>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.WeakReferenceList`1.Clean">
+            <summary>
+            Clean all non alive weak reference
+            </summary>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.WeakReferenceList`1.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the collection.</summary>
+            <returns>An enumerator that can be used to iterate through the collection.</returns>
         </member>
         <member name="T:FlutterSharp.UI.PresentationFramework.Window">
             <summary>

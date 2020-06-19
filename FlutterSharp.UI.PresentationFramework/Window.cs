@@ -7,5 +7,6 @@ namespace FlutterSharp.UI.PresentationFramework
     /// </summary>
     public class Window : ContentControl
     {
+
     }
 }
