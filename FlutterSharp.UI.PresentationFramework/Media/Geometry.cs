@@ -1,6 +1,10 @@
 ﻿namespace FlutterSharp.UI.PresentationFramework.Media
 {
-    public class Geometry
+    /// <summary>
+    /// Classes that derive from this abstract base class define geometric shapes. Geometry objects can be used for clipping, hit-testing, and rendering 2-D graphic data.
+    /// </summary>
+    public abstract class Geometry
     {
+        public abstract Path ToPath(Size drawSize);
     }
 }

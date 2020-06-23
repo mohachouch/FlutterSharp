@@ -11,5 +11,10 @@ namespace FlutterSharp.UI.PresentationFramework
         /// Gets a value that represents the <see cref="Geometry"/> of the <see cref="Shape"/>.
         /// </summary>
         protected abstract Geometry DefiningGeometry { get; }
+
+        public override void Draw(UI.Canvas canvas)
+        {
+            canvas.DrawPath(this.DefiningGeometry.ToPath(new Size(this.ActualWidth, this.ActualHeight)), this.Background.ToPaint());
+        }
     }
 }
