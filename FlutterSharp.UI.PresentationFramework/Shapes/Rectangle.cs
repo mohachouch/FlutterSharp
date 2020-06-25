@@ -8,7 +8,7 @@ namespace FlutterSharp.UI.PresentationFramework.Shapes
     /// <seealso cref="FlutterSharp.UI.PresentationFramework.Shapes.Shape" />
     public class Rectangle : Shape
     {
-        private readonly RectangleGeometry rectangleGeometry;
+        private readonly RectangleGeometry rectangleGeometry = new RectangleGeometry();
 
         /// <summary>
         /// Get or set the top left corner radius
@@ -56,6 +56,10 @@ namespace FlutterSharp.UI.PresentationFramework.Shapes
             get => this.rectangleGeometry; 
         }
 
+        /// <summary>
+        /// Draws this component on the specified canvas.
+        /// </summary>
+        /// <param name="canvas">The canvas.</param>
         public override void Draw(UI.Canvas canvas)
         {
             this.rectangleGeometry.TopLeftCornerRadius = this.TopLeftCornerRadius;

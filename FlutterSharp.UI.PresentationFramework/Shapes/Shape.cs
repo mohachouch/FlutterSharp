@@ -59,14 +59,16 @@ namespace FlutterSharp.UI.PresentationFramework.Shapes
         public override void Draw(UI.Canvas canvas)
         {
             var drawSize = new Size(this.ActualWidth, this.ActualHeight);
-            var path = this.DefiningGeometry.ToPath(drawSize);
+            var path = this.DefiningGeometry.ToPath(new Offset(this.X, this.Y), drawSize);
 
-            canvas.DrawPath(path, this.Background.ToPaint());
+            if (this.Background != null)
+                canvas.DrawPath(path, this.Background.ToPaint());
 
-            if(this.Stroke != null && this.StrokeThickness > 0d)
+            if (this.Stroke != null && this.StrokeThickness > 0d)
             {
                 var strokePaint = new Paint
                 {
+                    Style = PaintingStyle.Stroke,
                     Color = this.Stroke,
                     StrokeWidth = this.StrokeThickness,
                     StrokeCap = this.StrokeDashCap,

@@ -193,6 +193,118 @@
             </summary>
             <param name="defaultValue">Default value for this property.</param>
         </member>
+        <member name="T:FlutterSharp.UI.PresentationFramework.Extensions.FlutterPathExtensions">
+            <summary>
+            Extensions for <see cref="T:FlutterSharp.UI.Path"/> class
+            </summary>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Extensions.FlutterPathExtensions.MoveToEx(FlutterSharp.UI.Path,System.Double,System.Double)">
+            <summary>
+            Moves to x, y point without drawing path.
+            </summary>
+            <param name="path">The source path.</param>
+            <param name="x">The x coordinate of point to move to.</param>
+            <param name="y">The y coordinate of point to move to.</param>
+            <returns>The source path.</returns>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Extensions.FlutterPathExtensions.MoveToEx(FlutterSharp.UI.Path,FlutterSharp.UI.PresentationFramework.Point)">
+            <summary>
+            Moves to point without drawing path.
+            </summary>
+            <param name="path">The source path.</param>
+            <param name="point">The point to move to.</param>
+            <returns>The source path.</returns>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Extensions.FlutterPathExtensions.RelativeMoveToEx(FlutterSharp.UI.Path,System.Double,System.Double)">
+            <summary>
+            Starts a new sub-path at the given offset from the current point.
+            </summary>
+            <param name="path">The source path.</param>
+            <param name="x">The dx.</param>
+            <param name="y">The dy.</param>
+            <returns>The source path.</returns>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Extensions.FlutterPathExtensions.RelativeMoveToEx(FlutterSharp.UI.Path,FlutterSharp.UI.Offset)">
+            <summary>
+            Starts a new sub-path at the given offset from the current point.
+            </summary>
+            <param name="path">The source path.</param>
+            <param name="offset">The relative offset to apply.</param>
+            <returns>The source path.</returns>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Extensions.FlutterPathExtensions.LineToEx(FlutterSharp.UI.Path,System.Double,System.Double)">
+            <summary>
+            Adds a straight line segment from the current point to the given point.
+            </summary>
+            <param name="path">The source path.</param>
+            <param name="x">The x.</param>
+            <param name="y">The y.</param>
+            <returns>The source path.</returns>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Extensions.FlutterPathExtensions.LineToEx(FlutterSharp.UI.Path,FlutterSharp.UI.PresentationFramework.Point)">
+            <summary>
+            Adds a straight line segment from the current point to the given point.
+            </summary>
+            <param name="path">The source path.</param>
+            <param name="point">The end point of the line.</param>
+            <returns>The source path.</returns>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Extensions.FlutterPathExtensions.RelativeLineToEx(FlutterSharp.UI.Path,System.Double,System.Double)">
+            <summary>
+            Adds a straight line segment from the current point to the point at the given offset from the current point.
+            </summary>
+            <param name="path">The source path.</param>
+            <param name="dx">The dx.</param>
+            <param name="dy">The dy.</param>
+            <returns>The source path.</returns>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Extensions.FlutterPathExtensions.RelativeLineToEx(FlutterSharp.UI.Path,FlutterSharp.UI.Offset)">
+            <summary>
+            Adds a straight line segment from the current point to the point at the given offset from the current point.
+            </summary>
+            <param name="path">The source path.</param>
+            <param name="offset">The relative offset to apply.</param>
+            <returns>The source path.</returns>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Extensions.FlutterPathExtensions.ArcToPointEx(FlutterSharp.UI.Path,FlutterSharp.UI.Offset,FlutterSharp.UI.Radius,System.Double,System.Boolean,System.Boolean)">
+             <summary>
+             Appends up to four conic curves weighted to describe an oval of `radius`
+             and rotated by `rotation`.
+            
+             The first curve begins from the last point in the path and the last ends
+             at `arcEnd`. The curves follow a path in a direction determined by
+             `clockwise` and `largeArc` in such a way that the sweep angle
+             is always less than 360 degrees.
+            
+             A simple line is appended if either either radii are zero or the last
+             point in the path is `arcEnd`. The radii are scaled to fit the last path
+             point if both are greater than zero but too small to describe an arc.
+             </summary>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Extensions.FlutterPathExtensions.RelativeArcToPointEx(FlutterSharp.UI.Path,FlutterSharp.UI.Offset,FlutterSharp.UI.Radius,System.Double,System.Boolean,System.Boolean)">
+             <summary>
+             Appends up to four conic curves weighted to describe an oval of `radius`
+             and rotated by `rotation`.
+            
+             The last path point is described by (px, py).
+            
+             The first curve begins from the last point in the path and the last ends
+             at `arcEndDelta.dx + px` and `arcEndDelta.dy + py`. The curves follow a
+             path in a direction determined by `clockwise` and `largeArc`
+             in such a way that the sweep angle is always less than 360 degrees.
+            
+             A simple line is appended if either either radii are zero, or, both
+             `arcEndDelta.dx` and `arcEndDelta.dy` are zero. The radii are scaled to
+             fit the last path point if both are greater than zero but too small to
+             describe an arc.
+             </summary>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Extensions.FlutterPathExtensions.CloseEx(FlutterSharp.UI.Path)">
+            <summary>
+            Closes the last sub-path, as if a straight line had been drawn
+            from the current point to the first point of the sub-path.
+            </summary>
+        </member>
         <member name="T:FlutterSharp.UI.PresentationFramework.FrameworkElement">
             <summary>
             <see cref="T:FlutterSharp.UI.PresentationFramework.FrameworkElement"/> is a base class for FlutterSharp core level implementations building on FlutterSharp elements and basic presentation characteristics.
@@ -392,6 +504,114 @@
             Represents colors in terms of alpha, red, green, and blue channels.
             </value>
         </member>
+        <member name="T:FlutterSharp.UI.PresentationFramework.Media.CornerRadius">
+            <summary>
+            Define a corner radius with X and Y radius
+            </summary>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Media.CornerRadius.#ctor(System.Double,System.Double)">
+            <summary>
+            Define the corner radius with X and Y radius
+            </summary>
+            <param name="radiusX">X radius</param>
+            <param name="radiusY">Y radius</param>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Media.CornerRadius.Zero">
+            <summary>
+            Get a X=0, Y=0 corner radius
+            </summary>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Media.CornerRadius.RadiusX">
+            <summary>
+            Get or set the X radius
+            </summary>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Media.CornerRadius.RadiusY">
+            <summary>
+            Get or set the Y radius
+            </summary>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Media.CornerRadius.op_Equality(FlutterSharp.UI.PresentationFramework.Media.CornerRadius,FlutterSharp.UI.PresentationFramework.Media.CornerRadius)">
+            <summary>
+            Implements the operator ==.
+            </summary>
+            <param name="left">The left.</param>
+            <param name="right">The right.</param>
+            <returns>
+            The result of the operator.
+            </returns>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Media.CornerRadius.op_Inequality(FlutterSharp.UI.PresentationFramework.Media.CornerRadius,FlutterSharp.UI.PresentationFramework.Media.CornerRadius)">
+            <summary>
+            Implements the operator !=.
+            </summary>
+            <param name="left">The left.</param>
+            <param name="right">The right.</param>
+            <returns>
+            The result of the operator.
+            </returns>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Media.CornerRadius.Equals(System.Object)">
+            <summary>
+            Determines whether the specified <see cref="T:System.Object" />, is equal to this instance.
+            </summary>
+            <param name="obj">The <see cref="T:System.Object" /> to compare with this instance.</param>
+            <returns>
+              <c>true</c> if the specified <see cref="T:System.Object" /> is equal to this instance; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Media.CornerRadius.GetHashCode">
+            <summary>
+            Returns a hash code for this instance.
+            </summary>
+            <returns>
+            A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+            </returns>
+        </member>
+        <member name="T:FlutterSharp.UI.PresentationFramework.Media.CornerRadiusExpression">
+            <summary>
+            Tranform a corner radius string expression to rectangle corner radius
+            </summary>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Media.CornerRadiusExpression.#ctor(System.String)">
+            <summary>
+            Create an expression with <paramref name="data"/> input
+            </summary>
+            <param name="data">Input expression</param>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Media.CornerRadiusExpression.TopLeft">
+            <summary>
+            Get the top left CornerRadius from string expression
+            </summary>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Media.CornerRadiusExpression.TopRight">
+            <summary>
+            Get the top right CornerRadius from string expression
+            </summary>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Media.CornerRadiusExpression.BottomRight">
+            <summary>
+            Get the bottom right CornerRadius from string expression
+            </summary>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Media.CornerRadiusExpression.BottomLeft">
+            <summary>
+            Get the bottom left CornerRadius from string expression
+            </summary>
+        </member>
+        <member name="T:FlutterSharp.UI.PresentationFramework.Media.Geometry">
+            <summary>
+            Classes that derive from this abstract base class define geometric shapes. Geometry objects can be used for clipping, hit-testing, and rendering 2-D graphic data.
+            </summary>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Media.Geometry.ToPath(FlutterSharp.UI.Offset,FlutterSharp.UI.Size)">
+            <summary>
+            Converts the geometry to flutter path.
+            </summary>
+            <param name="offset">The offset to apply to path vertices.</param>
+            <param name="drawSize">Size of the draw.</param>
+            <returns>The flutter path</returns>
+        </member>
         <member name="T:FlutterSharp.UI.PresentationFramework.Media.GradientBrush">
             <summary>
             An abstract class that describes a gradient, composed of gradient stops. Classes that inherit from <see cref="T:FlutterSharp.UI.PresentationFramework.Media.GradientBrush"/> describe different ways of interpreting gradient stops.
@@ -460,6 +680,52 @@
             Converts the <see cref="T:FlutterSharp.UI.PresentationFramework.Media.Brush"/> to flutter <see cref="T:FlutterSharp.UI.Paint"/> object.
             </summary>
             <returns>The <see cref="T:FlutterSharp.UI.Paint"/> used to draw the <see cref="T:FlutterSharp.UI.PresentationFramework.Media.Brush"/></returns>
+        </member>
+        <member name="T:FlutterSharp.UI.PresentationFramework.Media.RectangleGeometry">
+            <summary>
+            Describes a two-dimensional rectangle.
+            </summary>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Media.RectangleGeometry.TopLeftCornerRadius">
+            <summary>
+            Get or set the top left corner radius
+            </summary>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Media.RectangleGeometry.TopRightCornerRadius">
+            <summary>
+            Get or set the top right corner radius
+            </summary>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Media.RectangleGeometry.BottomRightCornerRadius">
+            <summary>
+            Get or set the bottom right corner radius
+            </summary>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Media.RectangleGeometry.BottomLeftCornerRadius">
+            <summary>
+            Get or set the bottom left corner radius
+            </summary>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Media.RectangleGeometry.SetCornerRadiusExpression(System.String)">
+            <summary>
+            Set the corner radius definition for all corners by a <see cref="T:FlutterSharp.UI.PresentationFramework.Media.CornerRadiusExpression"/>.
+            Values can be :
+            "5" // Set all corners to x and y radius to 5
+            "tl5" // Set tl (Top Left) corner to x and y to 5
+            "tl5,6 br10,8" // Set tl (Top Left) corner to x 5 and y 6 and br (Bottom Right) to x 10 and y 8
+            ...
+            </summary>
+            <param name="stringExpression">Expression to interpret</param>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Media.RectangleGeometry.ToPath(FlutterSharp.UI.Offset,FlutterSharp.UI.Size)">
+            <summary>
+            Converts to path.
+            </summary>
+            <param name="offset">The offset to apply to path vertices.</param>
+            <param name="drawSize">Size of the draw.</param>
+            <returns>
+            The flutter path
+            </returns>
         </member>
         <member name="T:FlutterSharp.UI.PresentationFramework.Media.SolidColorBrush">
             <summary>
@@ -545,15 +811,146 @@
             The Y-coordinate value of this <see cref="T:FlutterSharp.UI.PresentationFramework.Point"/> structure. The default value is 0.
             </value>
         </member>
-        <member name="T:FlutterSharp.UI.PresentationFramework.Shape">
+        <member name="M:FlutterSharp.UI.PresentationFramework.Point.op_Equality(FlutterSharp.UI.PresentationFramework.Point,FlutterSharp.UI.PresentationFramework.Point)">
+            <summary>
+            Implements the operator ==.
+            </summary>
+            <param name="left">The left.</param>
+            <param name="right">The right.</param>
+            <returns>
+            The result of the operator.
+            </returns>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Point.op_Inequality(FlutterSharp.UI.PresentationFramework.Point,FlutterSharp.UI.PresentationFramework.Point)">
+            <summary>
+            Implements the operator !=.
+            </summary>
+            <param name="left">The left.</param>
+            <param name="right">The right.</param>
+            <returns>
+            The result of the operator.
+            </returns>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Point.Equals(System.Object)">
+            <summary>
+            Determines whether the specified <see cref="T:System.Object" />, is equal to this instance.
+            </summary>
+            <param name="obj">The <see cref="T:System.Object" /> to compare with this instance.</param>
+            <returns>
+              <c>true</c> if the specified <see cref="T:System.Object" /> is equal to this instance; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Point.GetHashCode">
+            <summary>
+            Returns a hash code for this instance.
+            </summary>
+            <returns>
+            A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+            </returns>
+        </member>
+        <member name="T:FlutterSharp.UI.PresentationFramework.Shapes.Rectangle">
+            <summary>
+            Draws a rectangle.
+            </summary>
+            <seealso cref="T:FlutterSharp.UI.PresentationFramework.Shapes.Shape" />
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Shapes.Rectangle.TopLeftCornerRadius">
+            <summary>
+            Get or set the top left corner radius
+            </summary>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Shapes.Rectangle.TopRightCornerRadius">
+            <summary>
+            Get or set the top right corner radius
+            </summary>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Shapes.Rectangle.BottomRightCornerRadius">
+            <summary>
+            Get or set the bottom right corner radius
+            </summary>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Shapes.Rectangle.BottomLeftCornerRadius">
+            <summary>
+            Get or set the bottom left corner radius
+            </summary>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Shapes.Rectangle.SetCornerRadiusExpression(System.String)">
+            <summary>
+            Set the corner radius definition for all corners by a <see cref="T:FlutterSharp.UI.PresentationFramework.Media.CornerRadiusExpression"/>.
+            Values can be :
+            "5" // Set all corners to x and y radius to 5
+            "tl5" // Set tl (Top Left) corner to x and y to 5
+            "tl5,6 br10,8" // Set tl (Top Left) corner to x 5 and y 6 and br (Bottom Right) to x 10 and y 8
+            ...
+            </summary>
+            <param name="stringExpression">Expression to interpret</param>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Shapes.Rectangle.DefiningGeometry">
+            <summary>
+            Gets a value that represents the <see cref="T:FlutterSharp.UI.PresentationFramework.Media.Geometry" /> of the <see cref="T:FlutterSharp.UI.PresentationFramework.Shapes.Shape" />.
+            </summary>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Shapes.Rectangle.Draw(FlutterSharp.UI.Canvas)">
+            <summary>
+            Draws this component on the specified canvas.
+            </summary>
+            <param name="canvas">The canvas.</param>
+        </member>
+        <member name="T:FlutterSharp.UI.PresentationFramework.Shapes.Shape">
             <summary>
             Provides a base class for shape elements, such as Ellipse, Polygon, and Rectangle.
             </summary>
         </member>
-        <member name="P:FlutterSharp.UI.PresentationFramework.Shape.DefiningGeometry">
+        <member name="P:FlutterSharp.UI.PresentationFramework.Shapes.Shape.Stroke">
             <summary>
-            Gets a value that represents the <see cref="T:FlutterSharp.UI.PresentationFramework.Media.Geometry"/> of the <see cref="T:FlutterSharp.UI.PresentationFramework.Shape"/>.
+            Gets or sets the <see cref="T:FlutterSharp.UI.Color"/> that specifies how the <see cref="T:FlutterSharp.UI.PresentationFramework.Shapes.Shape"/> outline is painted.
             </summary>
+            <value>
+            A <see cref="T:FlutterSharp.UI.Color"/> that specifies how the <see cref="T:FlutterSharp.UI.PresentationFramework.Shapes.Shape"/> outline is painted. The default is null.
+            </value>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Shapes.Shape.StrokeThickness">
+            <summary>
+            Gets or sets the stroke thickness.
+            </summary>
+            <value>
+            The stroke thickness.
+            </value>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Shapes.Shape.StrokeDashCap">
+            <summary>
+            Gets or sets a <see cref="T:FlutterSharp.UI.StrokeCap"/> enumeration value that specifies how the ends of a dash are drawn.
+            </summary>
+            <value>
+            One of the enumeration values for <see cref="T:FlutterSharp.UI.StrokeCap"/>. The default is Butt.
+            </value>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Shapes.Shape.StrokeLineJoin">
+            <summary>
+            Gets or sets a <see cref="T:FlutterSharp.UI.StrokeJoin"/> enumeration value that specifies the type of join that is used at the vertices of a <see cref="T:FlutterSharp.UI.PresentationFramework.Shapes.Shape"/>.
+            </summary>
+            <value>
+            One of the enumeration values for <see cref="T:FlutterSharp.UI.StrokeJoin"/>
+            </value>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Shapes.Shape.StrokeMiterLimit">
+            <summary>
+            Gets or sets a limit on the ratio of the miter length to half the <see cref="P:FlutterSharp.UI.PresentationFramework.Shapes.Shape.StrokeThickness"/> of a <see cref="T:FlutterSharp.UI.PresentationFramework.Shapes.Shape"/> element.
+            </summary>
+            <value>
+            The limit on the ratio of the miter length to the <see cref="P:FlutterSharp.UI.PresentationFramework.Shapes.Shape.StrokeThickness"/> of a <see cref="T:FlutterSharp.UI.PresentationFramework.Shapes.Shape"/> element. This value is always a positive number that is greater than or equal to 1.
+            </value>
+        </member>
+        <member name="P:FlutterSharp.UI.PresentationFramework.Shapes.Shape.DefiningGeometry">
+            <summary>
+            Gets a value that represents the <see cref="T:FlutterSharp.UI.PresentationFramework.Media.Geometry"/> of the <see cref="T:FlutterSharp.UI.PresentationFramework.Shapes.Shape"/>.
+            </summary>
+        </member>
+        <member name="M:FlutterSharp.UI.PresentationFramework.Shapes.Shape.Draw(FlutterSharp.UI.Canvas)">
+            <summary>
+            Draws this component on the specified canvas.
+            </summary>
+            <param name="canvas">The canvas.</param>
         </member>
         <member name="T:FlutterSharp.UI.PresentationFramework.Thickness">
             <summary>

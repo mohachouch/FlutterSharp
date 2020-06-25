@@ -20,7 +20,7 @@ namespace FlutterSharp.Samples
             linearGradientBrush.GradientStops.Add(new GradientStop { Color = Colors.Green, Offset = 0.5 });
             linearGradientBrush.GradientStops.Add(new GradientStop { Color = Colors.Blue, Offset = 1 });
 
-            var secondElement = new Rectangle { Width = 200, Height = 300, Background = linearGradientBrush, Stroke = Colors.Red, StrokeThickness = 2 };
+            var secondElement = new Rectangle { Width = 200, Height = 300, Background = Brushes.Green /*linearGradientBrush*/, Stroke = Colors.Blue, StrokeThickness = 2 };
             secondElement.SetCornerRadiusExpression("5");
             canvas.Children.Add(secondElement);
 

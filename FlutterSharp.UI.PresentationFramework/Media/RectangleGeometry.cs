@@ -45,24 +45,32 @@ namespace FlutterSharp.UI.PresentationFramework.Media
             this.BottomRightCornerRadius = expression.BottomRight;
         }
 
-        public override Path ToPath(Size drawSize)
+        /// <summary>
+        /// Converts to path.
+        /// </summary>
+        /// <param name="offset">The offset to apply to path vertices.</param>
+        /// <param name="drawSize">Size of the draw.</param>
+        /// <returns>
+        /// The flutter path
+        /// </returns>
+        public override Path ToPath(Offset offset, Size drawSize)
         {
             var path = new Path();
 
             if (this.TopLeftCornerRadius != CornerRadius.Zero)
             {
                 path
-                    .MoveToEx(0, this.TopLeftCornerRadius.RadiusY)
-                    .RelativeArcToPoint(new Offset(this.TopLeftCornerRadius.RadiusX, 0), new Radius(this.TopLeftCornerRadius.RadiusX, this.TopLeftCornerRadius.RadiusY), 90);
+                    .MoveToEx(0 + offset.Dx, this.TopLeftCornerRadius.RadiusY + offset.Dy)
+                    .ArcToPoint(new Offset(this.TopLeftCornerRadius.RadiusX + offset.Dx, 0 + offset.Dy), new Radius(this.TopLeftCornerRadius.RadiusX, this.TopLeftCornerRadius.RadiusY), 90);
             }
             else
-                path.MoveTo(0, 0);
+                path.MoveTo(0 + offset.Dx, 0 + offset.Dx);
 
             if (this.TopRightCornerRadius != CornerRadius.Zero)
             {
                 path
-                    .LineToEx(drawSize.Width - this.TopRightCornerRadius.RadiusX, 0)
-                    .ArcToPoint(new Offset(drawSize.Width, this.TopRightCornerRadius.RadiusY), new Radius(this.TopRightCornerRadius.RadiusX, this.TopRightCornerRadius.RadiusY), 90);
+                    .LineToEx(drawSize.Width - this.TopRightCornerRadius.RadiusX + offset.Dx, 0 + offset.Dy)
+                    .ArcToPoint(new Offset(drawSize.Width + offset.Dx, this.TopRightCornerRadius.RadiusY + offset.Dy), new Radius(this.TopRightCornerRadius.RadiusX, this.TopRightCornerRadius.RadiusY), 90);
             }
             else
                 path.LineTo(drawSize.Width, 0);
@@ -70,20 +78,20 @@ namespace FlutterSharp.UI.PresentationFramework.Media
             if (this.BottomRightCornerRadius != CornerRadius.Zero)
             {
                 path
-                    .LineToEx(drawSize.Width, drawSize.Height - this.BottomRightCornerRadius.RadiusY)
-                    .ArcToPoint(new Offset(drawSize.Width - this.BottomRightCornerRadius.RadiusX, drawSize.Height), new Radius(this.BottomRightCornerRadius.RadiusX, this.BottomRightCornerRadius.RadiusY), 90);
+                    .LineToEx(drawSize.Width + offset.Dx, drawSize.Height - this.BottomRightCornerRadius.RadiusY + offset.Dy)
+                    .ArcToPoint(new Offset(drawSize.Width - this.BottomRightCornerRadius.RadiusX + offset.Dx, drawSize.Height + offset.Dy), new Radius(this.BottomRightCornerRadius.RadiusX, this.BottomRightCornerRadius.RadiusY), 90);
             }
             else
-                path.LineTo(drawSize.Width, drawSize.Height);
+                path.LineTo(drawSize.Width + offset.Dx, drawSize.Height + offset.Dy);
 
             if (this.BottomLeftCornerRadius != CornerRadius.Zero)
             {
                 path
-                    .LineToEx(this.BottomLeftCornerRadius.RadiusX, drawSize.Height)
-                    .ArcToPoint(new Offset(0, drawSize.Height - this.BottomLeftCornerRadius.RadiusY), new Radius(this.BottomLeftCornerRadius.RadiusX, this.BottomLeftCornerRadius.RadiusY), 90);
+                    .LineToEx(this.BottomLeftCornerRadius.RadiusX + offset.Dx, drawSize.Height + offset.Dy)
+                    .ArcToPoint(new Offset(0 + offset.Dx, drawSize.Height - this.BottomLeftCornerRadius.RadiusY + offset.Dy), new Radius(this.BottomLeftCornerRadius.RadiusX, this.BottomLeftCornerRadius.RadiusY), 90);
             }
             else
-                path.LineTo(0, drawSize.Height);
+                path.LineTo(0 + offset.Dx, drawSize.Height + offset.Dy);
 
             return path.CloseEx();
         }

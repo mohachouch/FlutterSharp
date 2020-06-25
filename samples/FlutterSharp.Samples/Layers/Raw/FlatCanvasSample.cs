@@ -1,4 +1,6 @@
 ﻿using FlutterSharp.UI;
+using FlutterSharp.UI.PresentationFramework.Media;
+using System.Collections.Generic;
 
 namespace FlutterSharp.Samples.Layers.Raw
 {
@@ -18,7 +20,12 @@ namespace FlutterSharp.Samples.Layers.Raw
             // are entirely outside this rectangle.
             UI.Canvas canvas = new UI.Canvas(recorder, paintBounds);
 
-            canvas.DrawPaint(new Paint() { Color = new Color(0xFF0000FF) });
+            Gradient yellowBlue = Gradient.Linear(
+               new Offset(1, 1),
+               new Offset(0.0, 0.0),
+               new List<Color> { new Color(0xFFFFFF00), new Color(0xFF0000FF) });
+
+            canvas.DrawPaint(new Paint() { Shader = yellowBlue });
 
             // Saves a copy of current transform onto the save stack
             canvas.Save();
