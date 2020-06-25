@@ -1,9 +1,11 @@
-﻿namespace FlutterSharp.UI.PresentationFramework.Media
+﻿using FlutterSharp.UI.PresentationFramework.Extensions;
+
+namespace FlutterSharp.UI.PresentationFramework.Media
 {
     /// <summary>
     /// Describes a two-dimensional rectangle.
     /// </summary>
-    public class RectangleGeometry
+    public class RectangleGeometry : Geometry
     {
         /// <summary>
         /// Get or set the top left corner radius
@@ -41,6 +43,49 @@
             this.BottomLeftCornerRadius = expression.BottomLeft;
             this.TopRightCornerRadius = expression.TopRight;
             this.BottomRightCornerRadius = expression.BottomRight;
+        }
+
+        public override Path ToPath(Size drawSize)
+        {
+            var path = new Path();
+
+            if (this.TopLeftCornerRadius != CornerRadius.Zero)
+            {
+                path
+                    .MoveToEx(0, this.TopLeftCornerRadius.RadiusY)
+                    .RelativeArcToPoint(new Offset(this.TopLeftCornerRadius.RadiusX, 0), new Radius(this.TopLeftCornerRadius.RadiusX, this.TopLeftCornerRadius.RadiusY), 90);
+            }
+            else
+                path.MoveTo(0, 0);
+
+            if (this.TopRightCornerRadius != CornerRadius.Zero)
+            {
+                path
+                    .LineToEx(drawSize.Width - this.TopRightCornerRadius.RadiusX, 0)
+                    .ArcToPoint(new Offset(drawSize.Width, this.TopRightCornerRadius.RadiusY), new Radius(this.TopRightCornerRadius.RadiusX, this.TopRightCornerRadius.RadiusY), 90);
+            }
+            else
+                path.LineTo(drawSize.Width, 0);
+
+            if (this.BottomRightCornerRadius != CornerRadius.Zero)
+            {
+                path
+                    .LineToEx(drawSize.Width, drawSize.Height - this.BottomRightCornerRadius.RadiusY)
+                    .ArcToPoint(new Offset(drawSize.Width - this.BottomRightCornerRadius.RadiusX, drawSize.Height), new Radius(this.BottomRightCornerRadius.RadiusX, this.BottomRightCornerRadius.RadiusY), 90);
+            }
+            else
+                path.LineTo(drawSize.Width, drawSize.Height);
+
+            if (this.BottomLeftCornerRadius != CornerRadius.Zero)
+            {
+                path
+                    .LineToEx(this.BottomLeftCornerRadius.RadiusX, drawSize.Height)
+                    .ArcToPoint(new Offset(0, drawSize.Height - this.BottomLeftCornerRadius.RadiusY), new Radius(this.BottomLeftCornerRadius.RadiusX, this.BottomLeftCornerRadius.RadiusY), 90);
+            }
+            else
+                path.LineTo(0, drawSize.Height);
+
+            return path.CloseEx();
         }
     }
 }
